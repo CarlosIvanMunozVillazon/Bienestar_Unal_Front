@@ -12,11 +12,12 @@ import { TemporaryDrawer } from "./TemporaryDrawer";
 
 type Anchor = 'left';
 type BasicNavbarProperties = {
-    backgroundColor: string
-    pageName: string
+    backgroundColor: string,
+    pageName: string,
+    children : React.ReactNode
 }
 
-export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, pageName }: BasicNavbarProperties) => {
+export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, pageName, children }: BasicNavbarProperties) => {
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -95,7 +96,9 @@ export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, 
                         </Container>
                     </Toolbar>
                 </AppBar>
-                <TemporaryDrawer setState={setState} toggleDrawer={toggleDrawer} state={state}></TemporaryDrawer>
+                <TemporaryDrawer setState={setState} toggleDrawer={toggleDrawer} state={state}>
+                    {children}
+                </TemporaryDrawer>
             </Box>
         </>
     )

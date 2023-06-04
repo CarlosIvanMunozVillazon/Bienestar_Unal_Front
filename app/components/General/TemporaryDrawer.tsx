@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
@@ -17,11 +16,11 @@ type TemporaryDrawerProperties = {
   state: any,
   setState: any,
   toggleDrawer: (anchor: Anchor, open: boolean) => void | any,
-
+  children : React.ReactNode
 }
 
 
-export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, setState, toggleDrawer }: TemporaryDrawerProperties) => {
+export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, children, toggleDrawer }: TemporaryDrawerProperties) => {
 
 
   const list = (anchor: Anchor) => (
@@ -40,10 +39,12 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, se
         sx={{ height: "100vh" }}
       >
 
-        <Grid item alignItems="center">
-          <Stack direction="column" spacing={5}>
-
-            <IconButton>
+        <Grid item alignItems="left">
+          <Stack direction="column" spacing={1.5}>
+            {
+              children
+            }
+            {/* <IconButton>
               <Link href='/pages/actividadFisica'>
                 <SportsBasketballIcon></SportsBasketballIcon>
                 <Typography variant="body1" textAlign="center">Actividad Física y Deporte</Typography>
@@ -62,7 +63,7 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, se
                 <LocalHospitalIcon></LocalHospitalIcon>
                 <Typography variant="body1" textAlign="center">Salud</Typography>
               </Link>
-            </IconButton>
+            </IconButton> */}
 
           </Stack>
         </Grid>

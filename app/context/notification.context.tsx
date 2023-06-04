@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import { Notification } from "../components/Notification";
+import { Notification } from "../components/General/Notification";
 import { AlertColor } from "@mui/material";
 
 //1. define context properties with a type

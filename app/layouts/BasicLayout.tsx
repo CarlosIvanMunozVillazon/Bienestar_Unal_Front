@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar"
 import Container from "@mui/material/Container"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
-import { BasicNavbar } from "../components/BasicNavbar";
+import { BasicNavbar } from "../components/General/BasicNavbar";
 import React from 'react'
 
 type basicLayoutProperties = {
