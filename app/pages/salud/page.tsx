@@ -1,130 +1,15 @@
 "use client"
-import BasicLayout from '@/app/layouts/BasicLayout'
-import { Breadcrumbs, Button, Divider, Grid, IconButton, Link, Stack, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
 import React from 'react'
 
-
-import HealingIcon from '@mui/icons-material/Healing';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
+import LayoutSalud from '@/app/layouts/LayoutSalud';
 
 export default function Salud() {
 
-    //Service options rendering
-    // const [serviceDisplay , setServiceDisplay] = React.useState<boolean>(false);
-
-    // const serviceDisplayToggle = () => {
-    //     setServiceDisplay(!serviceDisplay);
-    // }
-
-    // //Procedure options rendering
-    // const [procedureDisplay , setProcedureDisplay] = React.useState<boolean>(false);
-
-    // const procedureDisplayToggle = () => {
-    //     setProcedureDisplay(!procedureDisplay);
-    // }
+    
     return (
-        <>
-            <BasicNavbar backgroundColor='Teal' pageName='Salud'>
-                {/*Menu elements within the toggle drawer.*/}
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
-                <Divider />
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Citas disponibles</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Mis citas</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Cancelar cita</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Agendar cita</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Resultados de citas</Typography>
-                </IconButton>
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Trámites</Typography>
-                <Divider />
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Estado de Incapacidad</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Modificar Incapacidad</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Estado de Atenciones</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Modificar Atenciones</Typography>
-                </IconButton>
-
-                <IconButton>
-                    <Typography variant="body1" textAlign="center">Mi pérfil de riesgo</Typography>
-                </IconButton>
-
-            </BasicNavbar>
-
-            <Grid
-                container
-                component="main"
-                alignItems="center"
-                justifyContent="center"
-                direction="column"
-                sx={{ width: "100%", mt: 1 }}
-                spacing={2}
-                maxHeight="xl"
-            >
-
-                <Grid item>
-
-
-                    <Stack direction="row"
-                        justifyContent="left"
-                        alignItems="left"
-                        spacing={8}
-                    >
-                        <Breadcrumbs aria-label="breadcrumb">
-                            <Link underline="hover" color="text.primary" href="/pages/actividadFisica">
-                                Actividad Física & Deporte
-                            </Link>
-                            <Link
-                                underline="hover"
-                                color="text.primary"
-                                href="/pages/gestionYFomento"
-                            >
-                                Gestión & Fomento Socioeconómico
-                            </Link>
-                            <Link
-                                underline="hover"
-                                color="text.primary"
-                                href="/pages/salud"
-                            >
-                                Salud
-                            </Link>
-                        </Breadcrumbs>
-
-                    </Stack>
-                </Grid>
-
-
-
-                {/*Here should start the table visualization */}
-
-            </Grid >
-
-
-        </>
+        <LayoutSalud>
+            <p>Main page health</p>
+        </LayoutSalud>
     )
 }
 //Table visualization:

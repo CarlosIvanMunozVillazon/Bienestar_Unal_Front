@@ -16,8 +16,8 @@ type basicLayoutProperties = {
 export default function BasicLayout({ children, navbarColor, pageName }: basicLayoutProperties) {
     return (
         <>
-            <BasicNavbar backgroundColor={navbarColor} pageName = {pageName}></BasicNavbar>
-            {children}
+            {/* <BasicNavbar backgroundColor={navbarColor} pageName = {pageName}></BasicNavbar>
+            {children} */}
         </>
     )
 }
