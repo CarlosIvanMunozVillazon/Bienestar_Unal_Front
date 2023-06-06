@@ -3,16 +3,23 @@
 import React from 'react'
 import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
 import { BasicNavbar } from '@/app/components/General/BasicNavbar';
-import LayoutSalud from '@/app/layouts/LayoutSalud';
+
 import SearchIcon from '@mui/icons-material/Search';
+import { BaseForm } from '@/app/components/General/BaseForm';
+import LayoutSalud from '@/app/layouts/LayoutSalud';
 
 
 export default function MiPerfildeRiesgo() {
 
-    const [perfilDeRiesgo, setperfilDeRiesgo] = React.useState(null);
+    const [get_perfilDeRiesgo, setperfilDeRiesgo] = React.useState(null);
+
+    const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
 
     return (
         <LayoutSalud>
+            <br />
             <Grid container
                 component='main'
                 alignItems='center'
@@ -27,71 +34,44 @@ export default function MiPerfildeRiesgo() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
+                    <BaseForm title='Mi perfil de riesgo' children={
+                        <TextField placeholder='Cédula' />
+                    }
+                        children2={
+                            <Button type='submit' variant="contained"
+                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
 
+                        }
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Mi pérfil de riesgo
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
+                        children3={
+                            <>
+                                {
+                                    get_perfilDeRiesgo !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Stack direction='row'
-                                        spacing={4}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                        <TextField placeholder='Cédula' />
+                                            {
+                                                // corActividades!.map(() => (
+                                                //     <Grid item xs={3}>
 
-                                    </Stack>
+                                                //     </Grid>
+                                                // ))
 
+                                            }
+                                        </Grid>
 
-                                </Grid>
+                                    ) : null}
+                            </>
+                        }
 
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            perfilDeRiesgo !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
-
-                                    {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-
-                                        //     </Grid>
-                                        // ))
-
-                                    }
-                                </Grid>
-
-                            ) : null}
-
-
-                    </Paper>
-
-
+                        submit={hanldeSubmit1}
+                    ></BaseForm>
 
                 </Grid>
 

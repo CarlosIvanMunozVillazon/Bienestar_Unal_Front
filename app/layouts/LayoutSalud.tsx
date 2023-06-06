@@ -15,7 +15,7 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
     return (
         <>
             <BasicNavbar backgroundColor='Teal' pageName='Salud'>
-                {/*Menu elements within the toggle drawer.*/}
+                
                 <Typography variant="h6" fontWeight='bold' textAlign="center">Citas</Typography>
                 <Divider />
 

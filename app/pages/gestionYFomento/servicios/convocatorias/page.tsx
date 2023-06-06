@@ -24,6 +24,7 @@ export default function Convocatorias() {
 
     return (
         <LayoutFomento>
+            <br/>
             <p>5 componentes de consulta y resultados para las convocatorias</p>
 
 

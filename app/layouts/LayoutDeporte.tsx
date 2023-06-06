@@ -15,16 +15,21 @@ export default function LayoutDeporte({ children }: deporteLayoutProps) {
     return (
         <>
             <BasicNavbar backgroundColor='orange' pageName='Actividad Física & Deporte'>
-                
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Deporte</Typography>
+
+                <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
                 <Divider />
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/citasDisponibles'>
-                        <Typography variant="body1" textAlign="center">Still working on it</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/actividadFisica/convocatorias'>
+                        <Typography variant="body1" textAlign="center">Convocatorias</Typography>
                     </Link>
                 </IconButton>
 
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/actividadFisica/otros'>
+                        <Typography variant="body1" textAlign="center">otros</Typography>
+                    </Link>
+                </IconButton>
             </BasicNavbar>
 
             <Grid
