@@ -8,7 +8,7 @@ export default function Salud() {
     
     return (
         <LayoutSalud>
-            <p>Main page health</p>
+            <p>Agregar banner fancy</p>
         </LayoutSalud>
     )
 }

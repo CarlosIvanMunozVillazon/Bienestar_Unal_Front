@@ -14,7 +14,7 @@ import LayoutFomento from '@/app/layouts/LayoutFomento';
 export default function GestionYFomento() {
     return (
         <LayoutFomento>
-            <p>Wear red dumbass</p>
+            <p>Agregar banner fancy</p>
         </LayoutFomento>
     )
 }

@@ -14,7 +14,7 @@ import LayoutFomento from '@/app/layouts/LayoutFomento';
 export default function Convocatorias() {
     return (
         <LayoutFomento>
-            <p>Diseñar formulario fancy que permita ver convocatorias por tipo</p>
+            <p>5 componentes de consulta y resultados para las convocatorias</p>
         </LayoutFomento>
     )
 }

@@ -11,10 +11,10 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
-export default function FallaAlimentacion() {
+export default function Convocatorias() {
     return (
         <LayoutFomento>
-            <p>falla de alimenatcion</p>
+            <p>2 componentes para consultar actividades corresponsabilidad y horas pendientes por actividad</p>
         </LayoutFomento>
     )
 }

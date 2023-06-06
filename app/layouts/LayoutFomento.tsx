@@ -25,34 +25,16 @@ export default function LayoutFomento({ children }: saludLayoutProps) {
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/fallaAlimentacion'>
-                        <Typography variant="body1" textAlign="center">Fallas de alimentación</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/corresponsabilidad'>
+                        <Typography variant="body1" textAlign="center">Corresponsabilidad</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/pbm'>
-                        <Typography variant="body1" textAlign="center">Consultar PBM</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/otros'>
+                        <Typography variant="body1" textAlign="center">Otros</Typography>
                     </Link>
                 </IconButton>
-
-
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Corresponsabilidad</Typography>
-                <Divider />
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/corresponsabilidad/actividades'>
-                        <Typography variant="body1" textAlign="center">Actividades</Typography>
-                    </Link>
-                </IconButton>
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/corresponsabilidad/horasPendientes'>
-                        <Typography variant="body1" textAlign="center">Horas Pendientes</Typography>
-                    </Link>
-                </IconButton>
-
-
 
 
             </BasicNavbar>
@@ -116,17 +98,17 @@ export default function LayoutFomento({ children }: saludLayoutProps) {
 El estudiante puede consultar sus fallas de alimentación
 sp_fallaalimentacion_est(in id int)
 
-#4. MI PBM
+#4. MI PBM ???? es necesario?
 El estudiante desea conocer su PBM
     function pbm_est(id_est int)
 
 
 # CORRESPONSABILIDAD # CORRESPONSABILIDAD # CORRESPONSABILIDAD    
-# 2.MIS CORRESPONSABILIDAD
+# 2.MI CORRESPONSABILIDAD
     El estudiante puede consultar sus actividades de corresponsabilidad realizadas
 	sp_actividadcorresp_est(in id int)
 
-# 3.HORAS PENDIENTES CORRESPONSABILIDAD
+# 3.HORAS PENDIENTES CORRESPONSABILIDAD por actividad
     El estudiante puede consultar la cantidad de horas pendientes de corresponsabilidad
 	function horas_corresponsabilidad_est(id_est int)
        
@@ -156,12 +138,13 @@ El estudiante desea conocer su PBM
 		sp_convocatoriagestiontransporte_est(in id_est int, in tipo enum('Transporte público masivo','otro'))
 
 
-# 9. CHECK DE CONVOCATORIA ?????
+# 9. CHECK DE CONVOCATORIA ????? esto no debe funcionar a bajo nivel? No implementar
     Si el estudiante inserta una conv. en est_toma_conv, verificar que no ingrese
 #dos veces la misma en el mismo semestre
 	sp_insertar_est_tm_conv_est(in id_est int, in id_conv int, in fecha DATE)
 
-# 11. DETALLE DE CONVOCATORIA 
+# 11. DETALLE DE CONVOCATORIA ¿Cómo lo implemento? ¿Es necesario? No implementar
+un estudiante ya conoce la convocatoria como ya está en la página.
     El estudiante/secretario quiere conocer el programa y área de una convocatoria
 	programa_area_convocatoria(in id_conv int)
 

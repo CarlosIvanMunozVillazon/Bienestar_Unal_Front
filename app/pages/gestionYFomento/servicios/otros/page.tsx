@@ -11,10 +11,10 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
-export default function HorasPendientes() {
+export default function Convocatorias() {
     return (
         <LayoutFomento>
-            <p>Horas pendientes</p>
+            <p>2 componentes: para consultar PBM y fallas de alimentación</p>
         </LayoutFomento>
     )
 }
