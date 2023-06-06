@@ -2,6 +2,7 @@
 
 import LayoutSalud from '@/app/layouts/LayoutSalud'
 import React from 'react'
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function CancelarCita() {
 

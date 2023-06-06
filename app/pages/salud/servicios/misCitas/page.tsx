@@ -2,6 +2,7 @@
 
 import React from 'react'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function MisCitas() {
 

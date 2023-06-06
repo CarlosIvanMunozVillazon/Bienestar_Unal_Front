@@ -7,19 +7,19 @@ export default function Salud() {
     
     {/*
     
-    # 2. Ver sus citas medicas proximas:
+    # 2. Ver sus citas medicas proximas:****
     pas_citas_agendadas(pacienteID INT)
     
-    # 5. Ver los resultados de cada cita medica
+    # 5. Ver los resultados de cada cita medica **
     pas_check_resultados(IN usuarioID INT)
     
-    # 6. Ver el estado de las incapacidades
+    # 6. Ver el estado de las incapacidades ***
     pas_view_incapacidad(IN usuarioID INT)
     
-    # 9. Ver el estado de las atenciones en salud de un usuario
+    # 9. Ver el estado de las atenciones en salud de un usuario  **
     pas_view_atencionsalud(usuarioID INT)
     
-    # 12. Ver perfil de riesgo integral de un usuario
+    # 12. Ver perfil de riesgo integral de un usuario 
         pas_view_perfilriesgo(usuarioID INT)
     
     El estudiante se le permite acceder a citas medicas, cancelarlas y ver la informacion de cada una (como medicamentos

@@ -5,11 +5,13 @@ import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack
 import { BasicNavbar } from '@/app/components/General/BasicNavbar';
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
+import { Cita } from './interface/cita.interface';
 
 export default function CitasDisponibles() {
 
     //Available appointments
-    const [availableAppointments, setAvailableAppointments] = React.useState(null);
+    const [availableAppointments, setAvailableAppointments] = React.useState<Cita [] | null>(null);
+
 
     return (
         <LayoutSalud>
@@ -56,7 +58,7 @@ export default function CitasDisponibles() {
 
                                 <Grid item>
                                     <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                                        sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
 
                                 </Grid>
 
