@@ -13,12 +13,18 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 export default function AtencionSalud() {
 
 
-    const [availableAppointments, setAvailableAppointments] = React.useState(null);
-    const [availableAppointments, setAvailableAppointments] = React.useState(null);
+    const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
+    const [estado_atencion, set_estado_atencion] = React.useState(null);
     const [modificarAtenciones, setmodificarAtenciones] = React.useState(null);
 
 
     const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
+    const hanldeSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
+    const hanldeSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
     return (
@@ -50,7 +56,7 @@ export default function AtencionSalud() {
                         children3={
                             <>
                                 {
-                                    availableAppointments !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    estado_atencion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -103,7 +109,7 @@ export default function AtencionSalud() {
                         children3={
                             <>
                                 {
-                                    scheduleApointment !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    agregar_atencion_en_salud !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -127,7 +133,7 @@ export default function AtencionSalud() {
                             </>
                         }
 
-                        submit={hanldeSubmit1}
+                        submit={hanldeSubmit2}
                     ></BaseForm>
 
                 </Grid>
@@ -180,7 +186,7 @@ export default function AtencionSalud() {
                             </>
                         }
 
-                        submit={hanldeSubmit1}
+                        submit={hanldeSubmit3}
                     ></BaseForm>
 
                 </Grid>
