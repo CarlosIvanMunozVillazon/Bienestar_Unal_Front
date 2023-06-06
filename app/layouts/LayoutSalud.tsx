@@ -36,41 +36,15 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
                 <Divider />
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/estadoIncapacidad'>
-                        <Typography variant="body1" textAlign="center">Estado de Incapacidad</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/atencionSalud'>
+                        <Typography variant="body1" textAlign="center">Atención en Salud</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/modificarIncapacidad'>
-                        <Typography variant="body1" textAlign="center">Modificar Incapacidad</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/incapacidades'>
+                        <Typography variant="body1" textAlign="center">Incapacidades</Typography>
                     </Link>
-                </IconButton>
-                
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirIncapacidad'>
-                        <Typography variant="body1" textAlign="center">Agregar Incapacidad</Typography>
-                    </Link>
-                </IconButton>
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirAtencionSalud'>
-                        <Typography variant="body1" textAlign="center">Agregar Atención Salud</Typography>
-                    </Link>
-                </IconButton>
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/estadoAtencionSalud'>
-                        <Typography variant="body1" textAlign="center">Estado de Atenciones</Typography>
-                    </Link>
-
-                </IconButton>
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/modificarAtenciones'>
-                        <Typography variant="body1" textAlign="center">Modificar Atenciones</Typography>
-                    </Link>
-
                 </IconButton>
 
                 <IconButton>
@@ -79,12 +53,6 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
                     </Link>
                 </IconButton>
 
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/miPerfildeRiesgo'>
-                        <Typography variant="body1" textAlign="center">Mi pérfil de riesgo</Typography>
-                    </Link>
-                </IconButton>
             </BasicNavbar>
 
             <Grid
@@ -137,3 +105,35 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
         </>
     )
 }
+
+{/**
+
+
+<IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirIncapacidad'>
+                        <Typography variant="body1" textAlign="center">Agregar Incapacidad</Typography>
+                    </Link>
+                </IconButton>
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirAtencionSalud'>
+                        <Typography variant="body1" textAlign="center">Agregar Atención Salud</Typography>
+                    </Link>
+                </IconButton>
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/estadoAtencionSalud'>
+                        <Typography variant="body1" textAlign="center">Estado de Atenciones</Typography>
+                    </Link>
+
+                </IconButton>
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/modificarAtenciones'>
+                        <Typography variant="body1" textAlign="center">Modificar Atenciones</Typography>
+                    </Link>
+
+                </IconButton>
+
+
+*/}
