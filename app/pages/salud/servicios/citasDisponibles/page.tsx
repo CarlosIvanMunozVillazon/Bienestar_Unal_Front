@@ -10,7 +10,9 @@ import { Cita } from './interface/cita.interface';
 export default function CitasDisponibles() {
 
     //Available appointments
-    const [availableAppointments, setAvailableAppointments] = React.useState<Cita [] | null>(null);
+    const [availableAppointments, setAvailableAppointments] = React.useState<Cita[] | null>(null);
+    // # 1. Ver las citas medicas disponibles:
+    // pas_citas_disponibles()
 
 
     return (
@@ -36,8 +38,7 @@ export default function CitasDisponibles() {
                         <Box component='form'
                             sx={{ width: '100%' }}
                         >
-                            <Typography variant='h6'>Citas disponibles
-                            </Typography>
+
                             <Grid
                                 container
                                 justifyContent="space-between"
@@ -49,8 +50,8 @@ export default function CitasDisponibles() {
                                     <Stack direction='row'
                                         spacing={4}>
 
-                                        <TextField placeholder='Cédula' />
-
+                                        <Typography variant='h6'>Citas Disponibles
+                                        </Typography>
                                     </Stack>
 
 

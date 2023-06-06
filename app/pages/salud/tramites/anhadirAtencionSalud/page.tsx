@@ -1,20 +1,21 @@
 "use client"
 
 import React from 'react'
-import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
+import { Grid, Paper, Box, Typography, Stack, TextField, Button } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+export default function AgregarAtencionSalud() {
 
-export default function ModificarIncapacidad() {
+    //Schedule appointments
 
+    const [scheduleApointment, setscheduleApointment] = React.useState<null>(null);
 
     return (
         <LayoutSalud>
-            <p>Modificar incapacidad: put sin params de endpoint, solo de query son 4</p>
+            <p>Put con user id para el path y 2 querys fecha y tipo</p>
             <Grid container
                 component='main'
                 alignItems='center'
@@ -27,7 +28,7 @@ export default function ModificarIncapacidad() {
                 {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
 
                 <Grid item
-                    sx={{ width: '85%' }}
+                    sx={{ width: '75%' }}
                 >
 
 
@@ -35,28 +36,27 @@ export default function ModificarIncapacidad() {
                         <Box component='form'
                             sx={{ width: '100%' }}
                         >
-                            <Typography variant='h6'>Modificar Incapacidad
+                            <Typography variant='h6'>Agendar una cita
                             </Typography>
                             <Grid
                                 container
                                 justifyContent="space-between"
                                 direction="row"
                                 alignItems="center"
-                                
                             >
                                 <Grid item>
 
                                     <Stack direction='row'
                                         spacing={4}>
-                                        <TextField placeholder='id Incapacidad' />
+
+
+                                        <TextField placeholder='Cédula' />
 
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DatePicker format="YYYY/MM/DD" />
                                         </LocalizationProvider>
 
-                                        
-                                        <TextField placeholder='Enfermedad' />
-                                        <TextField placeholder='Días' />
+                                        <TextField placeholder='Tipo' />
 
 
                                     </Stack>
@@ -66,7 +66,7 @@ export default function ModificarIncapacidad() {
 
                                 <Grid item>
                                     <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Modificar</Button>
+                                        sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Agendar</Button>
 
                                 </Grid>
 
@@ -76,8 +76,8 @@ export default function ModificarIncapacidad() {
 
                         </Box>
 
-                        {/* {
-                            myAppointments !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                        {
+                            scheduleApointment !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -97,7 +97,7 @@ export default function ModificarIncapacidad() {
                                     }
                                 </Grid>
 
-                            ) : null} */}
+                            ) : null}
 
 
                     </Paper>
@@ -108,6 +108,5 @@ export default function ModificarIncapacidad() {
 
             </Grid>
         </LayoutSalud>
-
     )
 }

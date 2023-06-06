@@ -64,6 +64,18 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
                         <Typography variant="body1" textAlign="center">Modificar Incapacidad</Typography>
                     </Link>
                 </IconButton>
+                
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirIncapacidad'>
+                        <Typography variant="body1" textAlign="center">Agregar Incapacidad</Typography>
+                    </Link>
+                </IconButton>
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/anhadirAtencionSalud'>
+                        <Typography variant="body1" textAlign="center">Agregar Atención Salud</Typography>
+                    </Link>
+                </IconButton>
 
                 <IconButton>
                     <Link underline='hover' color='GrayText' href='/pages/salud/tramites/estadoAtencionSalud'>
@@ -83,9 +95,14 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
                     <Link underline='hover' color='GrayText' href='/pages/salud/tramites/miPerfildeRiesgo'>
                         <Typography variant="body1" textAlign="center">Mi pérfil de riesgo</Typography>
                     </Link>
-
                 </IconButton>
 
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/tramites/miPerfildeRiesgo'>
+                        <Typography variant="body1" textAlign="center">Mi pérfil de riesgo</Typography>
+                    </Link>
+                </IconButton>
             </BasicNavbar>
 
             <Grid

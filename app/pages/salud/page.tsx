@@ -19,20 +19,19 @@ export default function Salud() {
     # 9. Ver el estado de las atenciones en salud de un usuario  **
     pas_view_atencionsalud(usuarioID INT)
     
-    # 12. Ver perfil de riesgo integral de un usuario 
+    # 12. Ver perfil de riesgo integral de un usuario **
         pas_view_perfilriesgo(usuarioID INT)
     
     El estudiante se le permite acceder a citas medicas, cancelarlas y ver la informacion de cada una (como medicamentos
         que le hayan enviado). Por ello tendra los siguientes procedimientos:
 
-# 1. Ver las citas medicas disponibles:
-    pas_citas_disponibles()
 
 
-# 3. Cancelar alguna cita
+
+# 3. Cancelar alguna cita **PUT
     pas_delete_cita_medica(usuarioID INT, fechaCita DATETIME, especialidadCita VARCHAR(45))
 
-# 4.Agendar alguna cita
+# 4.Agendar alguna cita **PUT
     pas_add_cita_medica(usuarioID INT, fechaCita DATETIME, especialidadCita VARCHAR(45))
 
 
@@ -40,7 +39,7 @@ Ademas, entre los diferentes tramites que puede tener esta el de pasar incapacid
 salud para que sean verificadas por el ara de salud.
 
 
-# 7. Añadir una incapacidad
+# 7. Añadir una incapacidad  **POST
     pas_add_incapacidad(usuarioID INT, fecha DATETIME, enfermedad VARCHAR(45), dias TINYINT)
 
 # 8. Modificar una incapacidad de un usuario
@@ -53,7 +52,7 @@ salud para que sean verificadas por el ara de salud.
 # 11. Modificar una atencion en salud de un usuario
     pas_edit_atencionsalud(atencionsaludID INT, fecha DATETIME, tipo VARCHAR(45))
 
-
+añadir incapacidad falta y atención en salud
 */}
 
     return (

@@ -12,7 +12,7 @@ export default function ResultadosDeCitas() {
     const [resultadosCitas, setresultadosCitas] = React.useState(null);
     return (
         <LayoutSalud>
-            <p>Resultats de cits</p>
+            <p>Resultats de cits get con user id</p>
 
             <Grid container
                 component='main'

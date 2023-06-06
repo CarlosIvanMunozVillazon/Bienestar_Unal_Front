@@ -12,7 +12,7 @@ export default function EstadoAtencionSalud() {
     const [edoAtencionSalud, setedoAtencionSalud] = React.useState(null);
     return (
         <LayoutSalud>
-            <p>estado atencion salud</p>
+            <p>estado atencion salud get con solo el user id</p>
 
             <Grid container
                 component='main'

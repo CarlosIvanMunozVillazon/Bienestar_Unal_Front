@@ -14,7 +14,7 @@ export default function EstadoIncapacidad() {
 
     return (
         <LayoutSalud>
-            <p>estado incapacidad</p>
+            <p>estado incapacidad get con solo el id del usuario</p>
             <Grid container
                 component='main'
                 alignItems='center'
