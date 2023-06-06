@@ -3,21 +3,18 @@
 import React from 'react'
 import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
 import { BasicNavbar } from '@/app/components/General/BasicNavbar';
-import SearchIcon from '@mui/icons-material/Search';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
-import { Cita } from './interface/cita.interface';
+import SearchIcon from '@mui/icons-material/Search';
 
-export default function CitasDisponibles() {
 
-    //Available appointments
-    const [availableAppointments, setAvailableAppointments] = React.useState<Cita[] | null>(null);
-    // # 1. Ver las citas medicas disponibles:
-    // pas_citas_disponibles()
+export default function Incapacidades() {
 
+    
+    const [availableAppointments, setAvailableAppointments] = React.useState(null);
 
     return (
         <LayoutSalud>
-            <p>Citas disponibles</p>
+            <p>estado incapacidad get con solo el id del usuario</p>
             <Grid container
                 component='main'
                 alignItems='center'
@@ -38,7 +35,8 @@ export default function CitasDisponibles() {
                         <Box component='form'
                             sx={{ width: '100%' }}
                         >
-
+                            <Typography variant='h6'>Incapacidades
+                            </Typography>
                             <Grid
                                 container
                                 justifyContent="space-between"
@@ -50,8 +48,8 @@ export default function CitasDisponibles() {
                                     <Stack direction='row'
                                         spacing={4}>
 
-                                        <Typography variant='h6'>Citas Disponibles
-                                        </Typography>
+                                        <TextField placeholder='Cédula' />
+
                                     </Stack>
 
 

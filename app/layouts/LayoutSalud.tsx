@@ -16,40 +16,22 @@ export default function LayoutSalud({ children }: saludLayoutProps) {
         <>
             <BasicNavbar backgroundColor='Teal' pageName='Salud'>
                 {/*Menu elements within the toggle drawer.*/}
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
+                <Typography variant="h6" fontWeight='bold' textAlign="center">Citas</Typography>
                 <Divider />
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/citasDisponibles'>
-                        <Typography variant="body1" textAlign="center">Citas disponibles</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/informacion'>
+                        <Typography variant="body1" textAlign="center">Información</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/misCitas'>
-                        <Typography variant="body1" textAlign="center">Mis citas</Typography>
+                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/gestion'>
+                        <Typography variant="body1" textAlign="center">Gestionar Citas</Typography>
                     </Link>
                 </IconButton>
 
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/cancelarCita'>
-                        <Typography variant="body1" textAlign="center">Cancelar cita</Typography>
-                    </Link>
-                </IconButton>
 
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/agendarCita'>
-                        <Typography variant="body1" textAlign="center">Agendar cita</Typography>
-                    </Link>
-
-                </IconButton>
-
-                <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/salud/servicios/resultadosCita'>
-                        <Typography variant="body1" textAlign="center">Resultados de citas</Typography>
-                    </Link>
-
-                </IconButton>
                 <Typography variant="h6" fontWeight='bold' textAlign="center">Trámites</Typography>
                 <Divider />
 

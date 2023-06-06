@@ -52,7 +52,7 @@ salud para que sean verificadas por el ara de salud.
 # 11. Modificar una atencion en salud de un usuario
     pas_edit_atencionsalud(atencionsaludID INT, fecha DATETIME, tipo VARCHAR(45))
 
-añadir incapacidad falta y atención en salud
+añadir incapacidad falta y atención en salud **
 */}
 
     return (
