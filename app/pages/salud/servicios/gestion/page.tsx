@@ -8,7 +8,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BaseForm } from '@/app/components/General/BaseForm';
 
-export default function AgendarCita() {
+export default function GestionarCitas() {
 
     //Schedule appointments
     const [scheduleApointment, setscheduleApointment] = React.useState<null>(null);
@@ -16,13 +16,13 @@ export default function AgendarCita() {
     //Cancel appointments
     const [cancelAppointment, setcancelAppointment] = React.useState<null>(null);
 
-    const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
         //endpoint function here
     }
 
-    const hanldeSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
         //endpoint function here
@@ -92,7 +92,7 @@ export default function AgendarCita() {
                                     ) : null}
                             </>
                         }
-                        submit={hanldeSubmit1}
+                        submit={handleSubmit1}
                     />
 
                 </Grid>
@@ -148,7 +148,7 @@ export default function AgendarCita() {
                                     ) : null}
                             </>
                         }
-                        submit={hanldeSubmit2}
+                        submit={handleSubmit2}
                     />
 
 

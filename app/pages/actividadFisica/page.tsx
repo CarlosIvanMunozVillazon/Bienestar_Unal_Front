@@ -14,31 +14,6 @@ export default function ActividadFisicaYDeporte() {
 //# Actividad Física y Deporte
 
 
-// OTROS
-// # 1. Un usuario necesita ver los torneos internos disponibles
-// 	sp_consultar_torneos_internos()
-
-// # 3. Se quiere consultar información acerca de eventos, talleres y proyectos disponbibles
-// 	# 3.1 pas_consultar_info_eventoTaller(in idEveTa int)
-// 	# 3.2 pas_consultar_info_proyecto(in idProy int)
-
-// # 6. Se quiere consultar información acerca de eventos, talleres y proyectos disponbibles para el área de deporte
-// 	pas_consultar_eventoTaller_programa (in idPrograma int) usar id's programas de deportes
-
-
-
-// #CONVOCATORIAS
-// # 4. Un estudiante quiere participar en una convocatoria
-// 	pas_participar_convocatoria(in ccEstudiante int, in idConv int, in fechaInscripcion date)
-
-// # 5. Un estudiante quiere consultar las convocatorias en las que participa
-// 	sp_consultar_mis_convocatorias (in cedula int)
-
-// # 7. Se requiere consultar las convocatorias que hay por programa de deporte.
-// 	sp_consultar_convocatorias_deporte(in idPrograma int) usar id's programas de deportes
-
-// # 2. Un usuario necesita ver los cursos libres de deportes disponibles
-// 	sp_consultar_convocatoria_cursos_libres()
 return (
         <LayoutDeporte>
             <p>Deporte página principal</p>
