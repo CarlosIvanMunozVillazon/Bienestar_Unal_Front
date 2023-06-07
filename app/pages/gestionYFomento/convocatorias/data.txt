@@ -1,0 +1,9 @@
+{
+    "Key": 0,
+    "conv_id": 17,
+    "cgemCobertura": 961842,
+    "cgemNombreEmprend": "Empresa1",
+    "cgemTema": "Tema1",
+    "cgemDescripcion": "Descripción del emprendimiento"
+}
+

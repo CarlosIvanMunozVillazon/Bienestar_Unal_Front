@@ -12,16 +12,24 @@ import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import { convocatoriaEmprendimiento } from './interface/emprendimiento.interface';
 import { BaseForm } from '@/app/components/General/BaseForm';
+import { convocatoriaAlimento } from './interface/aliementaria.interface';
+import { convocatoriaAlojamiento } from './interface/alojamiento.interface';
+import { convocatoriaEconomica } from './interface/economica.interface';
+import { convocatoriaTransporte } from './interface/transporte.interface';
 
 export default function Convocatorias() {
 
     //puros gets pa la API
-    //Tarea 1:
+    
     const [cgfEmprendimiento, setcgfEmprendimiento] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-    const [cgfAlimentaria, setcgfAlimentaria] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-    const [cgfAlojamiento, setcgfAlojamiento] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-    const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-    const [cgfTransporte, setcgTransporte] = React.useState<convocatoriaEmprendimiento[] | null>(null)
+
+    const [cgfAlimentaria, setcgfAlimentaria] = React.useState<convocatoriaAlimento[] | null>(null)
+
+    const [cgfAlojamiento, setcgfAlojamiento] = React.useState<convocatoriaAlojamiento[] | null>(null)
+
+    const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEconomica[] | null>(null)
+
+    const [cgfTransporte, setcgTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
 
 
     const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
