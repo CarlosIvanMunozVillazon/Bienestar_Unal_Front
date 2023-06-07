@@ -126,28 +126,28 @@ export default function Convocatorias() {
                         children3={
                             <>
 
-{
-                            cgfEmprendimiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {
+                                    cgfEmprendimiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                    {
-                                        cgfEmprendimiento!.map((convocatoria) => (
-                                            <Grid item xs={3}>
+                                            {
+                                                cgfEmprendimiento!.map((convocatoria) => (
+                                                    <Grid item xs={3}>
 
-                                            </Grid>
-                                        ))
+                                                    </Grid>
+                                                ))
 
-                                    }
-                                </Grid>
+                                            }
+                                        </Grid>
 
-                            ) : null}
+                                    ) : null}
                             </>
                         }
                         submit={handleSubmit1}
@@ -162,73 +162,51 @@ export default function Convocatorias() {
                     {/*Convocatorias de:  gestión alojamiento*/}
                     {/*Parámetros : cédula de estudiante, localidad, tipo (lista desplegable), */}
 
+                    <BaseForm title='Convocatoria Gestión Alojamiento'
+                        children={
+                            <>
+                                <TextField placeholder='Cédula' />
+                                <TextField placeholder='Localidad' />
+                                <Autocomplete sx={{ width: 205 }} options={['Hotel', 'Casa', 'Apartamento', 'Vivienda familiar', 'Residencia Universitaria',
+                                    'Apartaestudio', 'Habitación', 'otro']} renderInput={(params) => <TextField {...params} label='Tipo' />} />
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Convocatoria Gestión Alojamiento
-                            </Typography>
+                            </>
 
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
+                        }
 
-                                <Grid item>
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                        }
 
-                                    <Stack direction='row'
-                                        spacing={4}>
+                        children3={
+                            <>
 
-                                        <TextField placeholder='Cédula' />
-                                        <TextField placeholder='Localidad' />
-                                        <Autocomplete sx={{ width: 205 }} options={['Hotel', 'Casa', 'Apartamento', 'Vivienda familiar', 'Residencia Universitaria',
-                                            'Apartaestudio', 'Habitación', 'otro']} renderInput={(params) => <TextField {...params} label='Tipo' />} />
+                                {
+                                    cgfEmprendimiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
+                                            {
+                                                cgfEmprendimiento!.map((convocatoria) => (
+                                                    <Grid item xs={3}>
 
-                                    </Stack>
+                                                    </Grid>
+                                                ))
 
+                                            }
+                                        </Grid>
 
-                                </Grid>
-
-                                <Grid item>
-                                    <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-                        </Box>
-
-                        {
-                            cgfEmprendimiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
-
-                                    {
-                                        cgfEmprendimiento!.map((convocatoria) => (
-                                            <Grid item xs={3}>
-
-                                            </Grid>
-                                        ))
-
-                                    }
-                                </Grid>
-
-                            ) : null}
-                    </Paper>
-
-
+                                    ) : null}
+                            </>
+                        }
+                        submit={handleSubmit1}
+                    ></BaseForm>
 
                 </Grid>
 
