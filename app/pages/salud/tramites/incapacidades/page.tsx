@@ -92,7 +92,7 @@ export default function Incapacidades() {
                             <TextField placeholder='Cédula' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
                             <TextField placeholder='Enfermedad' />
@@ -145,7 +145,7 @@ export default function Incapacidades() {
                             <TextField placeholder='id Incapacidad' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
 

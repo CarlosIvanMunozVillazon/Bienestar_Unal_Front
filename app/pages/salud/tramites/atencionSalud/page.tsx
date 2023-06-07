@@ -93,7 +93,7 @@ export default function AtencionSalud() {
                             <TextField placeholder='Cédula' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
                             <TextField placeholder='Tipo' />
@@ -146,7 +146,7 @@ export default function AtencionSalud() {
                             <TextField placeholder='Cédula' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
                             <TextField placeholder='Tipo' />

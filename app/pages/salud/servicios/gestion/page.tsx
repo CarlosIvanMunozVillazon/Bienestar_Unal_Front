@@ -51,7 +51,7 @@ export default function GestionarCitas() {
                             <TextField placeholder='Cédula' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
                             <TextField placeholder='Especialidad' />
@@ -105,7 +105,7 @@ export default function GestionarCitas() {
                             <TextField placeholder='Cédula' />
 
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY/MM/DD" />
+                                <DatePicker format="YYYY-MM-DD" />
                             </LocalizationProvider>
 
                             <TextField placeholder='Especialidad' />
