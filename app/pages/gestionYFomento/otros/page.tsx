@@ -11,6 +11,8 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
+import { BaseForm } from '@/app/components/General/BaseForm';
+
 export default function Convocatorias() {
 
     //     # SERVICIOS # SERVICIOS # SERVICIOS
@@ -25,6 +27,16 @@ export default function Convocatorias() {
 
     const [gfFallaAlimentacion, setgfFallaAlimentacion] = React.useState(null)
     const [gfPBM, setgfPBM] = React.useState(null)
+
+    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+    }
+
+    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+    }
 
     return (
         <LayoutFomento>
@@ -44,46 +56,23 @@ export default function Convocatorias() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
+                    
+                    <BaseForm title='Fallas de Alimentación'
+                        children={
+                            <>
+                                <TextField placeholder='Cédula' />
+                            </>
+                        }
 
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                        }
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Fallas de Alimentación
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
+                        children3={
+                            <>
 
-                                    <Stack direction='row'
-                                        spacing={4}>
-
-                                        <TextField placeholder='Cédula' />
-
-                                    </Stack>
-
-
-                                </Grid>
-
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            gfFallaAlimentacion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {
+                                gfFallaAlimentacion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -94,7 +83,7 @@ export default function Convocatorias() {
                                     sx={{ height: "100%" }}>
 
                                     {
-                                        // corActividades!.map(() => (
+                                        // gfFallaAlimentacion!.map(() => (
                                         //     <Grid item xs={3}>
 
                                         //     </Grid>
@@ -104,57 +93,33 @@ export default function Convocatorias() {
                                 </Grid>
 
                             ) : null}
-
-
-                    </Paper>
-
-
+                            </>
+                        }
+                        submit={handleSubmit1}
+                    ></BaseForm>
 
                 </Grid>
 
                 <Grid item
                     sx={{ width: '75%' }}
                 >
+                    
+                    <BaseForm title='Mi PBM'
+                        children={
+                            <>
+                                <TextField placeholder='Cédula' />
+                            </>
+                        }
 
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                        }
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Mi PBM
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
+                        children3={
+                            <>
 
-                                    <Stack direction='row'
-                                        spacing={4}>
-
-                                        <TextField placeholder='Cédula' />
-
-                                    </Stack>
-
-
-                                </Grid>
-
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            gfPBM !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {
+                                gfPBM !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -165,7 +130,7 @@ export default function Convocatorias() {
                                     sx={{ height: "100%" }}>
 
                                     {
-                                        // corHoras!.map((convocatoria) => (
+                                        // gfPBM!.map((convocatoria) => (
                                         //     <Grid item xs={3}>
 
                                         //     </Grid>
@@ -175,11 +140,10 @@ export default function Convocatorias() {
                                 </Grid>
 
                             ) : null}
-
-
-                    </Paper>
-
-
+                            </>
+                        }
+                        submit={handleSubmit2}
+                    ></BaseForm>
 
                 </Grid>
 

@@ -11,10 +11,24 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
+import { BaseForm } from '@/app/components/General/BaseForm';
+
+
 export default function Corresponsabilidad() {
 
     const [corActividades, setCorActividades] = React.useState(null);
     const [corHoras, setHoras] = React.useState(null);
+
+    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+    }
+
+    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+    }
+
 
     {/**
 
@@ -48,116 +62,70 @@ export default function Corresponsabilidad() {
                     sx={{ width: '75%' }}
                 >
 
+                    <BaseForm title='Mi corresponsabilidad'
+                        children={
+                            <>
+                                <TextField placeholder='Cédula' />
+                            </>
+                        }
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Mi corresponsabilidad
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
 
-                                    <Stack direction='row'
-                                        spacing={4}>
+                        }
 
-                                        <TextField placeholder='Cédula' />
+                        children3={
+                            <>
 
-                                    </Stack>
+                            {
+                                corActividades !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%" }}>
 
-                                </Grid>
+                                        {
+                                            // corActividades!.map(() => (
+                                            //     <Grid item xs={3}>
 
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                                            //     </Grid>
+                                            // ))
 
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            corActividades !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
-
-                                    {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-
-                                        //     </Grid>
-                                        // ))
-
-                                    }
-                                </Grid>
+                                        }
+                                    </Grid>
 
                             ) : null}
-
-
-                    </Paper>
-
-
+                            </>
+                        }
+                        submit={handleSubmit1}
+                    ></BaseForm>
 
                 </Grid>
 
                 <Grid item
                     sx={{ width: '75%' }}
                 >
+                    
+                    <BaseForm title='Horas Pendientes'
+                        children={
+                            <>
+                                <TextField placeholder='Cédula' />
+                            </>
+                        }
 
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
+                        }
 
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Horas Pendientes
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
+                        children3={
+                            <>
 
-                                    <Stack direction='row'
-                                        spacing={4}>
-
-                                        <TextField placeholder='Cédula' />
-
-                                    </Stack>
-
-
-                                </Grid>
-
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            corHoras !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {
+                                corHoras !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -178,11 +146,10 @@ export default function Corresponsabilidad() {
                                 </Grid>
 
                             ) : null}
-
-
-                    </Paper>
-
-
+                            </>
+                        }
+                        submit={handleSubmit2}
+                    ></BaseForm>
 
                 </Grid>
 
