@@ -1,7 +1,7 @@
 import { Paper, Box, Typography, Stack, TextField, Button, Grid } from '@mui/material'
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-import { convocatoriaEmprendimiento } from '@/app/pages/gestionYFomento/servicios/convocatorias/interface/emprendimiento.interface';
+import { convocatoriaEmprendimiento } from '@/app/pages/gestionYFomento/convocatorias/interface/emprendimiento.interface';
 
 
 type ConvocatoriaFomentoProps = {

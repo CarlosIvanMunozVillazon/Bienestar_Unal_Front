@@ -19,19 +19,19 @@ export default function LayoutFomento({ children }: saludLayoutProps) {
                 <Divider />
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/convocatorias'>
+                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/convocatorias'>
                         <Typography variant="body1" textAlign="center">Convocatorias</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/corresponsabilidad'>
+                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/corresponsabilidad'>
                         <Typography variant="body1" textAlign="center">Corresponsabilidad</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/servicios/otros'>
+                    <Link underline='hover' color='GrayText' href='/pages/gestionYFomento/otros'>
                         <Typography variant="body1" textAlign="center">Otros</Typography>
                     </Link>
                 </IconButton>
