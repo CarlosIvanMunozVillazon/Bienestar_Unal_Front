@@ -4,7 +4,7 @@ const endpoint : string = 'conv_gestion_economica';
 const GREATER_THAN : string = 'mayor_igual';
 const LESS :string = 'menor';
 
-export const cgfEconomica = {
+export const getCgfEconomica = {
     getByUserId : (user_id:number) => {
         return instance.get(`${endpoint}/${user_id}`)
     },

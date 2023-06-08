@@ -16,45 +16,178 @@ import { convocatoriaAlimento } from './interface/aliementaria.interface';
 import { convocatoriaAlojamiento } from './interface/alojamiento.interface';
 import { convocatoriaEconomica } from './interface/economica.interface';
 import { convocatoriaTransporte } from './interface/transporte.interface';
+import {
+    convFomentoEmprendimiento,
+    convAlimentaria,
+    convAlojamiento,
+    convEconomica,
+    convTransporte
+} from '@/app/types/gestionYFomento/convocatorias/convocatorias';
+import { getCgfEmprendimiento } from '@/app/api/GestionFomento/convocatorias/conv_fomento_emprendimiento';
+import { getCgfAlimentaria } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alimentaria';
+import { getCgfAlojamiento } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alojamiento';
+import { getCgfEconomica } from '@/app/api/GestionFomento/convocatorias/conv_gestion_economica';
+import { getCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_gestion_transporte';
 
 export default function Convocatorias() {
 
-    //puros gets pa la API
+    // Form data collectors:
+    const [forEmprendimiento, setForEmprendimiento] = React.useState<convFomentoEmprendimiento>(
+        {
+            cedula: 0,
+            tema: ''
+        }
+    )
+
+    const [forAlimentaria, setForAlimentaria] = React.useState<convAlimentaria>(
+        {
+            cedula: 0,
+            comida: '',
+            lugar: ''
+        }
+    )
+
+    const [forAlojamiento, setForAlojamiento] = React.useState<convAlojamiento>(
+        {
+            cedula: 0,
+            localidad: '',
+            tipo: ''
+        }
+    )
+
+    const [forEconomica, setForEconomica] = React.useState<convEconomica>(
+        {
+            cedula: 0
+        }
+    )
+
+    const [forTransporte, setForTransporte] = React.useState<convTransporte>(
+        {
+            cedula: 0,
+            tipo: ''
+        }
+    )
     
+    // API data holders:
     const [cgfEmprendimiento, setcgfEmprendimiento] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-
+    
     const [cgfAlimentaria, setcgfAlimentaria] = React.useState<convocatoriaAlimento[] | null>(null)
-
+    
     const [cgfAlojamiento, setcgfAlojamiento] = React.useState<convocatoriaAlojamiento[] | null>(null)
-
+    
     const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEconomica[] | null>(null)
-
-    const [cgfTransporte, setcgTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
-
-
-    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+    
+    const [cgfTransporte, setcgfTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
+    
+    // data seters 'on change handlers'
+    const setEmprendimientoData = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        //call endpoint function
+        setForEmprendimiento(
+            {
+                ...forEmprendimiento, [e.target.name]: e.target.value
+            }
+        )
     }
 
-    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+    const setAlimentariaData = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        //call endpoint function
+        setForAlimentaria(
+            {
+                ...forAlimentaria, [e.target.name]: e.target.value
+            }
+        )
     }
 
-    const handleSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //call endpoint function
+    const setAlojamientoData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setForAlojamiento(
+            {
+                ...forAlojamiento, [e.target.name]: e.target.value
+            }
+        )
     }
 
-    const handleSubmit4 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //call endpoint function
+    const setEconomicaData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setForEconomica(
+            {
+                ...forEconomica, [e.target.name]: e.target.value
+            }
+        )
     }
 
-    const handleSubmit5 = (e: React.FormEvent<HTMLFormElement>) => {
+    const setTransporteData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setForTransporte(
+            {
+                ...forTransporte, [e.target.name]: e.target.value
+            }
+        )
+    }
+
+
+    const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
+        getCgfEmprendimiento.getCgfEmprendimientoTema(forEmprendimiento.cedula, forEmprendimiento.tema).then((response) => {
+            setcgfEmprendimiento (response.data)
+        }).catch((Error) => {
+            console.log(Error)
+        })
+
+        console.log(setcgfEmprendimiento)
+    }
+
+    const handleAlimentaria = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+        getCgfAlimentaria.getCgfAlimentariaMultiple(
+            forAlimentaria.cedula, forAlimentaria.comida, forAlimentaria.lugar).then((response) => {
+                setcgfAlimentaria(response.data);
+            }).catch((Error) => {
+                console.log(Error)
+            })
+
+
+        console.log(cgfAlimentaria)
+        
+    }
+
+    const handleAlojamiento = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+        getCgfAlojamiento.getByLocalidadTipo(
+            forAlojamiento.cedula, forAlojamiento.localidad, forAlojamiento.tipo).then((response) => {
+                setcgfAlojamiento(response.data);
+            }).catch((Error) => {
+                console.log(Error)
+            })
+        console.log(cgfAlojamiento)
+    }
+
+    const handleEconomica = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+        getCgfEconomica.getByUserId(
+            forEconomica.cedula
+        ).then((response) => {
+            setcgfEconomica(response.data)
+        }).catch(
+            (Error) => {
+                console.log(Error)
+            })
+        console.log(cgfEconomica)
+    }
+
+    const handleTransporte = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //call endpoint function
+        getCgfTransporte.getcgfTransporteTipo(
+            forTransporte.cedula, forTransporte.tipo
+        ).then((response) => {
+            setcgfTransporte(response.data)
+        })
+        console.log(cgfTransporte)
     }
 
     return (
@@ -82,8 +215,8 @@ export default function Convocatorias() {
                     <BaseForm title='Convocatoria Fomento emprendimiento'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
-                                <TextField placeholder='Tema emprendimiento' />
+                                <TextField name='cedula' onChange={setEmprendimientoData} placeholder='Cédula' />
+                                <TextField name='tema' onChange={setEmprendimientoData} placeholder='Tema emprendimiento' />
                             </>
 
                         }
@@ -120,7 +253,7 @@ export default function Convocatorias() {
                                     ) : null}
                             </>
                         }
-                        submit={handleSubmit1}
+                        submit={handleEmprendimiento}
                     ></BaseForm>
 
 
@@ -138,11 +271,10 @@ export default function Convocatorias() {
                     <BaseForm title='Convocatoria Gestión Alimentaria'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
-                                <Autocomplete sx={{ width: 205 }} options={['Desayuno', 'Almuerzo', 'Cena']} renderInput={(params) => <TextField {...params} label='comida' />} />
+                                <TextField name='cedula' onChange={setAlimentariaData} placeholder='Cédula' />
+                                <TextField name='comida' onChange={setAlimentariaData} placeholder='Comida' />
+                                <TextField name='lugar' onChange={setAlimentariaData} placeholder='Lugar' />
 
-                                <Autocomplete sx={{ width: 205 }} options={['Comedor central', 'Hemeroteca', 'Odontología', 'Agronomía', 'Biología', 'Ciencias Humanas',
-                                    'Ciencias Económicas', 'Matemáticas', 'otro']} renderInput={(params) => <TextField {...params} label='Lugar' />} />
                             </>
 
                         }
@@ -178,7 +310,7 @@ export default function Convocatorias() {
                                     ) : null}
                             </>
                         }
-                        submit={handleSubmit2}
+                        submit={handleAlimentaria}
                     ></BaseForm>
 
 
@@ -193,10 +325,9 @@ export default function Convocatorias() {
                     <BaseForm title='Convocatoria Gestión Alojamiento'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
-                                <TextField placeholder='Localidad' />
-                                <Autocomplete sx={{ width: 205 }} options={['Hotel', 'Casa', 'Apartamento', 'Vivienda familiar', 'Residencia Universitaria',
-                                    'Apartaestudio', 'Habitación', 'otro']} renderInput={(params) => <TextField {...params} label='Tipo' />} />
+                                <TextField onChange={setAlojamientoData} name='cedula' placeholder='Cédula' />
+                                <TextField onChange={setAlojamientoData} name='localidad' placeholder='Localidad' />
+                                <TextField onChange={setAlojamientoData} name='tipo' placeholder='Tipo' />
 
                             </>
 
@@ -233,7 +364,7 @@ export default function Convocatorias() {
                                     ) : null}
                             </>
                         }
-                        submit={handleSubmit3}
+                        submit={handleAlojamiento}
                     ></BaseForm>
 
                 </Grid>
@@ -247,7 +378,7 @@ export default function Convocatorias() {
 
                     <BaseForm title='Convocatoria Gestión Económica'
                         children={
-                            <TextField placeholder='Cédula' />
+                            <TextField name='cedula' onChange={setEconomicaData} placeholder='Cédula' />
                         }
 
                         children2={
@@ -258,30 +389,30 @@ export default function Convocatorias() {
                             <>
 
                                 {
-                                cgfEconomica !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    cgfEconomica !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                        {
-                                            cgfEconomica!.map((convocatoria) => (
-                                                <Grid item xs={3}>
+                                            {
+                                                cgfEconomica!.map((convocatoria) => (
+                                                    <Grid item xs={3}>
 
-                                                </Grid>
-                                            ))
+                                                    </Grid>
+                                                ))
 
-                                        }
-                                    </Grid>
+                                            }
+                                        </Grid>
 
-                            ) : null}
+                                    ) : null}
                             </>
                         }
-                        submit={handleSubmit4}
+                        submit={handleEconomica}
                     ></BaseForm>
 
 
@@ -297,8 +428,17 @@ export default function Convocatorias() {
                     <BaseForm title='Convocatoria Gestión Transporte'
                         children={
                             <>
-                            <TextField placeholder='Cédula' />
-                            <Autocomplete sx={{ width: 205 }} options={['Transporte público masivo', 'otro']} renderInput={(params) => <TextField {...params} label='Tipo' />} />
+                                <TextField
+                                    onChange={setTransporteData}
+                                    name='cedula'
+                                    placeholder='Cédula' />
+
+                                <TextField
+                                    onChange={setTransporteData}
+                                    name='tipo'
+                                    placeholder='Tipo'
+                                />
+
                             </>
                         }
 
@@ -310,37 +450,35 @@ export default function Convocatorias() {
                             <>
 
                                 {
-                                cgfTransporte !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    cgfTransporte !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                        {
-                                            cgfTransporte!.map((convocatoria) => (
-                                                <Grid item xs={3}>
+                                            {
+                                                cgfTransporte!.map((convocatoria) => (
+                                                    <Grid item xs={3}>
 
-                                                </Grid>
-                                            ))
+                                                    </Grid>
+                                                ))
 
-                                        }
-                                    </Grid>
+                                            }
+                                        </Grid>
 
-                                ) : null}
+                                    ) : null}
                             </>
                         }
-                        submit={handleSubmit5}
+                        submit={handleTransporte}
                     ></BaseForm>
 
                 </Grid>
 
             </Grid>
-
-
 
 
         </LayoutFomento>

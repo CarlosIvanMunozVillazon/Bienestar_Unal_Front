@@ -1,7 +1,7 @@
 //se instala axios con "npm i axios", y luego se importa.
 import axios from "axios"
 
-const BASE_URL : string = "http://3.144.45.225/" //URL de la api base va aqui.
+const BASE_URL : string = "http://3.133.138.54/" //URL de la api base va aqui.
 
 //aqui se exporta la conexión de axios, se hace mediante una instanciación.
 export const instance = axios.create({
