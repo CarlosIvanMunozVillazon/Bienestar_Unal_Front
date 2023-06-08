@@ -1,4 +1,4 @@
-import { instance } from "../base.api";
+import { instance } from "../../../base.api";
 
 
 const endpoint : string = 'citas_medicas_disponibles'
