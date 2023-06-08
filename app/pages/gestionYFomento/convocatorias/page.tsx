@@ -31,7 +31,7 @@ import { getCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_ge
 
 export default function Convocatorias() {
 
-    // Form data collectors:
+    // Form data collectors 'state holders'
     const [forEmprendimiento, setForEmprendimiento] = React.useState<convFomentoEmprendimiento>(
         {
             cedula: 0,
@@ -68,7 +68,8 @@ export default function Convocatorias() {
         }
     )
     
-    // API data holders:
+
+    // API data holders 'state holders'
     const [cgfEmprendimiento, setcgfEmprendimiento] = React.useState<convocatoriaEmprendimiento[] | null>(null)
     
     const [cgfAlimentaria, setcgfAlimentaria] = React.useState<convocatoriaAlimento[] | null>(null)
@@ -78,8 +79,9 @@ export default function Convocatorias() {
     const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEconomica[] | null>(null)
     
     const [cgfTransporte, setcgfTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
+  
     
-    // data seters 'on change handlers'
+    // Data setters 'on change handlers'
     const setEmprendimientoData = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setForEmprendimiento(
@@ -126,6 +128,7 @@ export default function Convocatorias() {
     }
 
 
+    // API request performers:
     const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
@@ -135,7 +138,7 @@ export default function Convocatorias() {
             console.log(Error)
         })
 
-        console.log(setcgfEmprendimiento)
+        console.log(cgfEmprendimiento)
     }
 
     const handleAlimentaria = (e: React.FormEvent<HTMLFormElement>) => {

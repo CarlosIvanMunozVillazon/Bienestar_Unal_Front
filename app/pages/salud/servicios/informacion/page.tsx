@@ -1,8 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import { Cita } from './interface/cita.interface';
@@ -11,14 +10,15 @@ import { BaseForm } from '@/app/components/General/BaseForm';
 export default function Informacion() {
 
 
-    //Todo lo que involucre cédula
+    //Todo lo que involucre cédula: sus parámetros son cc's
 
-    //Available appointments
+    //Citas disponibles ***GET***
     const [availableAppointments, setAvailableAppointments] = React.useState<Cita[] | null>(null);
+    //Mis próximas citas ***GET***
     const [myAppointments, setMyAppointments] = React.useState<null>(null);
+    //Resultados de mis citas ***GET***
     const [resultadosCitas, setresultadosCitas] = React.useState(null);
-    // # 1. Ver las citas medicas disponibles:
-    // pas_citas_disponibles()
+
 
     const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
 

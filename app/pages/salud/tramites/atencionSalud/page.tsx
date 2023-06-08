@@ -12,9 +12,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function AtencionSalud() {
 
-
-    const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
+    //ConsultarEstadoAtencionEnSalud usa ***GET***
+    //Parámetros : user_id : number
     const [estado_atencion, set_estado_atencion] = React.useState(null);
+
+    //AgregarAtencionEnSalud usa ***POST*** 
+    //Parámetros : user_id:number
+    const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
+    
+    //ModificarAtencionSalud usa ***PUT***
     const [modificarAtenciones, setmodificarAtenciones] = React.useState(null);
 
 

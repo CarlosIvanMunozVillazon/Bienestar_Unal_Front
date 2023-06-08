@@ -1,8 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
+import { Button, Grid, TextField} from '@mui/material'
 
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
@@ -11,6 +10,8 @@ import LayoutSalud from '@/app/layouts/LayoutSalud';
 
 export default function MiPerfildeRiesgo() {
 
+    //Consultar perfil de riesgo usa ***GET***
+    //Parámetros : user_id : number
     const [get_perfilDeRiesgo, setperfilDeRiesgo] = React.useState(null);
 
     const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {

@@ -12,9 +12,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function Incapacidades() {
 
-    
+    //Consultar estado incapacidad usa ***GET***
+    //Parámetros : user_id
     const [get_estado_incapacidad, set_get_estado_incapacidad] = React.useState(null);
+    
+    //Agregar nuevas incapacidades usa ***POST***
+    //Parámetros : user_id
     const [agregar_incapacidad, set_agregar_incapacidad] = React.useState(null);
+    
+    //Modificar incapacidades usa ***PUT****
     const [modificar_incapacidad, set_modificar_incapacidad] = React.useState(null);
 
     const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {

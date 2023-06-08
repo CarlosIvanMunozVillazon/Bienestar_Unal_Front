@@ -7,7 +7,8 @@ import { Grid, Paper, Box, Typography, Stack, TextField, Button } from '@mui/mat
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BaseForm } from '@/app/components/General/BaseForm';
-
+// AMBAS FUNCIONES USAN *****PUT*****
+// PARÁMETROS : user_id : number;
 export default function GestionarCitas() {
 
     //Schedule appointments
