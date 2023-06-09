@@ -1,4 +1,4 @@
-export interface AtencionSalud {
+export interface Incapacidad {
     key:        number;
     id:         number;
     fecha:      string;

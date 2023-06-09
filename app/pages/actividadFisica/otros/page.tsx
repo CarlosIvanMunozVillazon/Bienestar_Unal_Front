@@ -12,6 +12,9 @@ import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import LayoutDeporte from '@/app/layouts/LayoutDeporte';
 import { BaseForm } from '@/app/components/General/BaseForm';
+import { TorneoInterno } from './interface/torneosInternos.interface';
+import { EventoTaller } from './interface/eventoTaller.interface';
+import { Proyecto } from './interface/proyecto.interface';
 
 export default function Otros() {
 
