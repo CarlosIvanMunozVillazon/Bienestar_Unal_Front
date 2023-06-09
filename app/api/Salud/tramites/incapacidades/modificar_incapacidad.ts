@@ -2,7 +2,7 @@ import { instance } from "@/app/api/base.api";
 
 const endpoint : string = 'modificar_incapacidad'
 
-export const apiModificarIncapacidad = {
+export const apiModificarIncapacidad = { //funciona
 
     putModificarIncapacidad : function (iD_incapacidad : number, date : string, sickness : string,
         days : number) {

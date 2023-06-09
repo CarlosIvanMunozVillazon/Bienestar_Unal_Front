@@ -2,22 +2,47 @@
 
 import React from 'react'
 import { Button, Grid, TextField} from '@mui/material'
-
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import { PerfilRiesgo } from './interface/perfilRiesgo.interface';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { apiPerfilDeRiesgo } from '@/app/api/Salud/tramites/miPerfildeRiesgo/select_perfilriesgo';
 
 
 export default function MiPerfildeRiesgo() {
 
+
+    //1.
+    const [paramsPerfilDeRiesgo, setParamsPerfilDeRiesgo] = React.useState<formInfoPorCedula> ({
+        cedula : 0
+    })
+
+    //2.
+    const handleChg = (e : React.ChangeEvent <HTMLInputElement>) => {
+        setParamsPerfilDeRiesgo({
+            ...paramsPerfilDeRiesgo, [e.target.name] : e.target.value
+        })
+    }
+
+    //3.
+    const [datosPerfilDeRiesgo, setDatosPerfilDeRiesgo] = React.useState<PerfilRiesgo[] | null> (null);
+
+    //4. 
+    const handleConsulaPerfil = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiPerfilDeRiesgo.getPerfilDeRiesgo(paramsPerfilDeRiesgo.cedula).then((response) => {
+            setDatosPerfilDeRiesgo(response.data);
+            console.log(datosPerfilDeRiesgo)
+        }).catch((Error) => {
+            console.log(`${Error} Imposible consultar perfil de riesgo`)
+        })
+    }
+    
     //Consultar perfil de riesgo usa ***GET***
     //Parámetros : user_id : number
     const [get_perfilDeRiesgo, setperfilDeRiesgo] = React.useState(null);
 
-    const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    }
 
     return (
         <LayoutSalud>
@@ -37,7 +62,7 @@ export default function MiPerfildeRiesgo() {
                     sx={{ width: '75%' }}
                 >
                     <BaseForm title='Mi perfil de riesgo' children={
-                        <TextField placeholder='Cédula' />
+                        <TextField name = 'cedula' onChange={handleChg} placeholder='Cédula' />
                     }
                         children2={
                             <Button type='submit' variant="contained"
@@ -48,7 +73,7 @@ export default function MiPerfildeRiesgo() {
                         children3={
                             <>
                                 {
-                                    get_perfilDeRiesgo !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    datosPerfilDeRiesgo !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -72,7 +97,7 @@ export default function MiPerfildeRiesgo() {
                             </>
                         }
 
-                        submit={hanldeSubmit1}
+                        submit={handleConsulaPerfil}
                     ></BaseForm>
 
                 </Grid>

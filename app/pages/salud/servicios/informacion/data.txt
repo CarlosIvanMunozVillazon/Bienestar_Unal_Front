@@ -14,6 +14,12 @@ Atencion en salud:
 101010116
 101010117
 
+Perfil de riesgo:
+
+101010110
+101010112
+101010115
+
 Formato de respuesta citas :
 De aqui necesito los nombres de los doctores y las fechas
   {
