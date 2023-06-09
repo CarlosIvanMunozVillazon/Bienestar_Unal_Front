@@ -12,36 +12,76 @@ import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
 import { BaseForm } from '@/app/components/General/BaseForm';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { falla } from './interface/falla.interface';
+import { apiFallaAlimentacion } from '@/app/api/GestionFomento/otros/falla_alimentacion';
+import { pbm } from './interface/pbm.interface';
+import { apiPbmEstudiante } from '@/app/api/GestionFomento/otros/pbm_estudiante';
 
-export default function Convocatorias() {
+export default function Otros() {
 
-    //     # SERVICIOS # SERVICIOS # SERVICIOS
+    //1.
+    const [paramsFallaAlimentaria, setParamsFallaAlimentaria] = React.useState<formInfoPorCedula>({
+        cedula : 0
+    })
 
-    // # 1. MIS FALLAS DE ALIMENTACIÓN
-    // El estudiante puede consultar sus fallas de alimentación
-    //     sp_fallaalimentacion_est(in id int)
+    //2.
+    const handleChgFalla = (e : React.ChangeEvent<HTMLInputElement>) => (
+        setParamsFallaAlimentaria({
+            ...paramsFallaAlimentaria, [e.target.name] : e.target.value
+        })
+    )
 
-    // #4. MI PBM ???? es necesario ?
-    //         El estudiante desea conocer su PBM
-    //     function pbm_est(id_est int)
+    //3.
+    const [fallasAlimentarias, setFallasAlimentarias] = React.useState<falla[] | null> (null);
 
-    const [gfFallaAlimentacion, setgfFallaAlimentacion] = React.useState(null)
-    const [gfPBM, setgfPBM] = React.useState(null)
-
-    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
+    //4.
+    const handleConsFalla = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //call endpoint function
+
+        apiFallaAlimentacion.getFallaUserId(paramsFallaAlimentaria.cedula).then((response) => {
+            setFallasAlimentarias(response.data)
+            console.log(fallasAlimentarias)
+        }).catch((Error) => {
+            console.log(`${Error} No es posible consultar las fallas.`)
+        })
+        
     }
 
-    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+
+    //1.
+    const [parPbm, setParPbm] = React.useState<formInfoPorCedula>({
+        cedula : 0
+    })
+
+    //2.
+    const handleChgPbm = (e : React.ChangeEvent<HTMLInputElement>) => (
+        setParPbm({
+            ...parPbm, [e.target.name] : e.target.value
+        })
+    )
+
+    //3.
+    const [pbm, setPbm] = React.useState<pbm[] | null> (null);
+
+    //4.
+    const handleConPBM = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //call endpoint function
-    }
+        
+        apiPbmEstudiante.getPbmEstudiante(parPbm.cedula).then((response) => {
+            setPbm(response.data)
+            console.log(pbm)
+        }).catch((Error) => {
+            console.log(`${Error} No es posible consultar el PBM.`)
+        })
+    }   
+
+
 
     return (
         <LayoutFomento>
-            <p>2 componentes: para consultar PBM y fallas de alimentación</p>
-
+            <br />
+            
             <Grid container
                 component='main'
                 alignItems='center'
@@ -50,9 +90,7 @@ export default function Convocatorias() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
+        
                 <Grid item
                     sx={{ width: '75%' }}
                 >
@@ -60,7 +98,7 @@ export default function Convocatorias() {
                     <BaseForm title='Fallas de Alimentación'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
+                                <TextField name = 'cedula' onChange = {handleChgFalla} placeholder='Cédula' />
                             </>
                         }
 
@@ -72,7 +110,7 @@ export default function Convocatorias() {
                             <>
 
                             {
-                                gfFallaAlimentacion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                fallasAlimentarias !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -95,7 +133,7 @@ export default function Convocatorias() {
                             ) : null}
                             </>
                         }
-                        submit={handleSubmit1}
+                        submit={handleConsFalla}
                     ></BaseForm>
 
                 </Grid>
@@ -107,7 +145,7 @@ export default function Convocatorias() {
                     <BaseForm title='Mi PBM'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
+                                <TextField name = 'cedula' onChange={handleChgPbm} placeholder='Cédula' />
                             </>
                         }
 
@@ -119,7 +157,7 @@ export default function Convocatorias() {
                             <>
 
                             {
-                                gfPBM !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                pbm !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -142,7 +180,7 @@ export default function Convocatorias() {
                             ) : null}
                             </>
                         }
-                        submit={handleSubmit2}
+                        submit={handleConPBM}
                     ></BaseForm>
 
                 </Grid>
