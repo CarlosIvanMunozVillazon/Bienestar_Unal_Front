@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Incapacidad } from './interface/incapacidad.interface';
 
 
 export default function Incapacidades() {

@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AtencionSalud } from './interface/atencionSalud.interface';
 
 
 export default function AtencionSalud() {
