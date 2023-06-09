@@ -34,7 +34,6 @@ export default function Convocatorias() {
     // Form data collectors 'state holders'
     const [forEmprendimiento, setForEmprendimiento] = React.useState<convFomentoEmprendimiento>(
         {
-            cedula: 0,
             nombre: '',
             tema: ''
         }
@@ -135,7 +134,7 @@ export default function Convocatorias() {
     const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        apiCgfEmprendimiento.getCgfEmprendimiento(forEmprendimiento.cedula, forEmprendimiento.nombre, forEmprendimiento.tema).then((response) => {
+        apiCgfEmprendimiento.getCgfEmprendimiento(forEmprendimiento.nombre, forEmprendimiento.tema).then((response) => {
             setcgfEmprendimiento(response.data)
             console.log(cgfEmprendimiento)
         }).catch((Error) => {
@@ -220,8 +219,7 @@ export default function Convocatorias() {
                     <BaseForm title='Convocatoria Fomento emprendimiento'
                         children={
                             <>
-                                <TextField name='cedula' onChange={setEmprendimientoData} placeholder='Cédula' />
-                                <TextField name='nombre' onChange={setEmprendimientoData} placeholder='Cédula' />
+                                <TextField name='nombre' onChange={setEmprendimientoData} placeholder='Nombre' />
                                 <TextField name='tema' onChange={setEmprendimientoData} placeholder='Tema emprendimiento' />
                             </>
 

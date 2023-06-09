@@ -1,5 +1,4 @@
 export type convFomentoEmprendimiento = {
-    cedula : number,
     nombre : string,
     tema : string
 }
