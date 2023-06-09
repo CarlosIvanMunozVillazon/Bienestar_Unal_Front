@@ -1,32 +1,55 @@
 "use client"
 
 import React from 'react'
-import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
+import { Button, Grid, TextField } from '@mui/material'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { AtencionSalud } from './interface/atencionSalud.interface';
+import { apiAtencionesSalud } from '@/app/api/Salud/tramites/atencionSalud/atencionessalud';
 
 
 export default function AtencionSalud() {
 
-    //ConsultarEstadoAtencionEnSalud usa ***GET***
-    //Parámetros : user_id : number
-    const [estado_atencion, set_estado_atencion] = React.useState(null);
+    //1. Establecer donde vamos a guardar la información de nuestro formulario.
+    const [paramsEstadoAtencion, setParamsEstadoAtencion] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
+
+    //2. Manejo de los input para guardar los datos del input. Esta funcion debe ser llamada en los text input.
+    // Los cambios se guardan de manera progresiva.
+    const handleChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParamsEstadoAtencion({
+            ...paramsEstadoAtencion, [e.target.name]: e.target.value
+        })
+    }
+
+    //3. Establecemos donde vamos a guardar la respuesta.
+    const [estadosAtencion, setEstadosAtencion] = React.useState<AtencionSalud[] | null>(null);
+
+    //4. Definimos lo que sucede cuando se sube el formulario.
+    const handleConsultaEstadoAtencion = (e: React.FormEvent<HTMLFormElement>) => {
+        //Detenemos el comportamiento por defecto del formulario.
+        e.preventDefault();
+
+        //Llamamos las funciones asincronas para traer los datos.
+        apiAtencionesSalud.getAtencionesSalud(paramsEstadoAtencion.cedula).then((response) => {
+            setEstadosAtencion(response.data);
+            console.log(estadosAtencion)
+        }).catch((error) => {
+            console.log(`${error}`)
+        })
+    }
 
     //AgregarAtencionEnSalud usa ***POST*** 
     //Parámetros : user_id:number
     const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
-    
+
     //ModificarAtencionSalud usa ***PUT***
     const [modificarAtenciones, setmodificarAtenciones] = React.useState(null);
 
 
-    const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    }
     const hanldeSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
@@ -44,14 +67,11 @@ export default function AtencionSalud() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
                 <Grid item
                     sx={{ width: '75%' }}
                 >
                     <BaseForm title='Estado Atención' children={
-                        <TextField placeholder='Cédula' />
+                        <TextField name='cedula' onChange={handleChange1} placeholder='Cédula' />
                     }
                         children2={
                             <Button type='submit' variant="contained"
@@ -62,7 +82,7 @@ export default function AtencionSalud() {
                         children3={
                             <>
                                 {
-                                    estado_atencion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    estadosAtencion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -86,7 +106,7 @@ export default function AtencionSalud() {
                             </>
                         }
 
-                        submit={hanldeSubmit1}
+                        submit={handleConsultaEstadoAtencion}
                     ></BaseForm>
 
                 </Grid>
@@ -98,9 +118,7 @@ export default function AtencionSalud() {
                         <>
                             <TextField placeholder='Cédula' />
 
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY-MM-DD" />
-                            </LocalizationProvider>
+                            <TextField placeholder='Fecha' />
 
                             <TextField placeholder='Tipo' />
                         </>
@@ -151,9 +169,7 @@ export default function AtencionSalud() {
                         <>
                             <TextField placeholder='Cédula' />
 
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY-MM-DD" />
-                            </LocalizationProvider>
+                            <TextField placeholder='Fecha' />
 
                             <TextField placeholder='Tipo' />
                         </>
