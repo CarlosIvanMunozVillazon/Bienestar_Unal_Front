@@ -23,11 +23,11 @@ import {
     convEconomica,
     convTransporte
 } from '@/app/types/gestionYFomento/convocatorias/convocatorias';
-import { getCgfEmprendimiento } from '@/app/api/GestionFomento/convocatorias/conv_fomento_emprendimiento';
-import { getCgfAlimentaria } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alimentaria';
-import { getCgfAlojamiento } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alojamiento';
-import { getCgfEconomica } from '@/app/api/GestionFomento/convocatorias/conv_gestion_economica';
-import { getCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_gestion_transporte';
+import { apiCgfEmprendimiento } from '@/app/api/GestionFomento/convocatorias/conv_fomento_emprendimiento';
+import { apiCgfAlimentaria } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alimentaria';
+import { apiCgfAlojamiento } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alojamiento';
+import { apiCgfEconomica } from '@/app/api/GestionFomento/convocatorias/conv_gestion_economica';
+import { apiCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_gestion_transporte';
 
 export default function Convocatorias() {
 
@@ -132,7 +132,7 @@ export default function Convocatorias() {
     const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        getCgfEmprendimiento.getCgfEmprendimientoTema(forEmprendimiento.cedula, forEmprendimiento.tema).then((response) => {
+        apiCgfEmprendimiento.getCgfEmprendimiento(forEmprendimiento.cedula, forEmprendimiento.tema).then((response) => {
             setcgfEmprendimiento (response.data)
         }).catch((Error) => {
             console.log(Error)
@@ -144,7 +144,7 @@ export default function Convocatorias() {
     const handleAlimentaria = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        getCgfAlimentaria.getCgfAlimentariaMultiple(
+        apiCgfAlimentaria.getCgfAlimentariaMultiple(
             forAlimentaria.cedula, forAlimentaria.comida, forAlimentaria.lugar).then((response) => {
                 setcgfAlimentaria(response.data);
             }).catch((Error) => {
@@ -159,7 +159,7 @@ export default function Convocatorias() {
     const handleAlojamiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        getCgfAlojamiento.getByLocalidadTipo(
+        apiCgfAlojamiento.getByLocalidadTipo(
             forAlojamiento.cedula, forAlojamiento.localidad, forAlojamiento.tipo).then((response) => {
                 setcgfAlojamiento(response.data);
             }).catch((Error) => {
@@ -185,7 +185,7 @@ export default function Convocatorias() {
     const handleTransporte = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        getCgfTransporte.getcgfTransporteTipo(
+        apiCgfTransporte.getcgfTransporteTipo(
             forTransporte.cedula, forTransporte.tipo
         ).then((response) => {
             setcgfTransporte(response.data)

@@ -12,40 +12,74 @@ import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 
 import { BaseForm } from '@/app/components/General/BaseForm';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { actividades } from './interface/actividades.interface';
+import { apiActividadCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/actividad_corresponsabilidad';
+import { horasPendientes } from './interface/horasPendientes.interface';
+import { apiHorasCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/horas_corresponsabilidad';
 
 
 export default function Corresponsabilidad() {
 
-    const [corActividades, setCorActividades] = React.useState(null);
-    const [corHoras, setHoras] = React.useState(null);
+    //1. que una persona pueda consultar sus actividades de corresponsabilidad
+    const [paramsConsultarActividades, setParamsConsultarActividades] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
 
-    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //call endpoint function
+    //2. change handler
+    const handleChgConsultarCorresp = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParamsConsultarActividades({
+            ...paramsConsultarActividades, [e.target.name]: e.target.value
+        })
     }
 
-    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+    //3. data holders
+    const [actividadesCorresponsabilidad, setActividadesCorresponsabilidad] = React.useState<actividades[] | null>(null)
+
+    //4. submit handlers.
+    const handleConsultaActividadesCorr = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //call endpoint function
+
+        apiActividadCorresponsabilidad.getActividadPersona(paramsConsultarActividades.cedula).then((response) => {
+            setActividadesCorresponsabilidad(response.data)
+            console.log(actividadesCorresponsabilidad)
+        }).catch((Error) => {
+            console.log(`${Error} : No es posible consultar actividades.`)
+        })
     }
 
 
-    {/**
+    //1.
+    const [paramsConsultarHoras, setParamsConsultarHoras] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
 
-    # CORRESPONSABILIDAD # CORRESPONSABILIDAD # CORRESPONSABILIDAD    
-# 2.MI CORRESPONSABILIDAD
-    El estudiante puede consultar sus actividades de corresponsabilidad realizadas
-	sp_actividadcorresp_est(in id int)
+    //2.
+    const handleChgHoras = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setParamsConsultarHoras({
+            ...paramsConsultarHoras, [e.target.name] : e.target.value
+        })
+    }
 
-# 3.HORAS PENDIENTES CORRESPONSABILIDAD por actividad
-    El estudiante puede consultar la cantidad de horas pendientes de corresponsabilidad
-	function horas_corresponsabilidad_est(id_est int)
+    //3.
+    const [horasCorresponsabilidad, setHorasCorresponsabilidad] = React.useState<horasPendientes[] | null> (null);
     
-*/}
+    //4.
+    const hanldeConsultarHoras = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        apiHorasCorresponsabilidad.getHorasUser(paramsConsultarHoras.cedula).then((response) => {
+            setHorasCorresponsabilidad(response.data);
+            console.log(horasCorresponsabilidad)
+        }).catch((Error) => {
+            console.log(`${Error} : No se puede consultar horas de corresponsabilidad.`)
+        })
+    }
+
 
     return (
         <LayoutFomento>
-            <p>dos componentes para verificar horas faltantes y demás</p>
+            <p>Tres componentes para verificar horas faltantes y actividades realizadas y otro pa subir actividades realizadas.</p>
 
             <Grid container
                 component='main'
@@ -55,9 +89,6 @@ export default function Corresponsabilidad() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
                 <Grid item
                     sx={{ width: '75%' }}
                 >
@@ -65,7 +96,7 @@ export default function Corresponsabilidad() {
                     <BaseForm title='Mi corresponsabilidad'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
+                                <TextField name='cedula' onChange={handleChgConsultarCorresp} placeholder='Cédula' />
                             </>
                         }
 
@@ -77,31 +108,31 @@ export default function Corresponsabilidad() {
                         children3={
                             <>
 
-                            {
-                                corActividades !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {
+                                    actividadesCorresponsabilidad !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
+                                            {
+                                                // corActividades!.map(() => (
+                                                //     <Grid item xs={3}>
 
-                                            //     </Grid>
-                                            // ))
+                                                //     </Grid>
+                                                // ))
 
-                                        }
-                                    </Grid>
+                                            }
+                                        </Grid>
 
-                            ) : null}
+                                    ) : null}
                             </>
                         }
-                        submit={handleSubmit1}
+                        submit={handleConsultaActividadesCorr}
                     ></BaseForm>
 
                 </Grid>
@@ -109,11 +140,11 @@ export default function Corresponsabilidad() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    
+
                     <BaseForm title='Horas Pendientes'
                         children={
                             <>
-                                <TextField placeholder='Cédula' />
+                                <TextField name ='cedula' onChange={handleChgHoras} placeholder='Cédula' />
                             </>
                         }
 
@@ -124,31 +155,31 @@ export default function Corresponsabilidad() {
                         children3={
                             <>
 
-                            {
-                                corHoras !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {
+                                    horasCorresponsabilidad !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
 
-                                    {
-                                        // corHoras!.map((convocatoria) => (
-                                        //     <Grid item xs={3}>
+                                            {
+                                                // corHoras!.map((convocatoria) => (
+                                                //     <Grid item xs={3}>
 
-                                        //     </Grid>
-                                        // ))
+                                                //     </Grid>
+                                                // ))
 
-                                    }
-                                </Grid>
+                                            }
+                                        </Grid>
 
-                            ) : null}
+                                    ) : null}
                             </>
                         }
-                        submit={handleSubmit2}
+                        submit={hanldeConsultarHoras}
                     ></BaseForm>
 
                 </Grid>

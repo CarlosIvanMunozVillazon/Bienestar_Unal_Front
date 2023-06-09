@@ -8,5 +8,5 @@ export const apiInsertar_actividad_corresponsabilidad = {
             actividad : activity,
             horas: hours
         }})
-    }
+    },
 }
