@@ -1,14 +1,8 @@
 "use client"
-import BasicLayout from '@/app/layouts/BasicLayout'
-import { Autocomplete, AutocompleteRenderInputParams, Box, Button, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
 import React from 'react'
 
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import PaidIcon from '@mui/icons-material/Paid';
-import HomeIcon from '@mui/icons-material/Home';
-import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
-import WorkIcon from '@mui/icons-material/Work';
+import {Button, Grid, TextField} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import { convocatoriaEmprendimiento } from './interface/emprendimiento.interface';
 import { BaseForm } from '@/app/components/General/BaseForm';

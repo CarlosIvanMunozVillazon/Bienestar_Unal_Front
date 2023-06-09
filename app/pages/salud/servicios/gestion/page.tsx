@@ -79,8 +79,8 @@ export default function GestionarCitas() {
 
     return (
         <LayoutSalud>
-            <p>Put con user id para agendar cita</p>
-            <p>CancelarCita put con user id para el path y para el query fecha e incapacidad</p>
+            <br />
+            
             <Grid container
                 component='main'
                 alignItems='center'

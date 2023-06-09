@@ -118,7 +118,7 @@ export default function AtencionSalud() {
 
     return (
         <LayoutSalud>
-            <p>consultar, añadir, modificar AtencionSalud</p>
+            <br />
             <Grid container
                 component='main'
                 alignItems='center'

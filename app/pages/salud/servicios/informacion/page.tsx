@@ -91,7 +91,8 @@ export default function Informacion() {
 
     return (
         <LayoutSalud>
-            <p>Citas disponibles</p>
+            <br />
+
             <Grid container
                 component='main'
                 alignItems='center'
