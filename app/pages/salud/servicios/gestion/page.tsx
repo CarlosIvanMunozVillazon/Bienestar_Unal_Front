@@ -3,7 +3,7 @@
 import React from 'react'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
-import { Grid, Paper, Box, Typography, Stack, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BaseForm } from '@/app/components/General/BaseForm';
