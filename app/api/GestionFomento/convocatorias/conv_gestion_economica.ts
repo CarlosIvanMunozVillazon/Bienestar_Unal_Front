@@ -4,16 +4,11 @@ const endpoint : string = 'conv_gestion_economica';
 const GREATER_THAN : string = 'mayor_igual';
 const LESS :string = 'menor';
 
-export const getCgfEconomica = {
-    getByUserId : (user_id:number) => {
-        return instance.get(`${endpoint}/${user_id}`)
-    },
-
-    getGreaterThan : (user_id:number, filter : number) => {
-        return instance.get(`${endpoint}/${user_id}/${GREATER_THAN}/${filter}`)
-    },
-
-    getSmallest : (user_id:number, filter : number) => {
-        return instance.get(`${endpoint}/${user_id}/${LESS}/${filter}`)
+export const apiCgfEconomica = {
+    getByUserId : (user_id:number, filt_min : number, filt_max : number) => {
+        return instance.get(`${endpoint}/${user_id}`, {params: {
+            filter_min: filt_min,
+            filter_max: filt_max
+        }})
     }
 }

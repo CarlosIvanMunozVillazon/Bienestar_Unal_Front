@@ -2,20 +2,11 @@ import { instance } from "../../base.api";
 
 const endpoint : string = 'conv_gestion_alojamiento'
 
-export const getCgfAlojamiento = {
-
-    getByLocalidadTipo : (user_id : number , localidad : string, tipo : string) => {
-        return instance.get(`${endpoint}/${user_id}/${localidad}/${tipo}`)
-    },
-
-    getByLocalidad : (user_id : number , localidad : string) => {
-        return instance.get(`${endpoint}/${user_id}/${localidad}`)
-    },
-
-    getById : (user_id : number) => {
-        return instance.get(`${endpoint}/${user_id}`)
-    },
-
-
-
+export const apiCgfAlojamiento = {
+    getByUserId : (user_id : number , neighbhour : string, type : string) => {
+        return instance.get(`${endpoint}/${user_id}`, {params: {
+            localidad: neighbhour,
+            tipo: type
+        }})
+    }
 }
