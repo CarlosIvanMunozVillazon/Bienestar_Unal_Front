@@ -29,3 +29,29 @@ De aqui necesito los nombres de los doctores y las fechas
     "especialidad": "General",
     "doctor": "Laura Miguel"
   }
+
+0
+: 
+{Key: 0, fecha: '2024-11-10T00:10:00', especialidad: 'Optometra', doctor: 'Ana Gabriela'}
+1
+: 
+{Key: 1, fecha: '2024-02-29T00:10:00', especialidad: 'Psicologia', doctor: 'Mónica Mónica'}
+2
+: 
+{Key: 2, fecha: '2024-06-17T00:10:00', especialidad: 'General', doctor: 'Laura Miguel'}
+
+
+PLACEHOLDER ATENCIONES EN SALUD:
+
+101010117
+
+[
+  {
+    "Key": 0,
+    "id": 5,
+    "fecha": "2023-07-16T12:10:00",
+    "tipo": "Fisioterapia",
+    "verificado": 0,
+    "aprobado": 0
+  }
+]
