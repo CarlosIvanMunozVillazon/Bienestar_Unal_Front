@@ -35,6 +35,7 @@ export default function Convocatorias() {
     const [forEmprendimiento, setForEmprendimiento] = React.useState<convFomentoEmprendimiento>(
         {
             cedula: 0,
+            nombre: '',
             tema: ''
         }
     )
@@ -57,7 +58,9 @@ export default function Convocatorias() {
 
     const [forEconomica, setForEconomica] = React.useState<convEconomica>(
         {
-            cedula: 0
+            cedula: 0,
+            filter_min: 0,
+            filter_max: 0
         }
     )
 
@@ -67,20 +70,20 @@ export default function Convocatorias() {
             tipo: ''
         }
     )
-    
+
 
     // API data holders 'state holders'
     const [cgfEmprendimiento, setcgfEmprendimiento] = React.useState<convocatoriaEmprendimiento[] | null>(null)
-    
+
     const [cgfAlimentaria, setcgfAlimentaria] = React.useState<convocatoriaAlimento[] | null>(null)
-    
+
     const [cgfAlojamiento, setcgfAlojamiento] = React.useState<convocatoriaAlojamiento[] | null>(null)
-    
+
     const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEconomica[] | null>(null)
-    
+
     const [cgfTransporte, setcgfTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
-  
-    
+
+
     // Data setters 'on change handlers'
     const setEmprendimientoData = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -132,34 +135,33 @@ export default function Convocatorias() {
     const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        apiCgfEmprendimiento.getCgfEmprendimiento(forEmprendimiento.cedula, forEmprendimiento.tema).then((response) => {
-            setcgfEmprendimiento (response.data)
+        apiCgfEmprendimiento.getCgfEmprendimiento(forEmprendimiento.cedula, forEmprendimiento.nombre, forEmprendimiento.tema).then((response) => {
+            setcgfEmprendimiento(response.data)
+            console.log(cgfEmprendimiento)
         }).catch((Error) => {
             console.log(Error)
         })
 
-        console.log(cgfEmprendimiento)
+
     }
 
     const handleAlimentaria = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        apiCgfAlimentaria.getCgfAlimentariaMultiple(
+        apiCgfAlimentaria.getCgfAlimentaria(
             forAlimentaria.cedula, forAlimentaria.comida, forAlimentaria.lugar).then((response) => {
                 setcgfAlimentaria(response.data);
+                console.log(cgfAlimentaria)
             }).catch((Error) => {
                 console.log(Error)
             })
 
-
-        console.log(cgfAlimentaria)
-        
     }
 
     const handleAlojamiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        apiCgfAlojamiento.getByLocalidadTipo(
+        apiCgfAlojamiento.getByUserId(
             forAlojamiento.cedula, forAlojamiento.localidad, forAlojamiento.tipo).then((response) => {
                 setcgfAlojamiento(response.data);
             }).catch((Error) => {
@@ -171,8 +173,8 @@ export default function Convocatorias() {
     const handleEconomica = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        getCgfEconomica.getByUserId(
-            forEconomica.cedula
+        apiCgfEconomica.getByUserId(
+            forEconomica.cedula, forEconomica.filter_min, forEconomica.filter_max
         ).then((response) => {
             setcgfEconomica(response.data)
         }).catch(
@@ -185,10 +187,12 @@ export default function Convocatorias() {
     const handleTransporte = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //call endpoint function
-        apiCgfTransporte.getcgfTransporteTipo(
+        apiCgfTransporte.getcgfTransporte(
             forTransporte.cedula, forTransporte.tipo
         ).then((response) => {
             setcgfTransporte(response.data)
+        }).catch((error) => {
+            console.log(`${error}`)
         })
         console.log(cgfTransporte)
     }
@@ -196,8 +200,6 @@ export default function Convocatorias() {
     return (
         <LayoutFomento>
             <br />
-            <p>5 componentes de consulta y resultados para las convocatorias</p>
-
 
             <Grid container
                 component='main'
@@ -219,6 +221,7 @@ export default function Convocatorias() {
                         children={
                             <>
                                 <TextField name='cedula' onChange={setEmprendimientoData} placeholder='Cédula' />
+                                <TextField name='nombre' onChange={setEmprendimientoData} placeholder='Cédula' />
                                 <TextField name='tema' onChange={setEmprendimientoData} placeholder='Tema emprendimiento' />
                             </>
 
@@ -277,7 +280,6 @@ export default function Convocatorias() {
                                 <TextField name='cedula' onChange={setAlimentariaData} placeholder='Cédula' />
                                 <TextField name='comida' onChange={setAlimentariaData} placeholder='Comida' />
                                 <TextField name='lugar' onChange={setAlimentariaData} placeholder='Lugar' />
-
                             </>
 
                         }
@@ -381,7 +383,14 @@ export default function Convocatorias() {
 
                     <BaseForm title='Convocatoria Gestión Económica'
                         children={
-                            <TextField name='cedula' onChange={setEconomicaData} placeholder='Cédula' />
+                            <>
+                                <TextField name='cedula' onChange={setEconomicaData} placeholder='Cédula' />
+
+                                <TextField name='filter_min' onChange={setEconomicaData} placeholder='Min' />
+
+                                <TextField name='filter_max' onChange={setEconomicaData} placeholder='Max' />
+                            </>
+
                         }
 
                         children2={
