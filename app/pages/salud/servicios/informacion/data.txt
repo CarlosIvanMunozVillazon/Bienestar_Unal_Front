@@ -1,0 +1,31 @@
+Citas Medicas
+101010117
+1010101131
+101010158
+1010101100
+101010130
+101010119
+
+Incapacidad:
+1010101132
+
+Atencion en salud: 
+10101019
+101010116
+101010117
+
+Formato de respuesta citas :
+De aqui necesito los nombres de los doctores y las fechas
+  {
+    "Key": 0,
+    "fecha": "2024-10-29T11:10:30",
+    "especialidad": "General",
+    "doctor": "Laura Miguel"
+  }
+
+ {
+    "Key": 1,
+    "fecha": "2024-06-17T00:10:00",
+    "especialidad": "General",
+    "doctor": "Laura Miguel"
+  }
