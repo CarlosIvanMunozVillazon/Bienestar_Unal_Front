@@ -1,6 +1,6 @@
 export interface Cita {
-    Key:          number;
-    Fecha:        string;
-    Especialidad: string;
-    Doctor:       string;
+    key:          number;
+    fecha:        string;
+    especialidad: string;
+    doctor:       string;
 }
