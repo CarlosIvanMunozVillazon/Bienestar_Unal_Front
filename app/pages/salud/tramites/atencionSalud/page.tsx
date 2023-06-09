@@ -87,7 +87,7 @@ export default function AtencionSalud() {
 
     //Función que usa PUT
 
-    //1. Defino donde voy a guardar los parametros que van a ir al put. Usando el tipo que defini para el formulario.
+    //1. Defino donde voy a guardar los parametros que van a ir al put. Usando el tipo que defini para el formulario. //YA
     const [paramsModificarAtencionSalud, setParamsModificarAtencionSalud] = React.
         useState<formModificarAtencionSalud>({
             atencionsalud_id: 0,
@@ -98,8 +98,8 @@ export default function AtencionSalud() {
     //2. Defino la funcion que recopila los datos de los inputs.
     const handleChangeModificaciones = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        setParamsEstadoAtencion({
-            ...paramsEstadoAtencion, [e.target.name]: e.target.value
+        setParamsModificarAtencionSalud({
+            ...paramsModificarAtencionSalud, [e.target.name]: e.target.value
         })
     }
 
