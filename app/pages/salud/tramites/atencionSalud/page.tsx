@@ -8,6 +8,9 @@ import { BaseForm } from '@/app/components/General/BaseForm';
 import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
 import { AtencionSalud } from './interface/atencionSalud.interface';
 import { apiAtencionesSalud } from '@/app/api/Salud/tramites/atencionSalud/atencionessalud';
+import { formInsertarAtencionSalud, formModificarAtencionSalud } from '@/app/types/salud/tramites/atencionSalud/formGestionAtencionSalud';
+import { apiModificarAtencionSalud } from '@/app/api/Salud/tramites/atencionSalud/modificar_atencionsalud';
+import { apiInsertarAtencionSalud } from '@/app/api/Salud/tramites/atencionSalud/insertar_atencionsalud';
 
 
 export default function AtencionSalud() {
@@ -42,20 +45,77 @@ export default function AtencionSalud() {
         })
     }
 
+
+    //Funcion que usa POST:
+
     //AgregarAtencionEnSalud usa ***POST*** 
     //Parámetros : user_id:number
+
+    //1. guardar parametros del form
+    const [paramsAgregarAtencionSalud, setParamsAgregarAtencionSalud] = React.useState<formInsertarAtencionSalud>({
+        user_id: 0,
+        fecha : '',
+        tipo : ''
+    })
+
+    //2. guardar input de los campos de texto
+    const handleChangeAgregar = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParamsAgregarAtencionSalud({
+            ...paramsAgregarAtencionSalud, [e.target.name] : e.target.value
+        })
+    }
+
+    //3. enviar los datos al backend manejando el evento del formulario
+    const handleAgregar = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        apiInsertarAtencionSalud.postInsertarAtencionSalud(paramsAgregarAtencionSalud.user_id, paramsAgregarAtencionSalud.fecha, paramsAgregarAtencionSalud.tipo).then((response) => {
+            console.log(response.data)
+        }).catch((error) => console.log(`${error}`))
+    }
+    
+
+
+
     const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
 
     //ModificarAtencionSalud usa ***PUT***
     const [modificarAtenciones, setmodificarAtenciones] = React.useState(null);
 
 
-    const hanldeSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+
+
+    //Función que usa PUT
+
+    //1. Defino donde voy a guardar los parametros que van a ir al put. Usando el tipo que defini para el formulario.
+    const [paramsModificarAtencionSalud, setParamsModificarAtencionSalud] = React.
+        useState<formModificarAtencionSalud>({
+            atencionsalud_id: 0,
+            fecha: '',
+            tipo: ''
+        })
+
+    //2. Defino la funcion que recopila los datos de los inputs.
+    const handleChangeModificaciones = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setParamsEstadoAtencion({
+            ...paramsEstadoAtencion, [e.target.name]: e.target.value
+        })
     }
-    const hanldeSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
+
+    //3. Defino lo que sucede al momento de subir el formulario
+    const handleModificacion = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        apiModificarAtencionSalud.putModificarAtencionSalud(paramsModificarAtencionSalud.atencionsalud_id, paramsModificarAtencionSalud.fecha, paramsModificarAtencionSalud.tipo).then((response) => {
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(`${error}: Imposible modificar información.`)
+        })
     }
+
+
+
     return (
         <LayoutSalud>
             <p>consultar, añadir, modificar AtencionSalud</p>
@@ -116,11 +176,11 @@ export default function AtencionSalud() {
                 >
                     <BaseForm title='Agregar Atención' children={
                         <>
-                            <TextField placeholder='Cédula' />
+                            <TextField name = 'user_id' onChange = {handleChangeAgregar} placeholder='Cédula' />
 
-                            <TextField placeholder='Fecha' />
+                            <TextField name = 'fecha' onChange = {handleChangeAgregar} placeholder='Fecha' />
 
-                            <TextField placeholder='Tipo' />
+                            <TextField name = 'tipo' onChange = {handleChangeAgregar} placeholder='Tipo' />
                         </>
                     }
                         children2={
@@ -157,7 +217,7 @@ export default function AtencionSalud() {
                             </>
                         }
 
-                        submit={hanldeSubmit2}
+                        submit={handleAgregar}
                     ></BaseForm>
 
                 </Grid>
@@ -167,11 +227,11 @@ export default function AtencionSalud() {
                 >
                     <BaseForm title='Modificar Atención' children={
                         <>
-                            <TextField placeholder='Cédula' />
+                            <TextField name='atencionsalud_id' onChange={handleChangeModificaciones} placeholder='Cédula' />
 
-                            <TextField placeholder='Fecha' />
+                            <TextField name='fecha' onChange={handleChangeModificaciones} placeholder='Fecha' />
 
-                            <TextField placeholder='Tipo' />
+                            <TextField name='tipo' onChange={handleChangeModificaciones} placeholder='Tipo' />
                         </>
                     }
                         children2={
@@ -208,14 +268,10 @@ export default function AtencionSalud() {
                             </>
                         }
 
-                        submit={hanldeSubmit3}
+                        submit={handleModificacion}
                     ></BaseForm>
 
                 </Grid>
-
-
-
-
             </Grid>
         </LayoutSalud >
     )

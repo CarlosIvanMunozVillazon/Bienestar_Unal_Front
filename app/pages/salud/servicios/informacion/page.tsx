@@ -5,6 +5,7 @@ import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import { Cita } from './interface/cita.interface';
+import { ResultadoCita } from './interface/resultadoCita.interface';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
 import { apiCitasDisponibles } from '@/app/api/Salud/servicios/informacion/citas_medicas_disponibles';
@@ -38,7 +39,7 @@ export default function Informacion() {
     
     const [citasAgendadas, setcitasAgendadas] = React.useState<Cita[] | null>(null);
     
-    const [resultadosCitas, setresultadosCitas] = React.useState<Cita[] | null>(null);
+    const [resultadosCitas, setresultadosCitas] = React.useState<ResultadoCita[] | null>(null);
 
 
     //Guardado de datos de formularios
