@@ -10,12 +10,13 @@ import HomeIcon from '@mui/icons-material/Home';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import WorkIcon from '@mui/icons-material/Work';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
+import LayoutTienda from '@/app/layouts/LayoutTienda';
 
 export default function TiendaBienestar() {
     return (
-        <LayoutFomento>
+        <LayoutTienda>
             <p>Página tienda bienestar; aún por implementar.</p>
-        </LayoutFomento>
+        </LayoutTienda>
     )
 }
 // #6. Una persona/estudiante/secretario/director quiere consultar sus facturas con los detalles en la Tienda de bienestar U
