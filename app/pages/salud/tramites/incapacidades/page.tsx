@@ -1,38 +1,113 @@
 "use client"
 
 import React from 'react'
-import { Box, Breadcrumbs, Button, Divider, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material'
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
+import { Button, Grid, TextField } from '@mui/material'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Incapacidad } from './interface/incapacidad.interface';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { apiIncapacidades } from '@/app/api/Salud/tramites/incapacidades/incapacidades';
+import { formInsertarIncapacidad, formModificarIncapacidad } from '@/app/types/salud/tramites/incapacidades/formsIncapacidades';
+import { apiInsertarIncapacidad } from '@/app/api/Salud/tramites/incapacidades/insertar_incapacidad';
+import { apiModificarIncapacidad } from '@/app/api/Salud/tramites/incapacidades/modificar_incapacidad';
 
 
 export default function Incapacidades() {
 
-    //Consultar estado incapacidad usa ***GET***
-    //Parámetros : user_id
-    const [get_estado_incapacidad, set_get_estado_incapacidad] = React.useState(null);
-    
-    //Agregar nuevas incapacidades usa ***POST***
-    //Parámetros : user_id
+    //1. definir donde guardo lo que se ingresa en los formularios.
+    const [paramsEstadoIncapacidad, setParamsEstadoIncapacidad] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
+
+    //2. manejar lo que sucede cuando se escribe en el input.
+    const handleChangeEstadoInc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParamsEstadoIncapacidad({
+            ...paramsEstadoIncapacidad, [e.target.name]: e.target.value
+        })
+    }
+
+    //3. definir donde vamos a guardar la respuesta de la consulta
+    const [incapacidadesRecibidas, setincapacidadesRecibidas] = React.useState<Incapacidad[] | null>(null);
+
+    //4. definimos lo que ocurre al momento de subir el formulario.
+    const handleConsultarEstado = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiIncapacidades.getIncapacidades(paramsEstadoIncapacidad.cedula).then((response) => {
+            setincapacidadesRecibidas(response.data)
+            console.log(incapacidadesRecibidas)
+        }).catch((error) => {
+            console.log(`${error}`)
+        })
+
+    }
+
+
+    // @app.post("/insertar_incapacidad/{user_id}", tags=["Salud"])
+    // async def add_incapacidad(user_id: int, fecha: datetime.datetime, enfermedad: str, dias: int):
+
+    //1. Definir guardado de datos
+    const [paramsAgregarIncapacidad, setParamsAgregarIncapacidad] = React.useState<formInsertarIncapacidad>({
+        cedula: 0,
+        fecha: '',
+        enfermedad: '',
+        dias: 0
+    })
+
+    //2. Definir change handler
+    const handleChgAgregarIncapacidad = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setParamsAgregarIncapacidad({
+            ...paramsAgregarIncapacidad, [e.target.name]: e.target.value
+        })
+    }
+
+    //3. Definir submit handler
+    const handleAgregarIncapacidad = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        apiInsertarIncapacidad.postInsertarIncapacidad(paramsAgregarIncapacidad.cedula, paramsAgregarIncapacidad.fecha, paramsAgregarIncapacidad.enfermedad, paramsAgregarIncapacidad.dias).then((response) => {
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(`${error}: Imposible agregar incapacidad nueva.`)
+        })
+    }
+
+
+    //1. as usual
+    const [paramsModificarIncapacidad, setParamsModificarIncapacidad] = React.useState<formModificarIncapacidad>({
+        IdIncapacidad: 0,
+        fecha: '',
+        enfermedad: '',
+        dias: 0
+    })
+
+    //2. as usual xddd
+    const handleChgModificarInc = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setParamsModificarIncapacidad({
+            ...paramsModificarIncapacidad, [e.target.name] : e.target.value
+        })
+    }
+
+    //3. as usual than ever XD
+
+    const handleModificarIncapacidad = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiModificarIncapacidad.putModificarIncapacidad(paramsModificarIncapacidad.IdIncapacidad, paramsModificarIncapacidad.fecha, paramsModificarIncapacidad.enfermedad, paramsModificarIncapacidad.dias).then((response) => {
+            console.log(response.data)
+        }).catch((Error) => {
+            console.log(`${Error}: Imposible modificar incapacidad`)
+        })
+    }
+
     const [agregar_incapacidad, set_agregar_incapacidad] = React.useState(null);
-    
+
     //Modificar incapacidades usa ***PUT****
     const [modificar_incapacidad, set_modificar_incapacidad] = React.useState(null);
 
-    const hanldeSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    }
-    const hanldeSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    }
-    const hanldeSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    }
+
     return (
         <LayoutSalud>
             <p>estado incapacidad get con solo el id del usuario</p>
@@ -44,25 +119,22 @@ export default function Incapacidades() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
                 <Grid item
                     sx={{ width: '75%' }}
                 >
                     <BaseForm title='Estado Incapacidad' children={
-                        <TextField placeholder='Cédula' />
+                        <TextField name='cedula' onChange={handleChangeEstadoInc} placeholder='Cédula' />
                     }
                         children2={
                             <Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
+                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
 
                         }
 
                         children3={
                             <>
                                 {
-                                    get_estado_incapacidad !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    incapacidadesRecibidas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -86,7 +158,7 @@ export default function Incapacidades() {
                             </>
                         }
 
-                        submit={hanldeSubmit1}
+                        submit={handleConsultarEstado}
                     ></BaseForm>
 
                 </Grid>
@@ -96,20 +168,18 @@ export default function Incapacidades() {
                 >
                     <BaseForm title='Agregar Incapacidad' children={
                         <>
-                            <TextField placeholder='Cédula' />
+                            <TextField name='cedula' onChange={handleChgAgregarIncapacidad} placeholder='Cédula' />
 
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY-MM-DD" />
-                            </LocalizationProvider>
+                            <TextField name='fecha' onChange={handleChgAgregarIncapacidad} placeholder='Fecha' />
 
-                            <TextField placeholder='Enfermedad' />
+                            <TextField name='enfermedad' onChange={handleChgAgregarIncapacidad} placeholder='Enfermedad' />
 
-                            <TextField placeholder='Días' />
+                            <TextField name='dias' onChange={handleChgAgregarIncapacidad} placeholder='Días' />
                         </>
                     }
                         children2={
                             <Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Agregar</Button>
+                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Agregar</Button>
                         }
 
                         children3={
@@ -139,7 +209,7 @@ export default function Incapacidades() {
                             </>
                         }
 
-                        submit={hanldeSubmit2}
+                        submit={handleAgregarIncapacidad}
                     ></BaseForm>
 
                 </Grid>
@@ -149,21 +219,19 @@ export default function Incapacidades() {
                 >
                     <BaseForm title='Modificar Incapacidad' children={
                         <>
-                            <TextField placeholder='id Incapacidad' />
+                            <TextField name = 'IdIncapacidad' onChange = {handleChgModificarInc} placeholder='id Incapacidad' />
 
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format="YYYY-MM-DD" />
-                            </LocalizationProvider>
+                            <TextField name = 'fecha' onChange = {handleChgModificarInc} placeholder='fecha' />
 
 
-                            <TextField placeholder='Enfermedad' />
-                            <TextField placeholder='Días' />
+                            <TextField name = 'enfermedad' onChange = {handleChgModificarInc}placeholder='Enfermedad' />
+                            <TextField name = 'dias' onChange = {handleChgModificarInc} placeholder='Días' />
                         </>
                     }
                         children2={
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Modificar</Button>
-
+                                                   
 
                         }
 
@@ -194,7 +262,7 @@ export default function Incapacidades() {
                             </>
                         }
 
-                        submit={hanldeSubmit3}
+                        submit={handleModificarIncapacidad}
                     ></BaseForm>
 
                 </Grid>

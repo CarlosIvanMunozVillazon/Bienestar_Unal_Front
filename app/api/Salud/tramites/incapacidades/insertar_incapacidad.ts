@@ -5,10 +5,11 @@ const endpoint : string = 'insertar_incapacidad';
 export const apiInsertarIncapacidad = {
 
     postInsertarIncapacidad : function (user_id : number, date : string, sickness : string , days : number) {
-        return instance.post(`${user_id}`,{
+        return instance.post(`${endpoint}/${user_id}`,{ params : {
             fecha : date,
             enfermedad : sickness,
             dias : days
+            }
         })
     }
 }

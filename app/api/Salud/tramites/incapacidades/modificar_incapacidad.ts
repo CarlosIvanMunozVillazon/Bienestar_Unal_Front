@@ -4,9 +4,10 @@ const endpoint : string = 'modificar_incapacidad'
 
 export const apiModificarIncapacidad = {
 
-    putModificarIncapacidad : function (incapacidad_id : number, date : string, sickness : string,
+    putModificarIncapacidad : function (iD_incapacidad : number, date : string, sickness : string,
         days : number) {
-            return instance.put(`${endpoint}/${incapacidad_id}`, null, {params : {
+            return instance.put(`${endpoint}`, null, {params : {
+                incapacidad_id : iD_incapacidad,
                 fecha : date,
                 enfermedad : sickness,
                 dias : days
