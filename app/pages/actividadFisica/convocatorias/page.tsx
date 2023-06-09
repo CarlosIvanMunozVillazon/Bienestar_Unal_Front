@@ -14,6 +14,8 @@ import LayoutDeporte from '@/app/layouts/LayoutDeporte';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/AdapterDayjs';
+import { CursoLibre } from './interface/cursosLibres.interface';
+import { ConvocatoriasUsuario } from './interface/convocatoriasUsuario.interface';
 
 export default function Convocatorias() {
     // #CONVOCATORIAS

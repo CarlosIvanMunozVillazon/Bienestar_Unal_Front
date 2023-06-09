@@ -6,6 +6,7 @@ import { Button, Grid, TextField} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
+import { PerfilRiesgo } from './interface/perfilRiesgo.interface';
 
 
 export default function MiPerfildeRiesgo() {

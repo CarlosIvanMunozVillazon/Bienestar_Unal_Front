@@ -1,4 +1,4 @@
 export interface pbm {
-    key:          number;
-    pbm:        number;
+    key: number;
+    pbm: number;
 }

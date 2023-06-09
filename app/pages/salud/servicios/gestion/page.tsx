@@ -63,7 +63,7 @@ export default function GestionarCitas() {
         apiCancelarCitaMedica.putCancelarCita(paramsCancelarCita.cedula, paramsCancelarCita.fecha, paramsCancelarCita.especialidad).then((response) => {  
             console.log(response.data)
         }).catch((error) => {
-            console.log(`${error}: hubo un error actualizando`)
+            console.log(`${error}: hubo un error cancelando`)
         })
 
     }
