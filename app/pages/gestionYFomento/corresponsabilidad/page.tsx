@@ -17,6 +17,8 @@ import { actividades } from './interface/actividades.interface';
 import { apiActividadCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/actividad_corresponsabilidad';
 import { horasPendientes } from './interface/horasPendientes.interface';
 import { apiHorasCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/horas_corresponsabilidad';
+import { formInsertarActividadCor } from '@/app/types/gestionYFomento/corresponsabilidad/corresponsaibiliad';
+import { apiInsertarActividadCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/insertar_actividad_corresponsabilidad';
 
 
 export default function Corresponsabilidad() {
@@ -55,19 +57,19 @@ export default function Corresponsabilidad() {
     })
 
     //2.
-    const handleChgHoras = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleChgHoras = (e: React.ChangeEvent<HTMLInputElement>) => {
         setParamsConsultarHoras({
-            ...paramsConsultarHoras, [e.target.name] : e.target.value
+            ...paramsConsultarHoras, [e.target.name]: e.target.value
         })
     }
 
     //3.
-    const [horasCorresponsabilidad, setHorasCorresponsabilidad] = React.useState<horasPendientes[] | null> (null);
-    
+    const [horasCorresponsabilidad, setHorasCorresponsabilidad] = React.useState<horasPendientes[] | null>(null);
+
     //4.
     const hanldeConsultarHoras = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiHorasCorresponsabilidad.getHorasUser(paramsConsultarHoras.cedula).then((response) => {
             setHorasCorresponsabilidad(response.data);
             console.log(horasCorresponsabilidad)
@@ -76,6 +78,31 @@ export default function Corresponsabilidad() {
         })
     }
 
+
+    //1.
+    const [paramsInsertarCor, setParamsInsertarCor] = React.useState<formInsertarActividadCor> ({
+        cedula : 0,
+        actividad : '',
+        horas : 0
+    })
+
+    //2.
+    const handleChgInsertarHoras = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setParamsInsertarCor({
+            ...paramsInsertarCor, [e.target.name] : e.target.value
+        })
+    }
+    
+    //3.
+    const handleInsertarHoras = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiInsertarActividadCorresponsabilidad.post_insertar_actividad_corresponsabilidad(paramsInsertarCor.cedula,
+            paramsInsertarCor.actividad, paramsInsertarCor.horas).then((response) => {
+                console.log(response.data)
+            }).catch((Error) => {
+                console.log(`${Error} Imposible insertar horas, hay un error.`)
+            })
+    }
 
     return (
         <LayoutFomento>
@@ -144,7 +171,7 @@ export default function Corresponsabilidad() {
                     <BaseForm title='Horas Pendientes'
                         children={
                             <>
-                                <TextField name ='cedula' onChange={handleChgHoras} placeholder='Cédula' />
+                                <TextField name='cedula' onChange={handleChgHoras} placeholder='Cédula' />
                             </>
                         }
 
@@ -180,6 +207,56 @@ export default function Corresponsabilidad() {
                             </>
                         }
                         submit={hanldeConsultarHoras}
+                    ></BaseForm>
+
+                </Grid>
+
+                <Grid item
+                    sx={{ width: '75%' }}
+                >
+
+                    <BaseForm title='Registrar mi corresponsabilidad.'
+                        children={
+                            <>
+                                <TextField name='cedula' onChange={handleChgInsertarHoras} placeholder='Cédula' />
+                                <TextField name='actividad' onChange={handleChgInsertarHoras} placeholder='Actividad' />
+                                <TextField name='horas' onChange={handleChgInsertarHoras} placeholder='Horas' />
+                            </>
+                        }
+
+                        children2={
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Insertar</Button>
+
+                        }
+
+                        children3={
+                            <>
+
+                                {
+                                    actividadesCorresponsabilidad !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%" }}>
+
+                                            {
+                                                // corActividades!.map(() => (
+                                                //     <Grid item xs={3}>
+
+                                                //     </Grid>
+                                                // ))
+
+                                            }
+                                        </Grid>
+
+                                    ) : null}
+                            </>
+                        }
+                        submit={handleInsertarHoras}
                     ></BaseForm>
 
                 </Grid>
