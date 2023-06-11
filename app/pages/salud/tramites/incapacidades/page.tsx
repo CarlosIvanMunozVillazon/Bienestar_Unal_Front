@@ -1,12 +1,11 @@
 "use client"
 
 import React from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import { Incapacidad } from './interface/incapacidad.interface';
 import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
 import { apiIncapacidades } from '@/app/api/Salud/tramites/incapacidades/incapacidades';
@@ -84,10 +83,10 @@ export default function Incapacidades() {
     })
 
     //2. as usual xddd
-    const handleChgModificarInc = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleChgModificarInc = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         setParamsModificarIncapacidad({
-            ...paramsModificarIncapacidad, [e.target.name] : e.target.value
+            ...paramsModificarIncapacidad, [e.target.name]: e.target.value
         })
     }
 
@@ -110,7 +109,7 @@ export default function Incapacidades() {
 
     return (
         <LayoutSalud>
-            <p>estado incapacidad get con solo el id del usuario</p>
+            <br />
             <Grid container
                 component='main'
                 alignItems='center'
@@ -142,19 +141,59 @@ export default function Incapacidades() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    FECHA
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    VERIFICADO
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    APROBADO
+                                                </Typography>
+                                            </Grid>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
+                                                incapacidadesRecibidas!.map((incapacidad) => (
+                                                    <>
+                                                        <Grid key={incapacidad.key} item xs={3}>
+                                                            {incapacidad.id}
+                                                        </Grid>
 
-                                                //     </Grid>
-                                                // ))
+                                                        <Grid key={incapacidad.key + 1} item xs={3}>
+                                                            {incapacidad.fecha}
+                                                        </Grid>
 
+                                                        <Grid key={incapacidad.key + 2} item xs={3}>
+                                                            {incapacidad.verificado}
+                                                        </Grid>
+
+                                                        <Grid key={incapacidad.key + 3} item xs={3}>
+                                                            {incapacidad.aprobado}
+                                                        </Grid>
+                                                    </>
+
+                                                ))
                                             }
+
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No hay incapacidades registradas.</p>}
                             </>
                         }
 
@@ -219,19 +258,19 @@ export default function Incapacidades() {
                 >
                     <BaseForm title='Modificar Incapacidad' children={
                         <>
-                            <TextField name = 'IdIncapacidad' onChange = {handleChgModificarInc} placeholder='id Incapacidad' />
+                            <TextField name='IdIncapacidad' onChange={handleChgModificarInc} placeholder='id Incapacidad' />
 
-                            <TextField name = 'fecha' onChange = {handleChgModificarInc} placeholder='fecha' />
+                            <TextField name='fecha' onChange={handleChgModificarInc} placeholder='fecha' />
 
 
-                            <TextField name = 'enfermedad' onChange = {handleChgModificarInc}placeholder='Enfermedad' />
-                            <TextField name = 'dias' onChange = {handleChgModificarInc} placeholder='Días' />
+                            <TextField name='enfermedad' onChange={handleChgModificarInc} placeholder='Enfermedad' />
+                            <TextField name='dias' onChange={handleChgModificarInc} placeholder='Días' />
                         </>
                     }
                         children2={
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Modificar</Button>
-                                                   
+
 
                         }
 
@@ -261,13 +300,9 @@ export default function Incapacidades() {
                                     ) : null}
                             </>
                         }
-
                         submit={handleModificarIncapacidad}
                     ></BaseForm>
-
                 </Grid>
-
-
             </Grid>
         </LayoutSalud>
     )

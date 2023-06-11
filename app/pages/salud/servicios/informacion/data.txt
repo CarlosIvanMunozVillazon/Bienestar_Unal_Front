@@ -54,10 +54,22 @@ PLACEHOLDER ATENCIONES EN SALUD:
 [
   {
     "Key": 0,
-    "id": 5,
-    "fecha": "2023-07-16T12:10:00",
-    "tipo": "Fisioterapia",
+    "id": 5, *
+    "fecha": "2023-07-16T12:10:00", *
+    "tipo": "Fisioterapia", *
     "verificado": 0,
     "aprobado": 0
   }
 ]
+
+PLACEHOLDER Incapacidades:
+
+ {
+    "Key": 0,
+    "Answer": {
+      "msg": "PROCEDURE Bienestar.pas_view_incapacidad does not exist",
+      "_full_msg": "1305 (42000): PROCEDURE Bienestar.pas_view_incapacidad does not exist",
+      "errno": 1305,
+      "sqlstate": "42000"
+    }
+  }

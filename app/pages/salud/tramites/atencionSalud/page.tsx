@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import LayoutSalud from '@/app/layouts/LayoutSalud';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
@@ -141,28 +141,52 @@ export default function AtencionSalud() {
 
                         children3={
                             <>
-                                {
-                                    estadosAtencion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            { estadosAtencion !== null ? (
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
 
-                                        <Grid container
-                                            component="div"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            direction="row"
-                                            spacing={1}
-                                            sx={{ height: "100%" }}>
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
+                                    >
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
 
-                                            {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            FECHA
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            TIPO
+                                        </Typography>
+                                    </Grid>
+                                    {
+                                        estadosAtencion!.map((atencion) => (
+                                            <>
+                                                <Grid key={atencion.key} item xs={4}>
+                                                    {atencion.id}
+                                                </Grid>
 
-                                                //     </Grid>
-                                                // ))
+                                                <Grid key={atencion.key + 1} item xs={4}>
+                                                    {atencion.fecha}
+                                                </Grid>
 
-                                            }
-                                        </Grid>
+                                                <Grid key={atencion.key + 2} item xs={4}>
+                                                    {atencion.tipo}
+                                                </Grid>
+                                            </>
+                                        ))
+                                    }
+                                </Grid>
 
-                                    ) : null}
+                                ) : <p>No hay atenciones registradas.</p>}
                             </>
                         }
 
