@@ -1,6 +1,6 @@
 "use client"
-import BasicLayout from '@/app/layouts/BasicLayout'
-import { Button, Grid, Stack, TextField, Typography } from '@mui/material'
+
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react'
 
@@ -15,23 +15,70 @@ import { BaseForm } from '@/app/components/General/BaseForm';
 import { TorneoInterno } from './interface/torneosInternos.interface';
 import { EventoTaller } from './interface/eventoTaller.interface';
 import { Proyecto } from './interface/proyecto.interface';
+import { apiTorneosInternos } from '@/app/api/Deporte/otros/torneosInternos';
+import { formConsutlarEventoTaller } from '@/app/types/Deporte/otros/formOtros';
+import { taller_evento_proyecto } from './interface/taller_evento_proyecto.interface';
+import { apiEventoTaller } from '@/app/api/Deporte/otros/eventoTaller';
 
 export default function Otros() {
 
-    const [torneos, setTorneos] = React.useState(null);
-    const [eventosta, setEventosta] = React.useState(null);
+    //Torneos Internos:
+    //1.
+    const [torneos, setTorneos] = React.useState<TorneoInterno [] | null>(null);
+
+    //2.
+    const handleTorneos = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        apiTorneosInternos.getTorneos().then((response) => {
+            setTorneos(response.data);
+            console.log(torneos)
+        }).catch((Error) => {
+            console.log(`${Error} No es posible consultar torneos internos.`)
+        })
+    }
+
+
+    //Eventos y Talleres:
+    //1.
+    const [parEveta, setParEveta] = React.useState<formConsutlarEventoTaller>({
+
+        id_eve_ta : 0
+    })
+
+    //2.
+    const handleChgEveta = (e : React.ChangeEvent<HTMLInputElement>) => {
+
+        setParEveta ({
+            ...parEveta , [e.target.name] : e.target.value 
+        })
+    }
+
+    //3.
+    const [eventosTalleres, setEventosTalleres] = React.useState<taller_evento_proyecto [] | null> (null);
+
+    //4.
+    const handleEveta = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        apiEventoTaller.getEventoTaller(parEveta.id_eve_ta).then((response) => {
+            setEventosTalleres(response.data);
+            console.log(eventosTalleres)
+        }).catch((Error) => {
+            console.log(`${Error} No es posible consultar eventos y talleres.`)
+        })
+    }
+
+
+    
+    
+    
+    
+    
     const [proyectos, setProyectos] = React.useState(null);
     const [evetetaPrograma, setEvetaPrograma] = React.useState(null);
 
-    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //endpoint function here
-    }
 
-    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //endpoint function here
-    }
 
     const handleSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -96,7 +143,7 @@ export default function Otros() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit1}
+                        </>} submit={handleTorneos}
                     ></BaseForm>
 
                 </Grid>
@@ -108,14 +155,14 @@ export default function Otros() {
                 >
 
                     <BaseForm title='Consultar eventos y talleres' children={
-                        <TextField placeholder='id EventoTaller' />
+                        <TextField name = 'id_eve_ta' onChange = {handleChgEveta} placeholder='id EventoTaller' />
                     }
 
                         children2={<Button type='submit' variant="contained"
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
-                            {eventosta !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {eventosTalleres !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -135,7 +182,7 @@ export default function Otros() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit2}
+                        </>} submit={handleEveta}
                     ></BaseForm>
 
 
