@@ -1,59 +1,123 @@
 "use client"
-import BasicLayout from '@/app/layouts/BasicLayout'
-import { Button, Grid, Stack, TextField, Typography } from '@mui/material'
+
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react'
-
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import PaidIcon from '@mui/icons-material/Paid';
-import HomeIcon from '@mui/icons-material/Home';
-import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
-import WorkIcon from '@mui/icons-material/Work';
-import LayoutFomento from '@/app/layouts/LayoutFomento';
 import LayoutDeporte from '@/app/layouts/LayoutDeporte';
 import { BaseForm } from '@/app/components/General/BaseForm';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/AdapterDayjs';
 import { CursoLibre } from './interface/cursosLibres.interface';
 import { ConvocatoriasUsuario } from './interface/convocatoriasUsuario.interface';
+import { formConsultarPorPrograma, formParticiparConv } from '@/app/types/Deporte/convocatorias/formConvDeporte';
+import { apiParticiparConvocatoria } from '@/app/api/Deporte/Convocatorias/participarConvocatoria';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { apiCursosLibres } from '@/app/api/Deporte/Convocatorias/cursosLibres';
+import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
+import { apiConvsDeporte } from '@/app/api/Deporte/Convocatorias/convocatoriaPrograma';
 
 export default function Convocatorias() {
-    // #CONVOCATORIAS
-    // # 4. Un estudiante quiere participar en una convocatoria
-    // 	pas_participar_convocatoria(in ccEstudiante int, in idConv int, in fechaInscripcion date)
 
-    // # 5. Un estudiante quiere consultar las convocatorias en las que participa
-    // 	sp_consultar_mis_convocatorias (in cedula int)
+    //Participar Convocatorias
+    //1. 
+    const [parParticiparConv, setParParticiparConv] = React.useState<formParticiparConv>(
+        {
+            cedula: 0,
+            id_conv: 0,
+            fecha: ''
+        }
+    )
 
-    // # 7. Se requiere consultar las convocatorias que hay por programa de deporte.
-    // 	sp_consultar_convocatorias_deporte(in idPrograma int) usar id's programas de deportes
+    //2.
+    const hanldeChgParticipar = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    // # 2. Un usuario necesita ver los cursos libres de deportes disponibles
-    // 	sp_consultar_convocatoria_cursos_libres()
+        setParParticiparConv({
 
-    const [participarConv, setparticiparConv] = React.useState(null);
-    const [misConvs, setmisConvs] = React.useState(null);
-    const [convsProgramas, setconvsProgramas] = React.useState(null);
-    const [convCurLibre, setEvetaPrograma] = React.useState(null);
-
-    const handleSubmit1 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //endpoint function here
+            ...parParticiparConv, [e.target.name]: e.target.value
+        })
     }
 
-    const handleSubmit2 = (e: React.FormEvent<HTMLFormElement>) => {
+    //3.
+    const handleParticipar = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //endpoint function here
+
+        apiParticiparConvocatoria.postParticiparConvocatoria(parParticiparConv.cedula, parParticiparConv.id_conv, parParticiparConv.fecha).then((response) => {
+            console.log(response.data)
+        }).catch((Error) => {
+            console.log(Error)
+        })
     }
 
-    const handleSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //endpoint function here
+
+    //Mis convocatorias.
+    //1.
+    const [consMisConvs, setConsMisConvs] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
+
+    //2.
+    const handleChgMisConvs = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setConsMisConvs({
+            ...consMisConvs, [e.target.name]: e.target.value
+        })
     }
+
+    //3.
+    const [misConvocatorias, setMisConvocatorias] = React.useState<ConvocatoriasUsuario[] | null>(null);
+
+    //4.
+    const handleMisConvs = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        apiMisConvocatorias.getMisConvocatorias(parParticiparConv.cedula).then((response) => {
+            setMisConvocatorias(response.data);
+            console.log(misConvocatorias)
+        }).catch((Error) => {
+            console.log(Error)
+        })
+    }
+
+
+    //Convocatorias por programa:
+    //1.
+    const [parConsConvPrograma, setparConsConvPrograma] = React.useState<formConsultarPorPrograma>({
+        id_programa: 0
+    })
+
+    //2.
+    const handleChgConvPrograma = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setparConsConvPrograma({
+            ...parConsConvPrograma, [e.target.name]: e.target.value
+        })
+    }
+
+    //3.
+    const [convsPorPrograma, setConvsPorPrograma] = React.useState<ConvocatoriasUsuario[] | null>(null);
+
+    //4.
+    const handleConvsPrograma = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        apiConvsDeporte.getConvPrograma(parConsConvPrograma.id_programa).then((response) => {
+            setConvsPorPrograma(response.data);
+            console.log(convsPorPrograma)
+        }).catch((Error) => {
+            console.log(`${Error} No es posible traer convocatorias por programa.`)
+        })
+    }
+
+
+    //ConsultarCursosLibres:
+    const [convCursosLibres, setCursosLibres] = React.useState<CursoLibre[] | null>(null);
 
     const handleSubmit4 = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //endpoint function here
+
+        apiCursosLibres.getCursosLibres().then((response) => {
+            setCursosLibres(response.data);
+        }).catch((Error) => {
+            console.log(`${Error} No es posible ver cursos libres.`)
+        })
     }
 
     return (
@@ -74,11 +138,10 @@ export default function Convocatorias() {
 
                     <BaseForm title='Participar en convocatoria' children={
                         <>
-                            <TextField placeholder='Cédula'></TextField>
-                            <TextField placeholder='id Convocatoria'></TextField>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker format='YYYY-MM-DD' label='Fecha Inscripción' />
-                            </LocalizationProvider>
+                            <TextField name='cedula' onChange={hanldeChgParticipar} placeholder='Cédula'></TextField>
+                            <TextField name='id_conv' onChange={hanldeChgParticipar} placeholder='id Convocatoria'></TextField>
+                            <TextField name='fecha' onChange={hanldeChgParticipar} placeholder='Fecha Inscripción'></TextField>
+
                         </>
 
 
@@ -88,7 +151,7 @@ export default function Convocatorias() {
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Participar</Button>}
 
                         children3={<>
-                            {participarConv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {/* {participarConv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -106,9 +169,9 @@ export default function Convocatorias() {
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : null} */}
 
-                        </>} submit={handleSubmit1}
+                        </>} submit={handleParticipar}
                     ></BaseForm>
 
                 </Grid>
@@ -120,14 +183,14 @@ export default function Convocatorias() {
                 >
 
                     <BaseForm title='Mis convocatorias' children={
-                        <TextField placeholder='Cédula' />
+                        <TextField name='cedula' onChange={handleChgMisConvs} placeholder='Cédula' />
                     }
 
                         children2={<Button type='submit' variant="contained"
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
-                            {misConvs !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {misConvocatorias !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -147,7 +210,7 @@ export default function Convocatorias() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit2}
+                        </>} submit={handleMisConvs}
                     ></BaseForm>
 
 
@@ -158,14 +221,14 @@ export default function Convocatorias() {
                 >
 
                     <BaseForm title='Convocatorias por programa deportes' children={
-                        <TextField placeholder='id Programa' />
+                        <TextField name='id_programa' onChange={handleChgConvPrograma} placeholder='id Programa' />
                     }
 
                         children2={<Button type='submit' variant="contained"
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
-                            {convsProgramas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {convsPorPrograma !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -185,7 +248,7 @@ export default function Convocatorias() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit3}
+                        </>} submit={handleConvsPrograma}
                     ></BaseForm>
 
 
@@ -203,7 +266,7 @@ export default function Convocatorias() {
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
-                            {convCurLibre !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {convCursosLibres !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
