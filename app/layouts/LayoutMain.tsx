@@ -9,14 +9,16 @@ type deporteLayoutProps = {
 }
 
 
-export default function LayoutDeporte({ children }: deporteLayoutProps) {
+export default function LayoutMain({ children }: deporteLayoutProps) {
 
     //Sports secction layout
     return (
         <>
-            <BasicNavbar backgroundColor='orange' pageName='Actividad Física & Deporte'>
+            <BasicNavbar backgroundColor='Purple' pageName='Bienvenido !'>
+                <>
 
-                <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
+                </>
+                {/* <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
                 <Divider />
 
                 <IconButton>
@@ -29,7 +31,9 @@ export default function LayoutDeporte({ children }: deporteLayoutProps) {
                     <Link underline='hover' color='GrayText' href='/pages/actividadFisica/otros'>
                         <Typography variant="body1" textAlign="center">otros</Typography>
                     </Link>
-                </IconButton>
+                </IconButton>*/}
+
+                
             </BasicNavbar>
 
             <Grid

@@ -4,9 +4,9 @@ const endpoint : string = 'convocatorias_usuario';
 
 export const apiMisConvocatorias = {
 
-    getMisConvocatorias : (id : number) => {
+    getMisConvocatorias : (idPersona : number) => {
         return instance.get(`${endpoint}`, {params : {
-            cedula : id
+            cedula : idPersona
         }})
     }
 }
