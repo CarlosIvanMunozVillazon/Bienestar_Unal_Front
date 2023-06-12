@@ -1,35 +1,32 @@
 "use client"
 
+import React from 'react'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react'
 
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import PaidIcon from '@mui/icons-material/Paid';
-import HomeIcon from '@mui/icons-material/Home';
-import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
-import WorkIcon from '@mui/icons-material/Work';
-import LayoutFomento from '@/app/layouts/LayoutFomento';
-import LayoutDeporte from '@/app/layouts/LayoutDeporte';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { TorneoInterno } from './interface/torneosInternos.interface';
-import { EventoTaller } from './interface/eventoTaller.interface';
 import { Proyecto } from './interface/proyecto.interface';
 import { apiTorneosInternos } from '@/app/api/Deporte/otros/torneosInternos';
-import { formConsutlarEventoTaller } from '@/app/types/Deporte/otros/formOtros';
+import { formConsultarEventoTaller, formProyectos } from '@/app/types/Deporte/otros/formOtros';
 import { taller_evento_proyecto } from './interface/taller_evento_proyecto.interface';
 import { apiEventoTaller } from '@/app/api/Deporte/otros/eventoTaller';
+import { apiProyectos } from '@/app/api/Deporte/otros/proyectos';
+import LayoutDeporte from '@/app/layouts/LayoutDeporte';
+import { formConsultarPorPrograma } from '@/app/types/Deporte/convocatorias/formConvDeporte';
+import { EventoTaller } from './interface/eventoTaller.interface';
+import { apiEveTaPrograma } from '@/app/api/Deporte/otros/eventoTallerPrograma';
 
 export default function Otros() {
 
     //Torneos Internos:
     //1.
-    const [torneos, setTorneos] = React.useState<TorneoInterno [] | null>(null);
+    const [torneos, setTorneos] = React.useState<TorneoInterno[] | null>(null);
 
     //2.
     const handleTorneos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiTorneosInternos.getTorneos().then((response) => {
             setTorneos(response.data);
             console.log(torneos)
@@ -39,64 +36,94 @@ export default function Otros() {
     }
 
 
-    //Eventos y Talleres:
+    //Eventos y Talleres: info sobre el evento taller.
     //1.
-    const [parEveta, setParEveta] = React.useState<formConsutlarEventoTaller>({
+    const [parEveta, setParEveta] = React.useState<formConsultarEventoTaller>({
 
-        id_eve_ta : 0
+        id_eve_ta: 0
     })
 
     //2.
-    const handleChgEveta = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleChgEveta = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        setParEveta ({
-            ...parEveta , [e.target.name] : e.target.value 
+        setParEveta({
+            ...parEveta, [e.target.name]: e.target.value
         })
     }
 
-    //3.
-    const [eventosTalleres, setEventosTalleres] = React.useState<taller_evento_proyecto [] | null> (null);
+    //3. //VERIFICAR
+    const [eventosTalleres, setEventosTalleres] = React.useState<EventoTaller[] | null>(null);
 
     //4.
     const handleEveta = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiEventoTaller.getEventoTaller(parEveta.id_eve_ta).then((response) => {
             setEventosTalleres(response.data);
             console.log(eventosTalleres)
         }).catch((Error) => {
-            console.log(`${Error} No es posible consultar eventos y talleres.`)
+            console.log(`${Error} No es posible el evento deseado.`)
         })
     }
 
 
-    
-    
-    
-    
-    
-    const [proyectos, setProyectos] = React.useState(null);
-    const [evetetaPrograma, setEvetaPrograma] = React.useState(null);
+    //Proyectos.
+    //1.
+    const [parProyectos, setParProyectos] = React.useState<formProyectos>({
+        idProyecto: 0
+    })
 
+    //2.
+    const handleChgProyectos = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-
-    const handleSubmit3 = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        //endpoint function here
+        setParProyectos({
+            ...parProyectos, [e.target.name]: e.target.value
+        })
     }
 
-    const handleSubmit4 = (e: React.FormEvent<HTMLFormElement>) => {
+    //3.
+    const [proyectos, setProyectos] = React.useState<Proyecto[] | null>(null);
+
+    //4.    
+    const handleProyectos = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //endpoint function here
+
+        apiProyectos.getProyectos(parProyectos.idProyecto).then((response) => {
+            setProyectos(response.data);
+            console.log(proyectos)
+        }).catch((Error) => {
+            console.log(`${Error} Imposible consultar proyectos.`)
+        })
     }
-    // OTROS
-    // # 1. Un usuario necesita ver los torneos internos disponibles
-    // 	sp_consultar_torneos_internos() **
 
-  
-    // # 6. Se quiere consultar información acerca de eventos, talleres y proyectos disponbibles para el área de deporte
-    // 	pas_consultar_eventoTaller_programa (in idPrograma int) usar id's programas de deportes
 
+    //Eventos y talleres por programa: eventoTallerPrograma
+    //1.
+    const [parEvetaPrograma, setParEvetaPrograma] = React.useState<formConsultarPorPrograma>({
+        id_programa: 0
+    })
+
+    //2.
+    const handleChgPrograma2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setParEvetaPrograma({
+            ...parEvetaPrograma, [e.target.name]: e.target.value
+        })
+    }
+
+    //3.
+    const [evetetaPrograma, setEvetaPrograma] = React.useState<taller_evento_proyecto[] | null>(null);
+
+    //4.
+    const handleEventosYTalleres = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        apiEveTaPrograma.getEvetaPrograma(parEvetaPrograma.id_programa).then((response) => {
+            setEvetaPrograma(response.data);
+        }).catch((Error) => {
+            console.log(`${Error} No hay eventos y talleres disponibles.`)
+        })
+    }
 
     return (
         <LayoutDeporte>
@@ -154,8 +181,8 @@ export default function Otros() {
                     sx={{ width: '75%' }}
                 >
 
-                    <BaseForm title='Consultar eventos y talleres' children={
-                        <TextField name = 'id_eve_ta' onChange = {handleChgEveta} placeholder='id EventoTaller' />
+                    <BaseForm title='Información Eventos y Talleres' children={
+                        <TextField name='id_eve_ta' onChange={handleChgEveta} placeholder='id EventoTaller' />
                     }
 
                         children2={<Button type='submit' variant="contained"
@@ -193,7 +220,7 @@ export default function Otros() {
                 >
 
                     <BaseForm title='Consultar proyectos' children={
-                        <TextField placeholder='id Proyecto' />
+                        <TextField name='idProyecto' onChange={handleChgProyectos} placeholder='id Proyecto' />
                     }
 
                         children2={<Button type='submit' variant="contained"
@@ -220,7 +247,7 @@ export default function Otros() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit3}
+                        </>} submit={handleProyectos}
                     ></BaseForm>
 
 
@@ -231,7 +258,7 @@ export default function Otros() {
                 >
 
                     <BaseForm title='Consultar eventos y talleres por programa' children={
-                        <TextField placeholder='id Programa' />
+                        <TextField name='id_programa' onChange={handleChgPrograma2} placeholder='id Programa' />
                     }
 
                         children2={<Button type='submit' variant="contained"
@@ -258,7 +285,7 @@ export default function Otros() {
 
                             ) : null}
 
-                        </>} submit={handleSubmit4}
+                        </>} submit={handleEventosYTalleres}
                     ></BaseForm>
 
 

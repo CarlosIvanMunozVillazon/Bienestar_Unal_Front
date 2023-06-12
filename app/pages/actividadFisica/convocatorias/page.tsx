@@ -13,6 +13,7 @@ import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/forms
 import { apiCursosLibres } from '@/app/api/Deporte/Convocatorias/cursosLibres';
 import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
 import { apiConvsDeporte } from '@/app/api/Deporte/Convocatorias/convocatoriaPrograma';
+import { convocatorias_deporte } from './interface/convocatorias_deporte.interface';
 
 export default function Convocatorias() {
 
@@ -92,7 +93,7 @@ export default function Convocatorias() {
     }
 
     //3.
-    const [convsPorPrograma, setConvsPorPrograma] = React.useState<ConvocatoriasUsuario[] | null>(null);
+    const [convsPorPrograma, setConvsPorPrograma] = React.useState<convocatorias_deporte[] | null>(null);
 
     //4.
     const handleConvsPrograma = (e: React.FormEvent<HTMLFormElement>) => {

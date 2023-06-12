@@ -21,14 +21,14 @@ export default function Informacion() {
 
     //2. Citas agendadas
     const [paramsCitasAgendadas, setParamsCitasAgendadas] = React.useState<formInfoPorCedula>({
-        cedula : 0
+        cedula: 0
     })
 
     //3. Resultados de citas
     const [paramsResultadosCitas, setParamsResultadosCitas] = React.useState<formInfoPorCedula>({
-        cedula : 0
+        cedula: 0
     })
-    
+
     //******************** */
     //Aqui todos usan el interface de cita para las respuestas.
     //******************** */
@@ -36,22 +36,22 @@ export default function Informacion() {
 
     //Guardado de respuestas de peticiones
     const [citasDisponibles, setcitasDisponibles] = React.useState<Cita[] | null>(null);
-    
+
     const [citasAgendadas, setcitasAgendadas] = React.useState<Cita[] | null>(null);
-    
+
     const [resultadosCitas, setresultadosCitas] = React.useState<ResultadoCita[] | null>(null);
 
 
     //Guardado de datos de formularios
     const valueCitasAgendadas = (e: React.ChangeEvent<HTMLInputElement>) => {
         setParamsCitasAgendadas({
-            ...paramsCitasAgendadas, [e.target.name]:e.target.value
+            ...paramsCitasAgendadas, [e.target.name]: e.target.value
         })
     }
 
     const valueResultadosCitas = (e: React.ChangeEvent<HTMLInputElement>) => {
         setParamsResultadosCitas({
-            ...paramsResultadosCitas, [e.target.name] : e.target.value
+            ...paramsResultadosCitas, [e.target.name]: e.target.value
         })
     }
 
@@ -59,7 +59,7 @@ export default function Informacion() {
     //Consumidores de API
     const handleCitasDisponibles = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiCitasDisponibles.getCitasDisponibles().then((response) => {
             setcitasDisponibles(response.data)
             console.log(citasDisponibles)
@@ -70,7 +70,7 @@ export default function Informacion() {
 
     const handleMisCitas = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiCitasAgendadas.getCitasAgendadas(paramsCitasAgendadas.cedula).then((response) => {
             setcitasAgendadas(response.data)
             console.log(citasAgendadas)
@@ -80,8 +80,8 @@ export default function Informacion() {
     }
     const handleMisResultados = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        apiResultadoCitaMedica.getResultadoId(paramsResultadosCitas.cedula).then((response)=> {
+
+        apiResultadoCitaMedica.getResultadoId(paramsResultadosCitas.cedula).then((response) => {
             setresultadosCitas(response.data)
             console.log(resultadosCitas)
         }).catch((error) => {
@@ -92,7 +92,6 @@ export default function Informacion() {
     return (
         <LayoutSalud>
             <br />
-
             <Grid container
                 component='main'
                 alignItems='center'
@@ -108,94 +107,133 @@ export default function Informacion() {
                         <Typography variant='h6'>Citas Disponibles
                         </Typography>
                     }
-
                         children2={<Button type='submit' variant="contained"
                             sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
-                            {citasDisponibles !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
+                            {citasDisponibles !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
                                 <Grid container
                                     component="div"
                                     justifyContent="center"
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
 
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
+                                    >
+                                        <Typography variant='body1'>
+                                            FECHA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            ESPECIALIDAD
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DOCTOR
+                                        </Typography>
+                                    </Grid>
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        citasDisponibles!.map((cita) => (
+                                            <>
+                                                <Grid key={cita.key} item xs={4}>
+                                                    {cita.fecha}
+                                                </Grid>
+
+                                                <Grid key={cita.key + 1} item xs={4}>
+                                                    {cita.especialidad}
+                                                </Grid>
+
+                                                <Grid key={cita.key + 2} item xs={4}>
+                                                    {cita.doctor}
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
                                 </Grid>
-
-                            ) : null}
-
+                            ) : <p>No hay citas disponibles.</p>}
                         </>} submit={handleCitasDisponibles}
                     ></BaseForm>
 
                 </Grid>
-
                 <Grid item
                     sx={{ width: '75%' }}>
-
                     <BaseForm title='Mis Citas' children={
                         <TextField name='cedula' onChange={valueCitasAgendadas} placeholder='Cédula' />
                     }
-
                         children2={
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
 
                         }
-
                         children3={
                             <>
-                                {
-                                    citasAgendadas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {citasAgendadas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%", mt: 3 }}>
 
-                                        <Grid container
-                                            component="div"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            direction="row"
-                                            spacing={1}
-                                            sx={{ height: "100%" }}>
-
-                                            {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
-
-                                            }
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
+                                        >
+                                            <Typography variant='body1'>
+                                                FECHA
+                                            </Typography>
                                         </Grid>
 
-                                    ) : null}
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                            <Typography variant='body1'>
+                                                ESPECIALIDAD
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                            <Typography variant='body1'>
+                                                DOCTOR
+                                            </Typography>
+                                        </Grid>
+                                        {
+                                            citasAgendadas!.map((cita) => (
+                                                <>
+                                                    <Grid key={cita.key} item xs={4}>
+                                                        {cita.fecha}
+                                                    </Grid>
+
+                                                    <Grid key={cita.key + 1} item xs={4}>
+                                                        {cita.especialidad}
+                                                    </Grid>
+
+
+                                                    <Grid key={cita.key + 2} item xs={4}>
+                                                        {cita.doctor}
+                                                    </Grid>
+                                                </>
+                                            ))
+                                        }
+                                    </Grid>
+                                ) : <p>No hay citas agendadas.</p>}
                             </>
                         }
-
                         submit={handleMisCitas}
                     ></BaseForm>
-
-
                 </Grid>
 
                 <Grid item
                     sx={{ width: '75%' }}>
-
                     <BaseForm title='Resultados de Citas' children={
-                        <TextField name = 'cedula' onChange = {valueResultadosCitas} placeholder='Cédula' />
+                        <TextField name='cedula' onChange={valueResultadosCitas} placeholder='Cédula' />
                     }
-
                         children2={
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>
                         }
-
                         children3={
                             <>
                                 {
@@ -207,28 +245,59 @@ export default function Informacion() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
 
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    FECHA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    ESPECIALIDAD
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    DIAGNÓSTICO
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    EXÁMEN
+                                                </Typography>
+                                            </Grid>
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
+                                                resultadosCitas!.map((resultado) => (
+                                                    <>
+                                                        <Grid key={resultado.key} item xs={3}>
+                                                            {resultado.fecha}
+                                                        </Grid>
 
-                                                //     </Grid>
-                                                // ))
+                                                        <Grid key={resultado.key + 1} item xs={3}>
+                                                            {resultado.especialidad}
+                                                        </Grid>
 
+
+                                                        <Grid key={resultado.key + 2} item xs={3}>
+                                                            {resultado.diagnostico}
+                                                        </Grid>
+
+                                                        <Grid key={resultado.key + 2} item xs={3}>
+                                                            {resultado.examen}
+                                                        </Grid>
+                                                    </>
+                                                ))
                                             }
-                                        </Grid>
 
-                                    ) : null}
+                                        </Grid>
+                                    ) : <p>Resultados no disponibles.</p>}
                             </>
                         }
-
-                        submit={
-                            handleMisResultados
-                        }
+                        submit={handleMisResultados}
                     />
                 </Grid>
-
             </Grid>
         </LayoutSalud >
     )

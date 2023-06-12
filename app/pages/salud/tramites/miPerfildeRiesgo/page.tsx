@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Button, Grid, TextField} from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import LayoutSalud from '@/app/layouts/LayoutSalud';
@@ -14,19 +14,19 @@ export default function MiPerfildeRiesgo() {
 
 
     //1.
-    const [paramsPerfilDeRiesgo, setParamsPerfilDeRiesgo] = React.useState<formInfoPorCedula> ({
-        cedula : 0
+    const [paramsPerfilDeRiesgo, setParamsPerfilDeRiesgo] = React.useState<formInfoPorCedula>({
+        cedula: 0
     })
 
     //2.
-    const handleChg = (e : React.ChangeEvent <HTMLInputElement>) => {
+    const handleChg = (e: React.ChangeEvent<HTMLInputElement>) => {
         setParamsPerfilDeRiesgo({
-            ...paramsPerfilDeRiesgo, [e.target.name] : e.target.value
+            ...paramsPerfilDeRiesgo, [e.target.name]: e.target.value
         })
     }
 
     //3.
-    const [datosPerfilDeRiesgo, setDatosPerfilDeRiesgo] = React.useState<PerfilRiesgo[] | null> (null);
+    const [datosPerfilDeRiesgo, setDatosPerfilDeRiesgo] = React.useState<PerfilRiesgo[] | null>(null);
 
     //4. 
     const handleConsulaPerfil = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,10 +38,6 @@ export default function MiPerfildeRiesgo() {
             console.log(`${Error} Imposible consultar perfil de riesgo`)
         })
     }
-    
-    //Consultar perfil de riesgo usa ***GET***
-    //Parámetros : user_id : number
-    const [get_perfilDeRiesgo, setperfilDeRiesgo] = React.useState(null);
 
 
     return (
@@ -55,14 +51,11 @@ export default function MiPerfildeRiesgo() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
                 <Grid item
                     sx={{ width: '75%' }}
                 >
                     <BaseForm title='Mi perfil de riesgo' children={
-                        <TextField name = 'cedula' onChange={handleChg} placeholder='Cédula' />
+                        <TextField name='cedula' onChange={handleChg} placeholder='Cédula' />
                     }
                         children2={
                             <Button type='submit' variant="contained"
@@ -81,19 +74,55 @@ export default function MiPerfildeRiesgo() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
 
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    FECHA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    PUNTAJE FISICO
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    PUNTAJE PSICOLOGICO
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    DISCAPACIDAD
+                                                </Typography>
+                                            </Grid>
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
+                                                datosPerfilDeRiesgo!.map((resultado) => (
+                                                    <>
+                                                        <Grid key={resultado.key} item xs={3}>
+                                                            {resultado.fecha}
+                                                        </Grid>
 
-                                                //     </Grid>
-                                                // ))
+                                                        <Grid key={resultado.key + 1} item xs={3}>
+                                                            {resultado.puntaje_fisico}
+                                                        </Grid>
 
+
+                                                        <Grid key={resultado.key + 2} item xs={3}>
+                                                            {resultado.puntaje_psicologico}
+                                                        </Grid>
+
+                                                        <Grid key={resultado.key + 2} item xs={3}>
+                                                            {resultado.discapacidad}
+                                                        </Grid>
+                                                    </>
+                                                ))
                                             }
+
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>Su perfil de riesgo no está disponible.</p>}
                             </>
                         }
 
@@ -103,6 +132,6 @@ export default function MiPerfildeRiesgo() {
                 </Grid>
 
             </Grid>
-        </LayoutSalud>
+        </LayoutSalud >
     )
 }
