@@ -62,7 +62,7 @@ export default function Otros() {
             setEventosTalleres(response.data);
             console.log(eventosTalleres)
         }).catch((Error) => {
-            console.log(`${Error} No es posible el evento deseado.`)
+            console.log(`${Error} No es posible consultar el evento deseado.`)
         })
     }
 
@@ -434,62 +434,46 @@ export default function Otros() {
                                     sx={{ height: "100%", mt: 3 }}>
 
 
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
                                         <Typography variant='body1'>
                                             ID
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
                                         <Typography variant='body1'>
                                             NOMBRE
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
-                                        <Typography variant='body1'>
-                                            DESCRIPCIÓN
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             HORA INICIO
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
                                         <Typography variant='body1'>
                                             FECHA
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
-                                        <Typography variant='body1'>
-                                            LUGAR
-                                        </Typography>
-                                    </Grid>
+                                    
 
                                     {
                                         evetetaPrograma!.map((evento) => (
                                             <>
-                                                <Grid item key={evento.Key} xs={2}>
+                                                <Grid item key={evento.Key} xs={3}>
                                                     {evento.evetaidEventoTaller}
                                                 </Grid>
 
-                                                <Grid item key={evento.Key + 1} xs={2}>
+                                                <Grid item key={evento.Key + 1} xs={3}>
                                                     {evento.evetaNombre}
                                                 </Grid>
 
-                                                <Grid item key={evento.Key + 2} xs={2}>
-                                                    {evento.eveDescripcion}
-                                                </Grid>
-
-                                                <Grid item key={evento.Key + 3} xs={2}>
+                                                <Grid item key={evento.Key + 3} xs={3}>
                                                     {evento.evetaHoraInicio}
                                                 </Grid>
 
-                                                <Grid item key={evento.Key + 4} xs={2}>
+                                                <Grid item key={evento.Key + 4} xs={3}>
                                                     {evento.evetaFecha}
-                                                </Grid>
-
-                                                <Grid item key={evento.Key + 5} xs={2}>
-                                                    {evento.evetaLugar}
                                                 </Grid>
                                             </>
                                         ))

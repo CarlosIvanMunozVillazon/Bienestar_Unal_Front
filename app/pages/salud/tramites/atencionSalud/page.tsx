@@ -11,6 +11,7 @@ import { apiAtencionesSalud } from '@/app/api/Salud/tramites/atencionSalud/atenc
 import { formInsertarAtencionSalud, formModificarAtencionSalud } from '@/app/types/salud/tramites/atencionSalud/formGestionAtencionSalud';
 import { apiModificarAtencionSalud } from '@/app/api/Salud/tramites/atencionSalud/modificar_atencionsalud';
 import { apiInsertarAtencionSalud } from '@/app/api/Salud/tramites/atencionSalud/insertar_atencionsalud';
+import { response } from './interface/response.interface';
 
 
 export default function AtencionSalud() {
@@ -54,35 +55,27 @@ export default function AtencionSalud() {
     //1. guardar parametros del form
     const [paramsAgregarAtencionSalud, setParamsAgregarAtencionSalud] = React.useState<formInsertarAtencionSalud>({
         user_id: 0,
-        fecha : '',
-        tipo : ''
+        fecha: '',
+        tipo: ''
     })
 
     //2. guardar input de los campos de texto
     const handleChangeAgregar = (e: React.ChangeEvent<HTMLInputElement>) => {
         setParamsAgregarAtencionSalud({
-            ...paramsAgregarAtencionSalud, [e.target.name] : e.target.value
+            ...paramsAgregarAtencionSalud, [e.target.name]: e.target.value
         })
     }
 
     //3. enviar los datos al backend manejando el evento del formulario
+    const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState<response[] | null>(null);
     const handleAgregar = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         apiInsertarAtencionSalud.postInsertarAtencionSalud(paramsAgregarAtencionSalud.user_id, paramsAgregarAtencionSalud.fecha, paramsAgregarAtencionSalud.tipo).then((response) => {
-            console.log(response.data)
+            set_agregar_atencion_en_salud(response.data)
+            console.log(agregar_atencion_en_salud)
         }).catch((error) => console.log(`${error}`))
     }
-    
-
-
-
-    const [agregar_atencion_en_salud, set_agregar_atencion_en_salud] = React.useState(null);
-
-    //ModificarAtencionSalud usa ***PUT***
-    const [modificarAtenciones, setmodificarAtenciones] = React.useState(null);
-
-
 
 
     //Función que usa PUT
@@ -104,11 +97,13 @@ export default function AtencionSalud() {
     }
 
     //3. Defino lo que sucede al momento de subir el formulario
+    const [modificarAtenciones, setmodificarAtenciones] = React.useState<response[] | null>(null);
     const handleModificacion = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         apiModificarAtencionSalud.putModificarAtencionSalud(paramsModificarAtencionSalud.atencionsalud_id, paramsModificarAtencionSalud.fecha, paramsModificarAtencionSalud.tipo).then((response) => {
-            console.log(response.data)
+            setmodificarAtenciones(response.data)
+            console.log(modificarAtenciones)
         }).catch((error) => {
             console.log(`${error}: Imposible modificar información.`)
         })
@@ -141,50 +136,50 @@ export default function AtencionSalud() {
 
                         children3={
                             <>
-                            { estadosAtencion !== null ? (
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%", mt: 3 }}>
+                                {estadosAtencion !== null ? (
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%", mt: 3 }}>
 
-                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
-                                    >
-                                        <Typography variant='body1'>
-                                            ID
-                                        </Typography>
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
+                                        >
+                                            <Typography variant='body1'>
+                                                ID
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                            <Typography variant='body1'>
+                                                FECHA
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                            <Typography variant='body1'>
+                                                TIPO
+                                            </Typography>
+                                        </Grid>
+                                        {
+                                            estadosAtencion!.map((atencion) => (
+                                                <>
+                                                    <Grid key={atencion.key} item xs={4}>
+                                                        {atencion.id}
+                                                    </Grid>
+
+                                                    <Grid key={atencion.key + 1} item xs={4}>
+                                                        {atencion.fecha}
+                                                    </Grid>
+
+                                                    <Grid key={atencion.key + 2} item xs={4}>
+                                                        {atencion.tipo}
+                                                    </Grid>
+                                                </>
+                                            ))
+                                        }
                                     </Grid>
-
-                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
-                                        <Typography variant='body1'>
-                                            FECHA
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
-                                        <Typography variant='body1'>
-                                            TIPO
-                                        </Typography>
-                                    </Grid>
-                                    {
-                                        estadosAtencion!.map((atencion) => (
-                                            <>
-                                                <Grid key={atencion.key} item xs={4}>
-                                                    {atencion.id}
-                                                </Grid>
-
-                                                <Grid key={atencion.key + 1} item xs={4}>
-                                                    {atencion.fecha}
-                                                </Grid>
-
-                                                <Grid key={atencion.key + 2} item xs={4}>
-                                                    {atencion.tipo}
-                                                </Grid>
-                                            </>
-                                        ))
-                                    }
-                                </Grid>
 
                                 ) : <p>No hay atenciones registradas.</p>}
                             </>
@@ -200,11 +195,11 @@ export default function AtencionSalud() {
                 >
                     <BaseForm title='Agregar Atención' children={
                         <>
-                            <TextField name = 'user_id' onChange = {handleChangeAgregar} placeholder='Cédula' />
+                            <TextField name='user_id' onChange={handleChangeAgregar} placeholder='Cédula' />
 
-                            <TextField name = 'fecha' onChange = {handleChangeAgregar} placeholder='Fecha' />
+                            <TextField name='fecha' onChange={handleChangeAgregar} placeholder='Fecha' />
 
-                            <TextField name = 'tipo' onChange = {handleChangeAgregar} placeholder='Tipo' />
+                            <TextField name='tipo' onChange={handleChangeAgregar} placeholder='Tipo' />
                         </>
                     }
                         children2={
@@ -228,16 +223,16 @@ export default function AtencionSalud() {
                                             sx={{ height: "100%" }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                agregar_atencion_en_salud!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}  </p>
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se puede procesar la petición.</p>}
                             </>
                         }
 
@@ -279,16 +274,16 @@ export default function AtencionSalud() {
                                             sx={{ height: "100%" }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                modificarAtenciones!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}  </p>
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se puede procesar la petición.</p>}
                             </>
                         }
 

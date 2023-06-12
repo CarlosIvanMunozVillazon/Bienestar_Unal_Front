@@ -12,6 +12,7 @@ import { apiIncapacidades } from '@/app/api/Salud/tramites/incapacidades/incapac
 import { formInsertarIncapacidad, formModificarIncapacidad } from '@/app/types/salud/tramites/incapacidades/formsIncapacidades';
 import { apiInsertarIncapacidad } from '@/app/api/Salud/tramites/incapacidades/insertar_incapacidad';
 import { apiModificarIncapacidad } from '@/app/api/Salud/tramites/incapacidades/modificar_incapacidad';
+import { response } from './interface/response.interface';
 
 
 export default function Incapacidades() {
@@ -63,11 +64,13 @@ export default function Incapacidades() {
     }
 
     //3. Definir submit handler
+    const [agregar_incapacidad, set_agregar_incapacidad] = React.useState<response[] | null>(null);
     const handleAgregarIncapacidad = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         apiInsertarIncapacidad.postInsertarIncapacidad(paramsAgregarIncapacidad.cedula, paramsAgregarIncapacidad.fecha, paramsAgregarIncapacidad.enfermedad, paramsAgregarIncapacidad.dias).then((response) => {
-            console.log(response.data)
+            set_agregar_incapacidad(response.data)
+            console.log(agregar_incapacidad)
         }).catch((error) => {
             console.log(`${error}: Imposible agregar incapacidad nueva.`)
         })
@@ -91,20 +94,22 @@ export default function Incapacidades() {
     }
 
     //3. as usual than ever XD
+    const [modificar_incapacidad, set_modificar_incapacidad] = React.useState<response[] | null>(null);
 
     const handleModificarIncapacidad = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         apiModificarIncapacidad.putModificarIncapacidad(paramsModificarIncapacidad.IdIncapacidad, paramsModificarIncapacidad.fecha, paramsModificarIncapacidad.enfermedad, paramsModificarIncapacidad.dias).then((response) => {
-            console.log(response.data)
+            set_modificar_incapacidad(response.data)
+            console.log(modificar_incapacidad)
         }).catch((Error) => {
             console.log(`${Error}: Imposible modificar incapacidad`)
         })
     }
 
-    const [agregar_incapacidad, set_agregar_incapacidad] = React.useState(null);
+
 
     //Modificar incapacidades usa ***PUT****
-    const [modificar_incapacidad, set_modificar_incapacidad] = React.useState(null);
+
 
 
     return (
@@ -208,11 +213,8 @@ export default function Incapacidades() {
                     <BaseForm title='Agregar Incapacidad' children={
                         <>
                             <TextField name='cedula' onChange={handleChgAgregarIncapacidad} placeholder='Cédula' />
-
                             <TextField name='fecha' onChange={handleChgAgregarIncapacidad} placeholder='Fecha' />
-
                             <TextField name='enfermedad' onChange={handleChgAgregarIncapacidad} placeholder='Enfermedad' />
-
                             <TextField name='dias' onChange={handleChgAgregarIncapacidad} placeholder='Días' />
                         </>
                     }
@@ -232,19 +234,19 @@ export default function Incapacidades() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                agregar_incapacidad!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}  </p>
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se puede procesar la petición.</p>}
                             </>
                         }
 
@@ -285,19 +287,19 @@ export default function Incapacidades() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                modificar_incapacidad!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}</p>
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se puede procesar la petición.</p>}
                             </>
                         }
                         submit={handleModificarIncapacidad}

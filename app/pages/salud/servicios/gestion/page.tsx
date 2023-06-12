@@ -8,8 +8,9 @@ import { BaseForm } from '@/app/components/General/BaseForm';
 import { formGestionCita } from '@/app/types/salud/servicios/gestion/formsGestion';
 import { apiAgendarCitaMedica } from '@/app/api/Salud/servicios/gestion/agendar_cita_medica';
 import { apiCancelarCitaMedica } from '@/app/api/Salud/servicios/gestion/cancelar_cita_medica';
-// AMBAS FUNCIONES USAN *****PUT*****
-// PARÁMETROS : user_id : number;
+import { response } from './interface/response.interface';
+
+
 export default function GestionarCitas() {
 
     //1. Toma de datos formularios
@@ -37,8 +38,9 @@ export default function GestionarCitas() {
             ...paramsCancelarCita, [e.target.name]: e.target.value
         })
     }
-    const [scheduleApointment, setscheduleApointment] = React.useState<boolean>(false);
+
     //3. Manejo del formulario, este debe hacer la request para que se actualicen los datos.
+    const [scheduleApointment, setscheduleApointment] = React.useState<response[] | null>(null);
     const handleActualizacion = (e: React.FormEvent<HTMLFormElement>) => {
 
         //Se detiene el comportamiendo por defecto del formulario.
@@ -46,20 +48,21 @@ export default function GestionarCitas() {
 
         //Llamamos a las funciones que golpean los endpoint
         apiAgendarCitaMedica.putAgendarCita(paramsAgendarCita.cedula, paramsAgendarCita.fecha, paramsAgendarCita.especialidad).then((response) => {
-            console.log(response.data)
-            setscheduleApointment(scheduleApointment => !scheduleApointment);
+            setscheduleApointment(response.data);
+            console.log(scheduleApointment)
         }).catch((error) => {
             console.log(`${error}: hubo un error actualizando`)
         })
     }
 
+    const [cancelAppointment, setcancelAppointment] = React.useState<response[] | null>(null);
     const handleCancelacion = (e: React.FormEvent<HTMLFormElement>) => {
-        
+
         //Se detiene el comportamiendo por defecto del formulario.
         e.preventDefault();
 
         //Llamamos a las funciones que golpean los endpoint
-        apiCancelarCitaMedica.putCancelarCita(paramsCancelarCita.cedula, paramsCancelarCita.fecha, paramsCancelarCita.especialidad).then((response) => {  
+        apiCancelarCitaMedica.putCancelarCita(paramsCancelarCita.cedula, paramsCancelarCita.fecha, paramsCancelarCita.especialidad).then((response) => {
             console.log(response.data)
         }).catch((error) => {
             console.log(`${error}: hubo un error cancelando`)
@@ -67,19 +70,10 @@ export default function GestionarCitas() {
 
     }
 
-
-
-    //Schedule appointments
-    
-
-    //Cancel appointments
-    const [cancelAppointment, setcancelAppointment] = React.useState<null>(null);
-
-
     return (
         <LayoutSalud>
             <br />
-            
+
             <Grid container
                 component='main'
                 alignItems='center'
@@ -87,9 +81,6 @@ export default function GestionarCitas() {
                 direction='column'
                 spacing={5}
                 sx={{ width: '100%' }}>
-
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
 
                 <Grid item
                     sx={{ width: '75%' }}>
@@ -115,10 +106,28 @@ export default function GestionarCitas() {
                         children3={
                             <>
                                 {
-                                    scheduleApointment == false ? ( //if we got elements then we render them. if not then we don't render nothing.
-                                    <p></p>
-                                        
-                                    ) : <p>Su cita se ha modificado exitosamente.</p>}
+                                    scheduleApointment !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%", mt: 3 }}>
+
+
+                                            {
+                                                scheduleApointment!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}  </p>
+                                                    </Grid>
+                                                ))
+
+                                            }
+
+                                        </Grid>
+
+                                    ) : <p>No se ha podido realizar la petición.</p>}
                             </>
                         }
                         submit={handleActualizacion}
@@ -132,19 +141,13 @@ export default function GestionarCitas() {
                     <BaseForm title='Cancelar una cita' children={
                         <>
                             <TextField name='cedula' onChange={handleChange2} placeholder='Cédula' />
-
                             <TextField name='fecha' onChange={handleChange2} placeholder='fecha' />
-
                             <TextField name='especialidad' onChange={handleChange2} placeholder='Especialidad' />
-
                         </>
                     }
                         children2={
-
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Cancelar</Button>
-
-
                         }
 
                         children3={
@@ -158,113 +161,27 @@ export default function GestionarCitas() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                cancelAppointment!.map((response) => (
+                                                    <Grid key={response.Key} item xs={12}>
+                                                        <p> {response.Answer}  </p>
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se pudo procesar su petición.</p>}
                             </>
                         }
                         submit={handleCancelacion}
                     />
-
-
-
                 </Grid>
-
             </Grid>
         </LayoutSalud>
     )
 }
 
 
-{/*
-
-<Grid item
-                    sx={{ width: '75%' }}
-                >
-
-
-                    <Paper>
-                        <Box component='form'
-                            sx={{ width: '100%' }}
-                        >
-                            <Typography variant='h6'>Agendar una cita
-                            </Typography>
-                            <Grid
-                                container
-                                justifyContent="space-between"
-                                direction="row"
-                                alignItems="center"
-                            >
-                                <Grid item>
-
-                                    <Stack direction='row'
-                                        spacing={4}>
-
-
-                                        <TextField placeholder='Cédula' />
-
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker format="YYYY/MM/DD" />
-                                        </LocalizationProvider>
-
-                                        <TextField placeholder='Especialidad' />
-
-
-                                    </Stack>
-
-
-                                </Grid>
-
-                                <Grid item>
-                                    <Button type='submit' variant="contained"
-                                        sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Agendar</Button>
-
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Box>
-
-                        {
-                            scheduleApointment !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
-
-                                    {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-
-                                        //     </Grid>
-                                        // ))
-
-                                    }
-                                </Grid>
-
-                            ) : null}
-
-
-                    </Paper>
-
-
-
-                </Grid>
-
-*/}

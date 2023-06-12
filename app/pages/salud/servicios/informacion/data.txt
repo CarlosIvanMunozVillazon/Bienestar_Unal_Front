@@ -75,3 +75,13 @@ PLACEHOLDER Incapacidades:
       "sqlstate": "42000"
     }
   }
+
+
+
+
+   {
+    "Key": 21,
+    "fecha": "2023-06-14T10:30:00",
+    "especialidad": "Higiene oral",
+    "doctor": "Ana Gabriela"
+  },

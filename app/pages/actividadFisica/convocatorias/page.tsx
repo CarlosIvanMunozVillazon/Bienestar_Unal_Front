@@ -69,7 +69,7 @@ export default function Convocatorias() {
     const handleMisConvs = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        apiMisConvocatorias.getMisConvocatorias(parParticiparConv.cedula).then((response) => {
+        apiMisConvocatorias.getMisConvocatorias(consMisConvs.cedula).then((response) => {
             setMisConvocatorias(response.data);
             console.log(misConvocatorias)
         }).catch((Error) => {
@@ -161,8 +161,8 @@ export default function Convocatorias() {
                                         // corActividades!.map(() => (
                                         //     <Grid item xs={3}>
                                         //     </Grid>
-                                        // ))
-                                    }
+                                        // ))juanEstudiante, mariaEstudiante y jeisonSecretaria
+                                    }1234
                                 </Grid>
 
                             ) : null} */}
@@ -192,37 +192,25 @@ export default function Convocatorias() {
                                     spacing={1}
                                     sx={{ height: "100%", mt: 3 }}>
 
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             ID
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
-                                        <Typography variant='body1'>
-                                            CC
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             PROGRAMA
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             NOMBRE
                                         </Typography>
-                                    </Grid>
+                                    </Grid>                                  
 
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
-                                        <Typography variant='body1'>
-                                            APERTURA
-                                        </Typography>
-                                    </Grid>
-
-                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             CIERRE
                                         </Typography>
@@ -231,24 +219,19 @@ export default function Convocatorias() {
                                     {
                                         misConvocatorias!.map((convocatoria) => (
                                             <>
-                                                <Grid item key = {convocatoria.key} xs={2}>
+                                                <Grid item key = {convocatoria.key} xs={3}>
                                                     {convocatoria.conv_id}
                                                 </Grid>
-                                                <Grid item key = {convocatoria.key + 1} xs={2}>
-                                                    {convocatoria.estID}
-                                                </Grid>
-
-                                                <Grid item key = {convocatoria.key + 2} xs={2}>
+                                                
+                                                <Grid item key = {convocatoria.key + 2} xs={3}>
                                                     {convocatoria.Programa_progID}
                                                 </Grid>
-                                                <Grid item key = {convocatoria.key + 3} xs={2}>
+
+                                                <Grid item key = {convocatoria.key + 3} xs={3}>
                                                     {convocatoria.convNombre}
                                                 </Grid>
-
-                                                <Grid item key = {convocatoria.key + 4} xs={2}>
-                                                    {convocatoria.convFechaApertura}
-                                                </Grid>
-                                                <Grid item key = {convocatoria.key + 5} xs={2}>
+                                                
+                                                <Grid item key = {convocatoria.key + 5} xs={3}>
                                                     {convocatoria.convFechaCierre}
                                                 </Grid>
                                             </>
