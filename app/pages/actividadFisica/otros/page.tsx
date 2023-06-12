@@ -254,77 +254,77 @@ export default function Otros() {
                                     {
                                         eventosTalleres!.map((eveta) => (
                                             <>
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                <Grid item key = {eveta.key}xs={3} sx={{ bgcolor: "lightgray" }} >
                                                     <Typography variant='body1'>
                                                         ID
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 1}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaidEventoTaller}
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 2}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         NOMBRE
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 3}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaNombre}
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 4}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         TIPO
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 5}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaTipoEventoTaller}
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 6}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         PROGRAMA
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 7}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.progID}
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 8}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         FECHA
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 9}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaFecha}
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 10}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         HORAS
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 11}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaHoraInicio} - {eveta.evetaHoraFin}
                                                     </Typography>
                                                 </Grid>
 
-                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Grid item key = {eveta.key + 12}xs={3} sx={{ bgcolor: "lightgray" }}>
                                                     <Typography variant='body1'>
                                                         LUGAR
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item xs={9}>
+                                                <Grid item key = {eveta.key + 13}xs={9}>
                                                     <Typography variant='body1'>
                                                         {eveta.evetaLugar}
                                                     </Typography>
