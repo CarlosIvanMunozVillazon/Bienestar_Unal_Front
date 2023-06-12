@@ -88,19 +88,13 @@ export default function GestionarCitas() {
                     <BaseForm title='Agendar una cita' children={
                         <>
                             <TextField name='cedula' onChange={handleChange1} placeholder='Cédula' />
-
                             <TextField name='fecha' onChange={handleChange1} placeholder='fecha' />
-
                             <TextField name='especialidad' onChange={handleChange1} placeholder='Especialidad' />
-
                         </>
                     }
                         children2={
-
                             <Button type='submit' variant="contained"
                                 sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Agendar</Button>
-
-
                         }
 
                         children3={
@@ -114,7 +108,6 @@ export default function GestionarCitas() {
                                             direction="row"
                                             spacing={1}
                                             sx={{ height: "100%", mt: 3 }}>
-
 
                                             {
                                                 scheduleApointment!.map((response) => (
@@ -132,7 +125,6 @@ export default function GestionarCitas() {
                         }
                         submit={handleActualizacion}
                     />
-
                 </Grid>
 
                 <Grid item

@@ -14,6 +14,7 @@ import { apiCursosLibres } from '@/app/api/Deporte/Convocatorias/cursosLibres';
 import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
 import { apiConvsDeporte } from '@/app/api/Deporte/Convocatorias/convocatoriaPrograma';
 import { convocatorias_deporte } from './interface/convocatorias_deporte.interface';
+import { response } from './interface/response.interface';
 
 export default function Convocatorias() {
 
@@ -37,11 +38,13 @@ export default function Convocatorias() {
     }
 
     //3.
+    const [participacion, setParticipacion] = React.useState<response[] | null>(null);
     const handleParticipar = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         apiParticiparConvocatoria.postParticiparConvocatoria(parParticiparConv.cedula, parParticiparConv.id_conv, parParticiparConv.fecha).then((response) => {
-            console.log(response.data)
+            setParticipacion(response.data)
+            console.log(participacion)
         }).catch((Error) => {
             console.log(Error)
         })
@@ -134,7 +137,7 @@ export default function Convocatorias() {
 
                 <Grid item
                     sx={{ width: '75%' }}>
-                    {/*AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
+
                     <BaseForm title='Participar en convocatoria' children={
                         <>
                             <TextField name='cedula' onChange={hanldeChgParticipar} placeholder='Cédula'></TextField>
@@ -147,7 +150,7 @@ export default function Convocatorias() {
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Participar</Button>}
 
                         children3={<>
-                            {/* {participarConv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {participacion !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                 <Grid container
                                     component="div"
@@ -155,17 +158,20 @@ export default function Convocatorias() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))juanEstudiante, mariaEstudiante y jeisonSecretaria
-                                    }1234
+
+                                        participacion!.map((response) => (
+                                            <Grid key={response.Key} item xs={12}>
+                                                <p>{response.Answer}</p>
+                                            </Grid>
+                                        ))
+
+                                    }
                                 </Grid>
 
-                            ) : null} */}
+                            ) : <p>No se ha procesado ninguna petición.</p>}
 
                         </>} submit={handleParticipar}
                     ></BaseForm>
@@ -208,7 +214,7 @@ export default function Convocatorias() {
                                         <Typography variant='body1'>
                                             NOMBRE
                                         </Typography>
-                                    </Grid>                                  
+                                    </Grid>
 
                                     <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
@@ -219,19 +225,19 @@ export default function Convocatorias() {
                                     {
                                         misConvocatorias!.map((convocatoria) => (
                                             <>
-                                                <Grid item key = {convocatoria.key} xs={3}>
+                                                <Grid item key={convocatoria.key} xs={3}>
                                                     {convocatoria.conv_id}
                                                 </Grid>
-                                                
-                                                <Grid item key = {convocatoria.key + 2} xs={3}>
+
+                                                <Grid item key={convocatoria.key + 2} xs={3}>
                                                     {convocatoria.Programa_progID}
                                                 </Grid>
 
-                                                <Grid item key = {convocatoria.key + 3} xs={3}>
+                                                <Grid item key={convocatoria.key + 3} xs={3}>
                                                     {convocatoria.convNombre}
                                                 </Grid>
-                                                
-                                                <Grid item key = {convocatoria.key + 5} xs={3}>
+
+                                                <Grid item key={convocatoria.key + 5} xs={3}>
                                                     {convocatoria.convFechaCierre}
                                                 </Grid>
                                             </>
