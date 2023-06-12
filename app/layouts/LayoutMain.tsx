@@ -15,25 +15,34 @@ export default function LayoutMain({ children }: deporteLayoutProps) {
     return (
         <>
             <BasicNavbar backgroundColor='Purple' pageName='Bienvenido !'>
-                <>
-
-                </>
-                {/* <Typography variant="h6" fontWeight='bold' textAlign="center">Servicios</Typography>
+                
+               <Typography variant="h6" fontWeight='bold' textAlign="center">Áreas</Typography>
                 <Divider />
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/actividadFisica/convocatorias'>
-                        <Typography variant="body1" textAlign="center">Convocatorias</Typography>
+                    <Link underline='hover' color='GrayText' href='\pages\actividadFisica'>
+                        <Typography variant="body1" textAlign="center">Actividad Física y Deporte</Typography>
                     </Link>
                 </IconButton>
 
                 <IconButton>
-                    <Link underline='hover' color='GrayText' href='/pages/actividadFisica/otros'>
-                        <Typography variant="body1" textAlign="center">otros</Typography>
+                    <Link underline='hover' color='GrayText' href='\pages\gestionYFomento'>
+                        <Typography variant="body1" textAlign="center">Gestión y Fomento Socioeconómico</Typography>
                     </Link>
-                </IconButton>*/}
+                </IconButton>
 
-                
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='\pages\salud'>
+                        <Typography variant="body1" textAlign="center">Salud</Typography>
+                    </Link>
+                </IconButton>
+
+                <IconButton>
+                    <Link underline='hover' color='GrayText' href='\pages\tiendaBienestar'>
+                        <Typography variant="body1" textAlign="center">Tienda Bienestar UN</Typography>
+                    </Link>
+                </IconButton>
+
             </BasicNavbar>
 
             <Grid

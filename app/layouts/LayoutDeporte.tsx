@@ -79,6 +79,7 @@ export default function LayoutDeporte({ children }: deporteLayoutProps) {
                         </Breadcrumbs>
 
                     </Stack>
+                
                 </Grid>
 
             </Grid>

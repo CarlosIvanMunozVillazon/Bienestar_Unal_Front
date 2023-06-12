@@ -87,11 +87,9 @@ export default function LayoutFomento({ children }: saludLayoutProps) {
 
                     </Stack>
                 </Grid>
-
             </Grid>
 
             {children}
-
 
         </>
     )
