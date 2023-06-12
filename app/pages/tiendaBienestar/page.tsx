@@ -15,7 +15,7 @@ import LayoutTienda from '@/app/layouts/LayoutTienda';
 export default function TiendaBienestar() {
     return (
         <LayoutTienda>
-            <p>Página tienda bienestar; aún por implementar.</p>
+            <p>Página tienda bienestar</p>
         </LayoutTienda>
     )
 }

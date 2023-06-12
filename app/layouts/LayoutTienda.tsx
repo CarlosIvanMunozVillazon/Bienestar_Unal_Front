@@ -69,6 +69,13 @@ export default function LayoutTienda({ children }: deporteLayoutProps) {
                             >
                                 Salud
                             </Link>
+                            <Link
+                                underline="hover"
+                                color="text.primary"
+                                href="/pages/tiendaBienestar"
+                            >
+                                Tienda de Bienestar UN
+                            </Link>
                         </Breadcrumbs>
 
                     </Stack>
