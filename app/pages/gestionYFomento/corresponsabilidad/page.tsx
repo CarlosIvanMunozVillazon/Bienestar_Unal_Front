@@ -218,7 +218,7 @@ export default function Corresponsabilidad() {
                         }
 
                         children2={
-                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Insertar</Button>
+                            <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }}>Insertar</Button>
 
                         }
 

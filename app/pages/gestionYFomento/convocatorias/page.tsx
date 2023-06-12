@@ -15,13 +15,16 @@ import {
     convAlimentaria,
     convAlojamiento,
     convEconomica,
-    convTransporte
+    convTransporte,
+    est_toma_conv
 } from '@/app/types/gestionYFomento/convocatorias/convocatorias';
 import { apiCgfEmprendimiento } from '@/app/api/GestionFomento/convocatorias/conv_fomento_emprendimiento';
 import { apiCgfAlimentaria } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alimentaria';
 import { apiCgfAlojamiento } from '@/app/api/GestionFomento/convocatorias/conv_gestion_alojamiento';
 import { apiCgfEconomica } from '@/app/api/GestionFomento/convocatorias/conv_gestion_economica';
 import { apiCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_gestion_transporte';
+import { apiEstudianteTomaConv } from '@/app/api/GestionFomento/convocatorias/estudiante_toma_conv';
+import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
 
 export default function Convocatorias() {
 
@@ -61,6 +64,14 @@ export default function Convocatorias() {
         {
             cedula: 0,
             tipo: ''
+        }
+    )
+
+    const [params_est_toma_conv, set_params_est_toma_conv] = React.useState<est_toma_conv>(
+        {
+            cedula: 0,
+            conv_id: 1,
+            fecha: '2023-01-01'
         }
     )
 
@@ -124,6 +135,16 @@ export default function Convocatorias() {
     }
 
 
+    const value_est_toma_conv = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        set_params_est_toma_conv(
+            {
+                ...params_est_toma_conv, [e.target.name]: e.target.value
+            }
+        )
+    }
+
+
     // API request performers:
     const handleEmprendimiento = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -134,8 +155,6 @@ export default function Convocatorias() {
         }).catch((Error) => {
             console.log(Error)
         })
-
-
     }
 
     const handleAlimentaria = (e: React.FormEvent<HTMLFormElement>) => {
@@ -188,6 +207,17 @@ export default function Convocatorias() {
             console.log(`${error}`)
         })
         console.log(cgfTransporte)
+    }
+
+    const handle_est_toma_conv = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiEst_toma_conv.post_est_toma_conv(
+            params_est_toma_conv.cedula, params_est_toma_conv.conv_id, params_est_toma_conv.fecha
+        ).then((response)=> {
+            console.log("El estudiante se registró a la convocatoria exitosamente. Espere la respuesta de la dirección.")
+        }).catch((error) => {
+            console.log(`${error}: El estudiante no pudo registrarse a la convocatoria.`)
+        })
     }
 
     return (
@@ -482,9 +512,42 @@ export default function Convocatorias() {
 
                 </Grid>
 
+                <Grid item sx={{ width: '75%' }} >
+                        <BaseForm title='Inscribíase a una convocatoria' children={
+                            <>
+                                <TextField name='usuario_id' onChange={value_est_toma_conv} placeholder='Cédula' />
+                                <TextField name='conv_id' onChange={value_est_toma_conv} placeholder='ID Convocatoria' />
+                                <TextField name='fecha' onChange={value_est_toma_conv} placeholder='Fecha' />
+                            </>
+                        }
+
+                            children2={<Button type='submit' variant="contained"
+                                sx={{ color: "black", bgcolor: "#E74C3C" }}>Inscribirme</Button>}
+
+                            children3={<>
+                                {/*est_toma_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%" }}>
+
+                                        {
+                                            // corActividades!.map(() => (
+                                            //     <Grid item xs={3}>
+                                            //     </Grid>
+                                            // ))
+                                        }
+                                    </Grid>
+
+                                ) : null*/}
+                            </>} submit={handle_est_toma_conv}
+                        ></BaseForm>
+                </Grid>
             </Grid>
-
-
         </LayoutFomento>
     )
 }
