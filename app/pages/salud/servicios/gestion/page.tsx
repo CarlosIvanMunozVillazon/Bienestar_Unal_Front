@@ -37,7 +37,7 @@ export default function GestionarCitas() {
             ...paramsCancelarCita, [e.target.name]: e.target.value
         })
     }
-
+    const [scheduleApointment, setscheduleApointment] = React.useState<boolean>(false);
     //3. Manejo del formulario, este debe hacer la request para que se actualicen los datos.
     const handleActualizacion = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -47,6 +47,7 @@ export default function GestionarCitas() {
         //Llamamos a las funciones que golpean los endpoint
         apiAgendarCitaMedica.putAgendarCita(paramsAgendarCita.cedula, paramsAgendarCita.fecha, paramsAgendarCita.especialidad).then((response) => {
             console.log(response.data)
+            setscheduleApointment(scheduleApointment => !scheduleApointment);
         }).catch((error) => {
             console.log(`${error}: hubo un error actualizando`)
         })
@@ -69,7 +70,7 @@ export default function GestionarCitas() {
 
 
     //Schedule appointments
-    const [scheduleApointment, setscheduleApointment] = React.useState<null>(null);
+    
 
     //Cancel appointments
     const [cancelAppointment, setcancelAppointment] = React.useState<null>(null);
@@ -114,27 +115,10 @@ export default function GestionarCitas() {
                         children3={
                             <>
                                 {
-                                    scheduleApointment !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                        <Grid container
-                                            component="div"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            direction="row"
-                                            spacing={1}
-                                            sx={{ height: "100%" }}>
-
-                                            {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
-
-                                            }
-                                        </Grid>
-
-                                    ) : null}
+                                    scheduleApointment == false ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    <p></p>
+                                        
+                                    ) : <p>Su cita se ha modificado exitosamente.</p>}
                             </>
                         }
                         submit={handleActualizacion}

@@ -17,7 +17,7 @@ export default function InformacionFacturas() {
     //Info Factura
     const [params_info_factura, set_params_info_factura] = React.useState<form_info_factura>(
         {
-            usuario_id : 0,
+            usuario_id: 0,
             tienda_id: 1,
             factura_id: 1
         }
@@ -27,7 +27,7 @@ export default function InformacionFacturas() {
     //Insertar Factura
     const [params_insertar_factura, set_params_insertar_factura] = React.useState<form_insertar_factura>(
         {
-            usuario_id : 0,
+            usuario_id: 0,
             detalle: "N.A",
             tienda_id: 0
         }
@@ -37,7 +37,7 @@ export default function InformacionFacturas() {
     //Insertar Producto en Factura
     const [params_insertar_producto_factura, set_params_insertar_producto_factura] = React.useState<form_insertar_producto_factura>(
         {
-            usuario_id : 0,
+            usuario_id: 0,
             factura_id: 1,
             producto_id: 1
         }
@@ -47,7 +47,7 @@ export default function InformacionFacturas() {
     //Eliminar Factura
     const [params_eliminar_factura, set_params_eliminar_factura] = React.useState<form_eliminar_factura>(
         {
-            usuario_id : 0,
+            usuario_id: 0,
             mes: null,
             ano: null
         }
@@ -56,28 +56,28 @@ export default function InformacionFacturas() {
     //Guardado de datos de formularios
     const valueInfoFactura = (e: React.ChangeEvent<HTMLInputElement>) => {
         set_params_info_factura({
-            ...params_info_factura, [e.target.name]:e.target.value
+            ...params_info_factura, [e.target.name]: e.target.value
         })
     }
 
     //
     const valueInsertarFactura = (e: React.ChangeEvent<HTMLInputElement>) => {
         set_params_insertar_factura({
-            ...params_insertar_factura, [e.target.name]:e.target.value
+            ...params_insertar_factura, [e.target.name]: e.target.value
         })
     }
 
     //
     const valueInsertarProductoFactura = (e: React.ChangeEvent<HTMLInputElement>) => {
         set_params_insertar_producto_factura({
-            ...params_insertar_producto_factura, [e.target.name]:e.target.value
+            ...params_insertar_producto_factura, [e.target.name]: e.target.value
         })
     }
 
     //
     const valueEliminarFactura = (e: React.ChangeEvent<HTMLInputElement>) => {
         set_params_eliminar_factura({
-            ...params_eliminar_factura, [e.target.name]:e.target.value
+            ...params_eliminar_factura, [e.target.name]: e.target.value
         })
     }
 
@@ -125,159 +125,200 @@ export default function InformacionFacturas() {
 
     return (
         <LayoutTienda>
-                <br />
-                <Grid container
-                    component='main'
-                    alignItems='center'
-                    justifyContent='center'
-                    direction='column'
-                    spacing={5}
-                    sx={{ width: '100%' }}>
+            <br />
+            <Grid container
+                component='main'
+                alignItems='center'
+                justifyContent='center'
+                direction='column'
+                spacing={5}
+                sx={{ width: '100%' }}>
 
-                    <Grid item sx={{ width: '75%' }}>
-                        <BaseForm title='Información Facturas' children={
-                            <>
-                                <TextField name='cliente_id' onChange={valueInfoFactura} placeholder='Cédula' />
-                                <TextField name='tienda_id' onChange={valueInfoFactura} placeholder='ID Tienda' />
-                                <TextField name='factura_id' onChange={valueInfoFactura} placeholder='ID Factura' />
-                            </>
-                        }
+                <Grid item sx={{ width: '75%' }}>
+                    <BaseForm title='Información Facturas' children={
+                        <>
+                            <TextField name='cliente_id' onChange={valueInfoFactura} placeholder='Cédula' />
+                            <TextField name='tienda_id' onChange={valueInfoFactura} placeholder='ID Tienda' />
+                            <TextField name='factura_id' onChange={valueInfoFactura} placeholder='ID Factura' />
+                        </>
+                    }
 
-                            children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                        children2={<Button type='submit' variant="contained"
+                            sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
-                            children3={<>
-                                {/*facturas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                        children3={<>
+                            {result_info_factura !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
-                            </>} submit={handleGetInfoFactura}
-                        ></BaseForm>
-                    </Grid>
-
-                    <Grid item sx={{ width: '75%' }}>
-                        <BaseForm title='Insertar Factura' children={
-                            <>
-                                <TextField name='usuario_id' onChange={valueInsertarFactura} placeholder='Cédula' />
-                                <TextField name='detalle' onChange={valueInsertarFactura} placeholder='Detalle' />
-                                <TextField name='tienda_id' onChange={valueInsertarFactura} placeholder='ID Tienda' />
-                            </>
-                        }
-
-                            children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
-
-                            children3={<>
-                                {/*facturaInsertada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
-
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            ID CLIENTE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            FECHA
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
-                            </>} submit={handle_insertar_factura}
-                        ></BaseForm>
-                    </Grid>
-
-                    <Grid item sx={{ width: '75%' }} >
-                        <BaseForm title='Insertar Producto en Factura' children={
-                            <>
-                                <TextField name='usuario_id' onChange={valueInsertarProductoFactura} placeholder='Cédula' />
-                                <TextField name='factura_id' onChange={valueInsertarProductoFactura} placeholder='ID Factura' />
-                                <TextField name='producto_id' onChange={valueInsertarProductoFactura} placeholder='ID Producto' />
-                            </>
-                        }
-
-                            children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Insertar</Button>}
-
-                            children3={<>
-                                {/*productoInsertado !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
-
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
-
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            EMAIL
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
-                            </>} submit={handle_insertar_producto_factura}
-                        ></BaseForm>
-                    </Grid>
 
-                    <Grid item sx={{ width: '75%' }} >
-                        <BaseForm title='Eliminar Factura' children={
-                            <>
-                                <TextField name='usuario_id' onChange={valueEliminarFactura} placeholder='Cédula' />
-                                <TextField name='mes' onChange={valueEliminarFactura} placeholder='Mes' />
-                                <TextField name='año' onChange={valueEliminarFactura} placeholder='Año' />
-                            </>
-                        }
+                                    {
+                                        result_info_factura!.map((result) => (
+                                            <>
+                                                <Grid item key={result.Key} xs={3}>
+                                                    {result.factID}
+                                                </Grid>
 
-                            children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Eliminar</Button>}
+                                                <Grid item key={result.Key + 1} xs={3}>
+                                                    {result.clienteID}
+                                                </Grid>
 
-                            children3={<>
-                                {/*facturaEliminada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                                <Grid item key={result.Key + 2} xs={3}>
+                                                    {result.factFecha}
+                                                </Grid>
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                                <Grid item key={result.Key + 3} xs={3}>
+                                                    {result.perEmail}
+                                                </Grid>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
-                                    </Grid>
+                                            </>
 
-                                ) : null*/}
-                            </>} submit={handle_eliminar_factura}
-                        ></BaseForm>
-                    </Grid>
+                                        ))
+                                    }
+                                </Grid>
+
+                            ) : <p>No se han encontrado facturas.</p>}
+                        </>} submit={handleGetInfoFactura}
+                    ></BaseForm>
                 </Grid>
-    </LayoutTienda>
+
+                <Grid item sx={{ width: '75%' }}>
+                    <BaseForm title='Insertar Factura' children={
+                        <>
+                            <TextField name='usuario_id' onChange={valueInsertarFactura} placeholder='Cédula' />
+                            <TextField name='detalle' onChange={valueInsertarFactura} placeholder='Detalle' />
+                            <TextField name='tienda_id' onChange={valueInsertarFactura} placeholder='ID Tienda' />
+                        </>
+                    }
+
+                        children2={<Button type='submit' variant="contained"
+                            sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
+
+                        children3={<>
+                            {/*facturaInsertada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%" }}>
+
+                                        {
+                                            // corActividades!.map(() => (
+                                            //     <Grid item xs={3}>
+                                            //     </Grid>
+                                            // ))
+                                        }
+                                    </Grid>
+
+                                ) : null*/}
+                        </>} submit={handle_insertar_factura}
+                    ></BaseForm>
+                </Grid>
+
+                <Grid item sx={{ width: '75%' }} >
+                    <BaseForm title='Insertar Producto en Factura' children={
+                        <>
+                            <TextField name='usuario_id' onChange={valueInsertarProductoFactura} placeholder='Cédula' />
+                            <TextField name='factura_id' onChange={valueInsertarProductoFactura} placeholder='ID Factura' />
+                            <TextField name='producto_id' onChange={valueInsertarProductoFactura} placeholder='ID Producto' />
+                        </>
+                    }
+
+                        children2={<Button type='submit' variant="contained"
+                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Insertar</Button>}
+
+                        children3={<>
+                            {/*productoInsertado !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%" }}>
+
+                                        {
+                                            // corActividades!.map(() => (
+                                            //     <Grid item xs={3}>
+                                            //     </Grid>
+                                            // ))
+                                        }
+                                    </Grid>
+
+                                ) : null*/}
+                        </>} submit={handle_insertar_producto_factura}
+                    ></BaseForm>
+                </Grid>
+
+                <Grid item sx={{ width: '75%' }} >
+                    <BaseForm title='Eliminar Factura' children={
+                        <>
+                            <TextField name='usuario_id' onChange={valueEliminarFactura} placeholder='Cédula' />
+                            <TextField name='mes' onChange={valueEliminarFactura} placeholder='Mes' />
+                            <TextField name='año' onChange={valueEliminarFactura} placeholder='Año' />
+                        </>
+                    }
+
+                        children2={<Button type='submit' variant="contained"
+                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Eliminar</Button>}
+
+                        children3={<>
+                            {/*facturaEliminada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                    <Grid container
+                                        component="div"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ height: "100%" }}>
+
+                                        {
+                                            // corActividades!.map(() => (
+                                            //     <Grid item xs={3}>
+                                            //     </Grid>
+                                            // ))
+                                        }
+                                    </Grid>
+
+                                ) : null*/}
+                        </>} submit={handle_eliminar_factura}
+                    ></BaseForm>
+                </Grid>
+            </Grid>
+        </LayoutTienda>
     )
 }
