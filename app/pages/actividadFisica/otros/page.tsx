@@ -124,6 +124,28 @@ export default function Otros() {
             console.log(`${Error} No hay eventos y talleres disponibles.`)
         })
     }
+    // -- Proyectos de prueba: y su programa correspondiente
+    // -- 500 1701, 517 1705, 504 1702
+
+    // Programa de prueba: 
+    // 1705
+
+    // -- Eventos y talleres de prueba: y su programa correspondiente
+    // -- 519 1705, 503 1701, 515 1704 
+
+    // Para ver convocatorias
+    // 1702 1703
+
+    // Cedulas pa agregar convs:
+    // 101010122
+    // 10101015
+    // 10101011
+    // 101010110
+
+    //Convocatorias de prueba:
+    //219
+    //216
+    //212
 
     return (
         <LayoutDeporte>
