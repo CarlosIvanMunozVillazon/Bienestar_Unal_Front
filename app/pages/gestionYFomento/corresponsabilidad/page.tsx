@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import { BaseForm } from '@/app/components/General/BaseForm';
@@ -99,7 +99,7 @@ export default function Corresponsabilidad() {
 
     return (
         <LayoutFomento>
-            <br/>
+            <br />
 
             <Grid container
                 component='main'
@@ -137,19 +137,47 @@ export default function Corresponsabilidad() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    ACTIVIDAD
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    HORAS
+                                                </Typography>
+                                            </Grid>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
+                                                actividadesCorresponsabilidad!.map((actividad) => (
 
-                                                //     </Grid>
-                                                // ))
+                                                    <>
+                                                        <Grid key={actividad.Key} item xs={4}>
+                                                            {actividad.actCorID}
+                                                        </Grid>
+
+                                                        <Grid key={actividad.Key + 1} item xs={4}>
+                                                            {actividad.actCorActividad}
+                                                        </Grid>
+
+                                                        <Grid key={actividad.Key + 2} item xs={4}>
+                                                            {actividad.actCorHoras}
+                                                        </Grid>
+                                                    </>
+
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se registran actividades.</p>}
                             </>
                         }
                         submit={handleConsultaActividadesCorr}
@@ -184,19 +212,25 @@ export default function Corresponsabilidad() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={12} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    HORAS
+                                                </Typography>
+                                            </Grid>
 
                                             {
-                                                // corHoras!.map((convocatoria) => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                horasCorresponsabilidad!.map((horas) => (
+                                                    <Grid key = {horas.Key} item xs={12}>
+                                                        {horas.horas}
+                                                    </Grid>
+                                                ))
 
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p>No se registran horas de corresponsabilidad.</p>}
                             </>
                         }
                         submit={hanldeConsultarHoras}
