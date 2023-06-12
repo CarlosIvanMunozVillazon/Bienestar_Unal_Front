@@ -1,9 +1,9 @@
 "use client"
 
 import React from 'react'
+
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { TorneoInterno } from './interface/torneosInternos.interface';
 import { Proyecto } from './interface/proyecto.interface';
@@ -150,7 +150,6 @@ export default function Otros() {
     return (
         <LayoutDeporte>
             <br />
-
             <Grid container
                 component='main'
                 alignItems='center'
@@ -160,12 +159,10 @@ export default function Otros() {
                 sx={{ width: '100%' }}>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='' children={
-                        <Typography variant='h6'>Torneos Internos
-                        </Typography>
+                        <Typography variant='h6'>Torneos Internos</Typography>
                     }
 
                         children2={<Button type='submit' variant="contained"
@@ -180,28 +177,61 @@ export default function Otros() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            DEPORTE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            RAMA
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        torneos!.map((torneo) => (
+                                            <>
+                                                <Grid item key={torneo.key} xs={3}>
+                                                    {torneo.toridTorneoInterno}
+                                                </Grid>
+
+                                                <Grid item key={torneo.key + 1} xs={3}>
+                                                    {torneo.torDeporte}
+                                                </Grid>
+
+                                                <Grid item key={torneo.key + 2} xs={3}>
+                                                    {torneo.torNombreTorneo}
+                                                </Grid>
+
+                                                <Grid item key={torneo.key + 3} xs={3}>
+                                                    {torneo.torRama}
+                                                </Grid>
+                                            </>
+
+                                        ))
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>No se han publicado torneos.</p>}
 
                         </>} submit={handleTorneos}
                     ></BaseForm>
 
                 </Grid>
-
-
-
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='Información Eventos y Talleres' children={
                         <TextField name='id_eve_ta' onChange={handleChgEveta} placeholder='id EventoTaller' />
@@ -219,27 +249,100 @@ export default function Otros() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        eventosTalleres!.map((eveta) => (
+                                            <>
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                    <Typography variant='body1'>
+                                                        ID
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaidEventoTaller}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        NOMBRE
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaNombre}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        TIPO
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaTipoEventoTaller}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        PROGRAMA
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.progID}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        FECHA
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaFecha}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        HORAS
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaHoraInicio} - {eveta.evetaHoraFin}
+                                                    </Typography>
+                                                </Grid>
+
+                                                <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                    <Typography variant='body1'>
+                                                        LUGAR
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={9}>
+                                                    <Typography variant='body1'>
+                                                        {eveta.evetaLugar}
+                                                    </Typography>
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
+
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>El evento no esta registrado</p>}
 
                         </>} submit={handleEveta}
                     ></BaseForm>
-
-
                 </Grid>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='Consultar proyectos' children={
                         <TextField name='idProyecto' onChange={handleChgProyectos} placeholder='id Proyecto' />
@@ -257,27 +360,60 @@ export default function Otros() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            EJECUCIÓN
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PRESUPUESTO
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        proyectos!.map((proyecto) => (
+                                            <>
+                                                <Grid item key={proyecto.key} xs={3}>
+                                                    {proyecto.progID}
+                                                </Grid>
+
+                                                <Grid item key={proyecto.key + 1} xs={3}>
+                                                    {proyecto.proyNombre}
+                                                </Grid>
+
+                                                <Grid item key={proyecto.key + 2} xs={3}>
+                                                    {proyecto.proyEjecucion}
+                                                </Grid>
+
+                                                <Grid item key={proyecto.key + 3} xs={3}>
+                                                    {proyecto.proyPresupuesto}
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>No se encuentran proyectos.</p>}
 
                         </>} submit={handleProyectos}
                     ></BaseForm>
-
-
                 </Grid>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='Consultar eventos y talleres por programa' children={
                         <TextField name='id_programa' onChange={handleChgPrograma2} placeholder='id Programa' />
@@ -295,28 +431,77 @@ export default function Otros() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DESCRIPCIÓN
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            HORA INICIO
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            FECHA
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            LUGAR
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        evetetaPrograma!.map((evento) => (
+                                            <>
+                                                <Grid item key={evento.Key} xs={2}>
+                                                    {evento.evetaidEventoTaller}
+                                                </Grid>
+
+                                                <Grid item key={evento.Key + 1} xs={2}>
+                                                    {evento.evetaNombre}
+                                                </Grid>
+
+                                                <Grid item key={evento.Key + 2} xs={2}>
+                                                    {evento.eveDescripcion}
+                                                </Grid>
+
+                                                <Grid item key={evento.Key + 3} xs={2}>
+                                                    {evento.evetaHoraInicio}
+                                                </Grid>
+
+                                                <Grid item key={evento.Key + 4} xs={2}>
+                                                    {evento.evetaFecha}
+                                                </Grid>
+
+                                                <Grid item key={evento.Key + 5} xs={2}>
+                                                    {evento.evetaLugar}
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>No se encuentran eventos.</p>}
 
                         </>} submit={handleEventosYTalleres}
                     ></BaseForm>
-
-
                 </Grid>
             </Grid>
-
-
-
-
         </LayoutDeporte>
     )
 }

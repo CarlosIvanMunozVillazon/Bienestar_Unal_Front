@@ -1,8 +1,8 @@
 "use client"
 
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import React from 'react';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react'
 import LayoutDeporte from '@/app/layouts/LayoutDeporte';
 import { BaseForm } from '@/app/components/General/BaseForm';
 import { CursoLibre } from './interface/cursosLibres.interface';
