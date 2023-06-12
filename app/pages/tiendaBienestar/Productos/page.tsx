@@ -12,16 +12,18 @@ import { tiendas_producto } from '../interface/tiendas_producto.interface';
 import { apiTiendasProducto } from '@/app/api/tienda_bienestar/tiendas_producto';
 
 export default function InformacionProductos() {
+    const options_currency1 = { style: 'currency', currency: 'COP' };
+
     //Productos de una tienda
     const [tienda_id, set_tienda_id] = React.useState<form_productos>({
-        tienda_id: 0,
+        tienda_id: -1,
         nombre: ''
     });
     const [productos, set_productos] = React.useState<productos_tienda[] | null>(null);
 
     //Tiendas de un producto
     const [producto_id, set_producto_id] = React.useState<form_tienda>({
-        producto_id: 0
+        producto_id: 1
     });
     const [tiendas, set_tiendas] = React.useState<tiendas_producto[] | null>(null);
 
@@ -47,6 +49,7 @@ export default function InformacionProductos() {
         }).catch((error) => {
             console.log(`${error}: No hay productos disponibles`)
         })
+        tienda_id.tienda_id = null;
     }
 
     const handleGetStores = (e: React.FormEvent<HTMLFormElement>) => {
@@ -81,28 +84,90 @@ export default function InformacionProductos() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                             children3={<>
-                                {/*productosDisponibles !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {productos !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+
+                                    <Grid item key={11111111} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID PRODUCTO
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
+                                    <Grid item key={11111112} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PRECIO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DETALLE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111114} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID TIENDA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111115} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DIRECCIÓN
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111116} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CIUDAD
+                                        </Typography>
+                                    </Grid>
+
+                                    {
+                                        productos.length == 0 ? <p>No se han encontrado productos</p>
+
+                                        : productos!.map((result) => (
+                                            <>
+                                                <Grid item key={result.Key} xs={2}>
+                                                    {result.prodID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+1} xs={2}>
+                                                    {result.prodPrecio.toLocaleString('es-CO', options_currency1)}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+2} xs={3}>
+                                                    {result.prodDetalle}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+3} xs={1}>
+                                                    {result.tieID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+4} xs={2}>
+                                                    {result.tieDireccion}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+5} xs={2}>
+                                                    {result.tieCiudad}
+                                                </Grid>
+                                            </>
+                                        ))
+                                    }
+                                </Grid>
+
+                                ) : <p>No se han encontrado productos.</p>}
                             </>} submit={handleGetProducts}
                         ></BaseForm>
                     </Grid>
@@ -115,10 +180,10 @@ export default function InformacionProductos() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                             children3={<>
-                                {/*tiendasAsociadas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {tiendas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                     <Grid container
                                         component="div"
@@ -126,17 +191,48 @@ export default function InformacionProductos() {
                                         alignItems="center"
                                         direction="row"
                                         spacing={1}
-                                        sx={{ height: "100%" }}>
+                                        sx={{ height: "100%", mt: 3  }}>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+                                    <Grid item key={11111111} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID Tienda
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
+                                    <Grid item key={11111112} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DIRECCIÓN
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CIUDAD
+                                        </Typography>
+                                    </Grid>
+
+                                    {
+                                        tiendas.length == 0 ? <p>No se han encontrado tiendas</p>
+
+                                        : tiendas!.map((result) => (
+                                            <>
+                                                <Grid item key={result.Key} xs={4}>
+                                                    {result.tieID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+1} xs={4}>
+                                                    {result.tieDireccion}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+2} xs={4}>
+                                                    {result.tieCiudad}
+                                                </Grid>
+                                            </>
+                                        ))
+                                    }
+                                    </Grid>
+
+                                ) : <p>No se han encontrado tiendas.</p>}
                             </>} submit={handleGetStores}
                         ></BaseForm>
                     </Grid>

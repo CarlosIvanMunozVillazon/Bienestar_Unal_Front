@@ -14,12 +14,14 @@ import { apiEliminar_factura } from '@/app/api/tienda_bienestar/eliminar_factura
 
 
 export default function InformacionFacturas() {
+    const options_currency = { style: 'currency', currency: 'COP' };
+
     //Info Factura
     const [params_info_factura, set_params_info_factura] = React.useState<form_info_factura>(
         {
             usuario_id: 0,
-            tienda_id: 1,
-            factura_id: 1
+            tienda_id: null,
+            factura_id: null
         }
     );
     const [result_info_factura, set_result_info_factura] = React.useState<info_factura[] | null>(null);
@@ -90,6 +92,8 @@ export default function InformacionFacturas() {
         }).catch((error) => {
             console.log(`${error}: No hay facturas`)
         })
+        params_info_factura.tienda_id= null;
+        params_info_factura.factura_id= null;
     }
 
     //
@@ -137,14 +141,14 @@ export default function InformacionFacturas() {
                 <Grid item sx={{ width: '75%' }}>
                     <BaseForm title='Información Facturas' children={
                         <>
-                            <TextField name='cliente_id' onChange={valueInfoFactura} placeholder='Cédula' />
+                            <TextField name='usuario_id' onChange={valueInfoFactura} placeholder='Cédula' />
                             <TextField name='tienda_id' onChange={valueInfoFactura} placeholder='ID Tienda' />
                             <TextField name='factura_id' onChange={valueInfoFactura} placeholder='ID Factura' />
                         </>
                     }
 
                         children2={<Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                            sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                         children3={<>
                             {result_info_factura !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
@@ -157,51 +161,93 @@ export default function InformacionFacturas() {
                                     spacing={1}
                                     sx={{ height: "100%", mt: 3 }}>
 
-                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item key={11111111} xs={1} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             ID
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
-                                        <Typography variant='body1'>
-                                            ID CLIENTE
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item key={11111112} xs={2} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             FECHA
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item key={11111113} xs={1} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
-                                            EMAIL
+                                            HORA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111114} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            DETALLE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111115} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID PRODUCTO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111116} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PRECIO PRODUCTO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111117} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PRODUCTO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111118} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            TIENDA
                                         </Typography>
                                     </Grid>
 
 
                                     {
-                                        result_info_factura!.map((result) => (
+                                        result_info_factura.length == 0 ? <p>No se han encontrado facturas</p>
+
+                                        : result_info_factura!.map((result) => (
                                             <>
-                                                <Grid item key={result.Key} xs={3}>
+                                                <Grid item key={result.Key} xs={1}>
                                                     {result.factID}
                                                 </Grid>
 
-                                                <Grid item key={result.Key + 1} xs={3}>
-                                                    {result.clienteID}
-                                                </Grid>
-
-                                                <Grid item key={result.Key + 2} xs={3}>
+                                                <Grid item key={result.Key+1} xs={2}>
                                                     {result.factFecha}
                                                 </Grid>
 
-                                                <Grid item key={result.Key + 3} xs={3}>
-                                                    {result.perEmail}
+                                                <Grid item key={result.Key+2} xs={1}>
+                                                    {result.factHora}
                                                 </Grid>
 
-                                            </>
+                                                <Grid item key={result.Key+3} xs={1}>
+                                                    {result.factDetalle}
+                                                </Grid>
 
+                                                <Grid item key={result.Key+4} xs={1}>
+                                                    {result.prodID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+5} xs={2}>
+                                                    
+                                                    {result.prodPrecio.toLocaleString('es-CO', options_currency)}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+6} xs={2}>
+                                                    {result.prodDetalle}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+7} xs={2}>
+                                                    {result.tieDireccion}
+                                                </Grid>
+                                            </>
                                         ))
                                     }
                                 </Grid>
@@ -221,7 +267,7 @@ export default function InformacionFacturas() {
                     }
 
                         children2={<Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
+                            sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
 
                         children3={<>
                             {/*facturaInsertada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
@@ -257,7 +303,7 @@ export default function InformacionFacturas() {
                     }
 
                         children2={<Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Insertar</Button>}
+                            sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
 
                         children3={<>
                             {/*productoInsertado !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
@@ -288,12 +334,12 @@ export default function InformacionFacturas() {
                         <>
                             <TextField name='usuario_id' onChange={valueEliminarFactura} placeholder='Cédula' />
                             <TextField name='mes' onChange={valueEliminarFactura} placeholder='Mes' />
-                            <TextField name='año' onChange={valueEliminarFactura} placeholder='Año' />
+                            <TextField name='ano' onChange={valueEliminarFactura} placeholder='Año' />
                         </>
                     }
 
                         children2={<Button type='submit' variant="contained"
-                            sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Eliminar</Button>}
+                            sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Eliminar</Button>}
 
                         children3={<>
                             {/*facturaEliminada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.

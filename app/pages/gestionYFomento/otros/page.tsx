@@ -134,7 +134,8 @@ export default function Otros() {
                                             </Grid>
 
                                             {
-                                                fallasAlimentarias!.map((falla) => (
+                                                fallasAlimentarias.length == 0 ? <p>No se han encontrado fallas alimentarias</p>
+                                                :fallasAlimentarias!.map((falla) => (
                                                     <>
                                                         <Grid key={falla.Key} item xs={3}>
                                                             {falla.fallAlID}
@@ -200,9 +201,10 @@ export default function Otros() {
                                             </Grid>
 
                                             {
-                                                pbm!.map((pbm) => (
+                                                pbm.length == 0 ? <p>No se ha encontrado pbm</p>
+                                                :pbm!.map((pbm) => (
                                                     <Grid key={pbm.key} item xs={12}>
-                                                        {pbm.pbm}
+                                                        {pbm.pbm == 1000 ? 'Cédula no corresponde a un estudiante' : pbm.pbm}
                                                     </Grid>
                                                 ))
 
