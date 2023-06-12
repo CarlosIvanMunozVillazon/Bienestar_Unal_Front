@@ -2,7 +2,8 @@ export interface Incapacidad {
     key:        number;
     id:         number;
     fecha:      string;
-    tipo:       string;
+    razon:      string;
+    dias:       number;
     verificado: boolean;
     aprobado:   boolean;
 }
