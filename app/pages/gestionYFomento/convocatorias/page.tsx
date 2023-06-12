@@ -193,7 +193,6 @@ export default function Convocatorias() {
     return (
         <LayoutFomento>
             <br />
-
             <Grid container
                 component='main'
                 alignItems='center'
@@ -202,9 +201,7 @@ export default function Convocatorias() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                {/*Convocatorias de:  fomento emprendimiento*/}
-                {/*Parámetros : cédula de estudiante, y tema de emprendimiento */}
-
+                
                 <Grid item
                     sx={{ width: '75%' }}
                 >
@@ -248,23 +245,16 @@ export default function Convocatorias() {
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p></p>}
                             </>
                         }
                         submit={handleEmprendimiento}
                     ></BaseForm>
-
-
-
-
                 </Grid>
 
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    {/*Convocatorias de:  gestión alimentaria*/}
-                    {/*Parámetros : cédula de estudiante, comida (lista desplegable), lugar (lista desplegable) */}
-
 
                     <BaseForm title='Convocatoria Gestión Alimentaria'
                         children={
@@ -304,7 +294,7 @@ export default function Convocatorias() {
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p></p>}
                             </>
                         }
                         submit={handleAlimentaria}
@@ -316,9 +306,7 @@ export default function Convocatorias() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    {/*Convocatorias de:  gestión alojamiento*/}
-                    {/*Parámetros : cédula de estudiante, localidad, tipo (lista desplegable), */}
-
+                    
                     <BaseForm title='Convocatoria Gestión Alojamiento'
                         children={
                             <>
@@ -358,7 +346,7 @@ export default function Convocatorias() {
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p></p>}
                             </>
                         }
                         submit={handleAlojamiento}
@@ -369,9 +357,6 @@ export default function Convocatorias() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-
-                    {/*Convocatorias de:  gestión económica*/}
-                    {/*Parámetros : cédula de estudiante*/}
 
                     <BaseForm title='Convocatoria Gestión Económica'
                         children={
@@ -413,7 +398,7 @@ export default function Convocatorias() {
                                             }
                                         </Grid>
 
-                                    ) : null}
+                                    ) : <p></p>}
                             </>
                         }
                         submit={handleEconomica}
@@ -425,9 +410,6 @@ export default function Convocatorias() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-
-                    {/*Convocatorias de:  gestión de transporte*/}
-                    {/*Parámetros : cédula estudiante, tipo transporte (lista desplegable)*/}
 
                     <BaseForm title='Convocatoria Gestión Transporte'
                         children={
@@ -442,7 +424,6 @@ export default function Convocatorias() {
                                     name='tipo'
                                     placeholder='Tipo'
                                 />
-
                             </>
                         }
 
@@ -473,18 +454,13 @@ export default function Convocatorias() {
 
                                             }
                                         </Grid>
-
-                                    ) : null}
+                                    ) : <p></p>}
                             </>
                         }
                         submit={handleTransporte}
                     ></BaseForm>
-
                 </Grid>
-
             </Grid>
-
-
         </LayoutFomento>
     )
 }
