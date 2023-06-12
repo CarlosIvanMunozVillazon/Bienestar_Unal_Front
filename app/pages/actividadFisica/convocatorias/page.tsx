@@ -124,7 +124,6 @@ export default function Convocatorias() {
     return (
         <LayoutDeporte>
             <br />
-
             <Grid container
                 component='main'
                 alignItems='center'
@@ -134,9 +133,8 @@ export default function Convocatorias() {
                 sx={{ width: '100%' }}>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
-
+                    sx={{ width: '75%' }}>
+                    {/*AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
                     <BaseForm title='Participar en convocatoria' children={
                         <>
                             <TextField name='cedula' onChange={hanldeChgParticipar} placeholder='Cédula'></TextField>
@@ -144,10 +142,7 @@ export default function Convocatorias() {
                             <TextField name='fecha' onChange={hanldeChgParticipar} placeholder='Fecha Inscripción'></TextField>
 
                         </>
-
-
                     }
-
                         children2={<Button type='submit' variant="contained"
                             sx={{ color: "black", bgcolor: "Orange" }} endIcon={<SearchIcon />}>Participar</Button>}
 
@@ -176,12 +171,8 @@ export default function Convocatorias() {
                     ></BaseForm>
 
                 </Grid>
-
-
-
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='Mis convocatorias' children={
                         <TextField name='cedula' onChange={handleChgMisConvs} placeholder='Cédula' />
@@ -199,17 +190,73 @@ export default function Convocatorias() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CC
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PROGRAMA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            APERTURA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CIERRE
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        misConvocatorias!.map((convocatoria) => (
+                                            <>
+                                                <Grid item key = {convocatoria.key} xs={2}>
+                                                    {convocatoria.conv_id}
+                                                </Grid>
+                                                <Grid item key = {convocatoria.key + 1} xs={2}>
+                                                    {convocatoria.estID}
+                                                </Grid>
+
+                                                <Grid item key = {convocatoria.key + 2} xs={2}>
+                                                    {convocatoria.Programa_progID}
+                                                </Grid>
+                                                <Grid item key = {convocatoria.key + 3} xs={2}>
+                                                    {convocatoria.convNombre}
+                                                </Grid>
+
+                                                <Grid item key = {convocatoria.key + 4} xs={2}>
+                                                    {convocatoria.convFechaApertura}
+                                                </Grid>
+                                                <Grid item key = {convocatoria.key + 5} xs={2}>
+                                                    {convocatoria.convFechaCierre}
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>No tienes convocatorias.</p>}
 
                         </>} submit={handleMisConvs}
                     ></BaseForm>
@@ -218,8 +265,7 @@ export default function Convocatorias() {
                 </Grid>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='Convocatorias por programa deportes' children={
                         <TextField name='id_programa' onChange={handleChgConvPrograma} placeholder='id Programa' />
@@ -237,27 +283,79 @@ export default function Convocatorias() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            APERTURA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CIERRE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ESTADO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PAPA
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        convsPorPrograma!.map((convocatoria) => (
+                                            <>
+                                                <Grid key={convocatoria.conv_id} item xs={2}>
+                                                    {convocatoria.conv_id}
+                                                </Grid>
+
+                                                <Grid key={convocatoria.conv_id + 1} item xs={2}>
+                                                    {convocatoria.convNombre}
+                                                </Grid>
+
+                                                <Grid key={convocatoria.conv_id + 2} item xs={2}>
+                                                    {convocatoria.convFechaApertura}
+                                                </Grid>
+
+                                                <Grid key={convocatoria.conv_id + 3} item xs={2}>
+                                                    {convocatoria.convFechaCierre}
+                                                </Grid>
+
+                                                <Grid key={convocatoria.conv_id + 3} item xs={2}>
+                                                    {convocatoria.convEstado}
+                                                </Grid>
+
+                                                <Grid key={convocatoria.conv_id + 3} item xs={2}>
+                                                    {convocatoria.convPAPA}
+                                                </Grid>
+                                            </>
+                                        ))
                                     }
                                 </Grid>
-
-                            ) : null}
-
+                            ) : <p>No hay convocatorias disponibles.</p>}
                         </>} submit={handleConvsPrograma}
                     ></BaseForm>
-
-
                 </Grid>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
 
                     <BaseForm title='' children={
                         <Typography variant='h6'>Convocatorias Cursos Libres</Typography>
@@ -275,26 +373,59 @@ export default function Convocatorias() {
                                     alignItems="center"
                                     direction="row"
                                     spacing={1}
-                                    sx={{ height: "100%" }}>
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            TIPO DE CURSO
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            CONDICIÓN
+                                        </Typography>
+                                    </Grid>
 
                                     {
-                                        // corActividades!.map(() => (
-                                        //     <Grid item xs={3}>
-                                        //     </Grid>
-                                        // ))
+                                        convCursosLibres!.map((curso) => (
+                                            <>
+                                                <Grid key={curso.key} item xs={3}>
+                                                    {curso.Convocatoria_conv_id}
+                                                </Grid>
+
+                                                <Grid key={curso.key + 1} item xs={3}>
+                                                    {curso.curNombre}
+                                                </Grid>
+
+                                                <Grid key={curso.key + 2} item xs={3}>
+                                                    {curso.curTipoCurso}
+                                                </Grid>
+                                                <Grid key={curso.key + 2} item xs={3}>
+                                                    {curso.curCondicion}
+                                                </Grid>
+                                            </>
+
+                                        ))
                                     }
                                 </Grid>
 
-                            ) : null}
+                            ) : <p>No hay cursos disponibles.</p>}
 
                         </>} submit={handleSubmit4}
                     ></BaseForm>
-
-
                 </Grid>
             </Grid>
-
-
         </LayoutDeporte >
     )
 }
