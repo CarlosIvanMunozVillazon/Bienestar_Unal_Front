@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-import {Button, Grid, TextField} from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import { convocatoriaEmprendimiento } from './interface/emprendimiento.interface';
@@ -201,7 +201,7 @@ export default function Convocatorias() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-                
+
                 <Grid item
                     sx={{ width: '75%' }}
                 >
@@ -233,19 +233,45 @@ export default function Convocatorias() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    COBERTURA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    DESCRIPCION
+                                                </Typography>
+                                            </Grid>
 
                                             {
                                                 cgfEmprendimiento!.map((convocatoria) => (
-                                                    <Grid item xs={3}>
+                                                    <>
+                                                        <Grid item key={convocatoria.conv_id} xs={4}>
+                                                            {convocatoria.conv_id}
+                                                        </Grid>
 
-                                                    </Grid>
+                                                        <Grid item key={convocatoria.conv_id + 1} xs={4}>
+                                                            {convocatoria.cgemCobertura}
+                                                        </Grid>
+
+                                                        <Grid item key={convocatoria.conv_id + 2} xs={4}>
+                                                            {convocatoria.cgemDescripcion}
+                                                        </Grid>
+                                                    </>
                                                 ))
-
                                             }
                                         </Grid>
 
-                                    ) : <p></p>}
+                                    ) : <p>No se registran convocatorias.</p>}
                             </>
                         }
                         submit={handleEmprendimiento}
@@ -282,19 +308,46 @@ export default function Convocatorias() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    COMIDA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    LUGAR
+                                                </Typography>
+                                            </Grid>
 
                                             {
                                                 cgfAlimentaria!.map((convocatoria) => (
-                                                    <Grid item xs={3}>
+                                                    <>
+                                                        <Grid item key={convocatoria.conv_id} xs={4}>
+                                                            {convocatoria.conv_id}
+                                                        </Grid>
 
-                                                    </Grid>
+                                                        <Grid item key={convocatoria.conv_id + 1} xs={4}>
+                                                            {convocatoria.cgaComida}
+                                                        </Grid>
+
+                                                        <Grid item key={convocatoria.conv_id + 2} xs={4}>
+                                                            {convocatoria.cgaLugar}
+                                                        </Grid>
+                                                    </>
                                                 ))
 
                                             }
                                         </Grid>
 
-                                    ) : <p></p>}
+                                    ) : <p>No se registran convocatorias.</p>}
                             </>
                         }
                         submit={handleAlimentaria}
@@ -306,14 +359,13 @@ export default function Convocatorias() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    
+
                     <BaseForm title='Convocatoria Gestión Alojamiento'
                         children={
                             <>
                                 <TextField onChange={setAlojamientoData} name='cedula' placeholder='Cédula' />
                                 <TextField onChange={setAlojamientoData} name='localidad' placeholder='Localidad' />
                                 <TextField onChange={setAlojamientoData} name='tipo' placeholder='Tipo' />
-
                             </>
 
                         }
@@ -322,32 +374,100 @@ export default function Convocatorias() {
                             <Button type='submit' variant="contained" sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>
                         }
 
-                        children3={
-                            <>
+                        children3={<>
 
-                                {
-                                    cgfAlojamiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
+                            {
+                                cgfAlojamiento !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    <>
                                         <Grid container
                                             component="div"
                                             justifyContent="center"
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    DIRECCION
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    LOCALIDAD
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    COBERTURA
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    TIPO VIVIENDA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    DESCRIPCIÓN
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={1.71} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    COSTO
+                                                </Typography>
+                                            </Grid>
 
                                             {
-                                                cgfAlojamiento!.map((convocatoria) => (
-                                                    <Grid item xs={3}>
 
-                                                    </Grid>
+                                                cgfAlojamiento!.map((convocatoria) => (
+                                                    <>
+                                                        <Grid key={convocatoria.key} item xs={1.71}>
+                                                            {convocatoria.conv_id}
+                                                        </Grid>
+
+                                                        <Grid key={convocatoria.key + 1} item xs={1.71}>
+                                                            {convocatoria.cgalDireccionAlojamiento}
+                                                        </Grid>
+                                                        <Grid key={convocatoria.key + 2} item xs={1.71}>
+                                                            {convocatoria.cgalLocalidadAlojamiento}
+                                                        </Grid>
+
+                                                        <Grid key={convocatoria.key + 3} item xs={1.71}>
+                                                            {convocatoria.cgalCobertura}
+                                                        </Grid>
+
+                                                        <Grid key={convocatoria.key + 4} item xs={1.71}>
+                                                            {convocatoria.cgalTipoVivienda}
+                                                        </Grid>
+
+                                                        <Grid key={convocatoria.key + 5} item xs={1.71}>
+                                                            {convocatoria.cgalDescripcion}
+                                                        </Grid>
+
+                                                        <Grid key={convocatoria.key + 6} item xs={1.71}>
+                                                            {convocatoria.cgalCosto}
+                                                        </Grid>
+                                                    </>
                                                 ))
 
                                             }
-                                        </Grid>
 
-                                    ) : <p></p>}
-                            </>
+                                        </Grid>
+                                    </>
+                                ) : <p>No se registran convocatorias.</p>}
+                        </>
                         }
                         submit={handleAlojamiento}
                     ></BaseForm>
@@ -362,9 +482,7 @@ export default function Convocatorias() {
                         children={
                             <>
                                 <TextField name='cedula' onChange={setEconomicaData} placeholder='Cédula' />
-
                                 <TextField name='filter_min' onChange={setEconomicaData} placeholder='Min' />
-
                                 <TextField name='filter_max' onChange={setEconomicaData} placeholder='Max' />
                             </>
 
@@ -386,19 +504,39 @@ export default function Convocatorias() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={6} sx={{ bgcolor: "lightgray" }}
+                                            >
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={6} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    COBERTURA
+                                                </Typography>
+                                            </Grid>
 
                                             {
                                                 cgfEconomica!.map((convocatoria) => (
-                                                    <Grid item xs={3}>
+                                                    <>
+                                                        <Grid key={convocatoria.key} item xs={6}>
+                                                            {convocatoria.conv_id}
+                                                        </Grid>
 
-                                                    </Grid>
+                                                        <Grid key={convocatoria.key + 1} item xs={6}>
+                                                            {convocatoria.cgalCobertura}
+                                                        </Grid>
+                                                    </>
+
                                                 ))
 
                                             }
                                         </Grid>
 
-                                    ) : <p></p>}
+                                    ) : <p>No se registran convocatorias.</p>}
                             </>
                         }
                         submit={handleEconomica}
@@ -443,18 +581,48 @@ export default function Convocatorias() {
                                             alignItems="center"
                                             direction="row"
                                             spacing={1}
-                                            sx={{ height: "100%" }}>
+                                            sx={{ height: "100%", mt: 3 }}>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    COBERTURA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    TIPO DE TRANSPORTE
+                                                </Typography>
+                                            </Grid>
+
+
 
                                             {
                                                 cgfTransporte!.map((convocatoria) => (
-                                                    <Grid item xs={3}>
+                                                    <>
+                                                        <Grid item key={convocatoria.key} xs={4}>
+                                                            {convocatoria.conv_id}
+                                                        </Grid>
 
-                                                    </Grid>
+                                                        <Grid item key={convocatoria.key + 1} xs={4}>
+                                                            {convocatoria.cgtCobertura}
+                                                        </Grid>
+
+                                                        <Grid item key={convocatoria.key + 2} xs={4}>
+                                                            {convocatoria.cgtTipoTransporte}
+                                                        </Grid>
+                                                    </>
+
                                                 ))
 
                                             }
                                         </Grid>
-                                    ) : <p></p>}
+                                    ) : <p>No se registran convocatorias.</p>}
                             </>
                         }
                         submit={handleTransporte}
