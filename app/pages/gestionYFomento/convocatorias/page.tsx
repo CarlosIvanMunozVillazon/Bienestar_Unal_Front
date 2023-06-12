@@ -25,8 +25,21 @@ import { apiCgfEconomica } from '@/app/api/GestionFomento/convocatorias/conv_ges
 import { apiCgfTransporte } from '@/app/api/GestionFomento/convocatorias/conv_gestion_transporte';
 import { apiEstudianteTomaConv } from '@/app/api/GestionFomento/convocatorias/estudiante_toma_conv';
 import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { ConvocatoriasUsuario } from '../../actividadFisica/convocatorias/interface/convocatoriasUsuario.interface';
+import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
 
 export default function Convocatorias() {
+
+    const options_currency2 = { style: 'currency', currency: 'COP' };
+
+    function render_price(price: number) {
+        try {
+            return price.toLocaleString('es-CO', options_currency2);
+        } catch (error) {
+            return null;
+        }
+    }
 
     // Form data collectors 'state holders'
     const [forEmprendimiento, setForEmprendimiento] = React.useState<convFomentoEmprendimiento>(
@@ -55,8 +68,8 @@ export default function Convocatorias() {
     const [forEconomica, setForEconomica] = React.useState<convEconomica>(
         {
             cedula: 0,
-            filter_min: 0,
-            filter_max: 0
+            filter_min: -1,
+            filter_max: -1
         }
     )
 
@@ -67,6 +80,12 @@ export default function Convocatorias() {
         }
     )
 
+    //Convocatorias Inscritas
+    const [params_conv_insc, set_params_conv_insc] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
+
+    //
     const [params_est_toma_conv, set_params_est_toma_conv] = React.useState<est_toma_conv>(
         {
             cedula: 0,
@@ -86,6 +105,8 @@ export default function Convocatorias() {
     const [cgfEconomica, setcgfEconomica] = React.useState<convocatoriaEconomica[] | null>(null)
 
     const [cgfTransporte, setcgfTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
+
+    const [result_conv_insc, set_result_conv_insc] = React.useState<ConvocatoriasUsuario[] | null>(null);
 
 
     // Data setters 'on change handlers'
@@ -134,6 +155,11 @@ export default function Convocatorias() {
         )
     }
 
+    const valueConvInsc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        set_params_conv_insc({
+            ...params_conv_insc, [e.target.name]:e.target.value
+        })
+    }
 
     const value_est_toma_conv = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -167,7 +193,8 @@ export default function Convocatorias() {
             }).catch((Error) => {
                 console.log(Error)
             })
-
+            forAlimentaria.comida = '';
+            forAlimentaria.lugar = '';
     }
 
     const handleAlojamiento = (e: React.FormEvent<HTMLFormElement>) => {
@@ -180,6 +207,8 @@ export default function Convocatorias() {
                 console.log(Error)
             })
         console.log(cgfAlojamiento)
+        forAlojamiento.localidad = '';
+        forAlojamiento.tipo = '';
     }
 
     const handleEconomica = (e: React.FormEvent<HTMLFormElement>) => {
@@ -194,6 +223,8 @@ export default function Convocatorias() {
                 console.log(Error)
             })
         console.log(cgfEconomica)
+        forEconomica.filter_min = -1;
+        forEconomica.filter_max = -1;
     }
 
     const handleTransporte = (e: React.FormEvent<HTMLFormElement>) => {
@@ -207,6 +238,18 @@ export default function Convocatorias() {
             console.log(`${error}`)
         })
         console.log(cgfTransporte)
+    }
+
+    const handle_conv_insc = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiMisConvocatorias.getMisConvocatorias(
+            params_conv_insc.cedula
+        ).then((response) => {
+            set_result_conv_insc(response.data)
+            console.log(result_conv_insc)
+        }).catch((error) => {
+            console.log(`${error}: No hay convocatorias inscritas`)
+        })
     }
 
     const handle_est_toma_conv = (e: React.FormEvent<HTMLFormElement>) => {
@@ -265,13 +308,25 @@ export default function Convocatorias() {
                                             spacing={1}
                                             sx={{ height: "100%", mt: 3 }}>
 
-                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                            <Grid item xs={1} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     ID
                                                 </Typography>
                                             </Grid>
 
-                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    NOMBRE
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={2} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    TEMA
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={2} sx={{ bgcolor: "lightgray" }} >
                                                 <Typography variant='body1'>
                                                     COBERTURA
                                                 </Typography>
@@ -283,17 +338,27 @@ export default function Convocatorias() {
                                             </Grid>
 
                                             {
-                                                cgfEmprendimiento!.map((convocatoria) => (
+                                                cgfEmprendimiento.length == 0 ? <p>No se han encontrado convocatorias</p>
+
+                                                : cgfEmprendimiento!.map((convocatoria) => (
                                                     <>
-                                                        <Grid item key={convocatoria.conv_id} xs={4}>
+                                                        <Grid item key={convocatoria.conv_id} xs={1}>
                                                             {convocatoria.conv_id}
                                                         </Grid>
 
-                                                        <Grid item key={convocatoria.conv_id + 1} xs={4}>
-                                                            {convocatoria.cgemCobertura}
+                                                        <Grid item key={convocatoria.conv_id + 1} xs={3}>
+                                                            {convocatoria.cgemNombreEmprend}
                                                         </Grid>
 
-                                                        <Grid item key={convocatoria.conv_id + 2} xs={4}>
+                                                        <Grid item key={convocatoria.conv_id + 2} xs={2}>
+                                                            {convocatoria.cgemTema}
+                                                        </Grid>
+
+                                                        <Grid item key={convocatoria.conv_id + 3} xs={2}>
+                                                            {convocatoria.cgemCobertura.toLocaleString('es-CO', options_currency2)}
+                                                        </Grid>
+
+                                                        <Grid item key={convocatoria.conv_id + 4} xs={4}>
                                                             {convocatoria.cgemDescripcion}
                                                         </Grid>
                                                     </>
@@ -340,40 +405,41 @@ export default function Convocatorias() {
                                             spacing={1}
                                             sx={{ height: "100%", mt: 3 }}>
 
-                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                            <Grid item key={11111111} xs={4} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     ID
                                                 </Typography>
                                             </Grid>
 
-                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                            <Grid item key={11111112}  xs={4} sx={{ bgcolor: "lightgray" }} >
                                                 <Typography variant='body1'>
                                                     COMIDA
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+
+                                            <Grid item key={11111113} xs={4} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     LUGAR
                                                 </Typography>
                                             </Grid>
 
                                             {
-                                                cgfAlimentaria!.map((convocatoria) => (
+                                                cgfAlimentaria.length == 0 ? <p>La convocatoria no existe</p>
+                                                : cgfAlimentaria!.map((convocatoria) => (
                                                     <>
-                                                        <Grid item key={convocatoria.conv_id} xs={4}>
-                                                            {convocatoria.conv_id}
+                                                        <Grid item key={convocatoria.key} xs={4}>
+                                                            {convocatoria.conv_id==null? 'El estudiante no existe o no puede acceder a la convocatoria por PBM' : convocatoria.conv_id}
                                                         </Grid>
 
-                                                        <Grid item key={convocatoria.conv_id + 1} xs={4}>
+                                                        <Grid item key={convocatoria.key + 1} xs={4}>
                                                             {convocatoria.cgaComida}
                                                         </Grid>
 
-                                                        <Grid item key={convocatoria.conv_id + 2} xs={4}>
+                                                        <Grid item key={convocatoria.key + 2} xs={4}>
                                                             {convocatoria.cgaLugar}
                                                         </Grid>
                                                     </>
                                                 ))
-
                                             }
                                         </Grid>
 
@@ -460,11 +526,11 @@ export default function Convocatorias() {
                                             </Grid>
 
                                             {
-
-                                                cgfAlojamiento!.map((convocatoria) => (
+                                                cgfAlojamiento.length == 0 ? <p>La convocatoria no existe</p>
+                                                : cgfAlojamiento!.map((convocatoria) => (
                                                     <>
                                                         <Grid key={convocatoria.key} item xs={1.71}>
-                                                            {convocatoria.conv_id}
+                                                            {convocatoria.conv_id==null? 'El estudiante no existe o no puede acceder a la convocatoria por PBM' : convocatoria.conv_id}
                                                         </Grid>
 
                                                         <Grid key={convocatoria.key + 1} item xs={1.71}>
@@ -550,14 +616,15 @@ export default function Convocatorias() {
                                             </Grid>
 
                                             {
-                                                cgfEconomica!.map((convocatoria) => (
+                                                cgfEconomica.length == 0 ? <p>No se han encontrado convocatorias</p>
+                                                : cgfEconomica!.map((convocatoria) => (
                                                     <>
                                                         <Grid key={convocatoria.key} item xs={6}>
-                                                            {convocatoria.conv_id}
+                                                            {convocatoria.conv_id==null? 'El estudiante no existe o no puede acceder a la convocatoria por PBM' : convocatoria.conv_id}
                                                         </Grid>
-
+                                                        
                                                         <Grid key={convocatoria.key + 1} item xs={6}>
-                                                            {convocatoria.cgalCobertura}
+                                                            {render_price(convocatoria.cgeCobertura)}
                                                         </Grid>
                                                     </>
 
@@ -633,14 +700,15 @@ export default function Convocatorias() {
 
 
                                             {
-                                                cgfTransporte!.map((convocatoria) => (
+                                                cgfTransporte.length == 0 ? <p>No se han encontrado convocatorias</p>
+                                                :cgfTransporte!.map((convocatoria) => (
                                                     <>
                                                         <Grid item key={convocatoria.key} xs={4}>
-                                                            {convocatoria.conv_id}
+                                                            {convocatoria.conv_id==null? 'El estudiante no existe o no puede acceder a la convocatoria por PBM' : convocatoria.conv_id}
                                                         </Grid>
 
                                                         <Grid item key={convocatoria.key + 1} xs={4}>
-                                                            {convocatoria.cgtCobertura}
+                                                            {render_price(convocatoria.cgtCobertura)}
                                                         </Grid>
 
                                                         <Grid item key={convocatoria.key + 2} xs={4}>
@@ -659,10 +727,97 @@ export default function Convocatorias() {
                     ></BaseForm>
                 </Grid>
 
+
+                <Grid item sx={{ width: '75%' }}>
+                        <BaseForm title='Convocatorias Inscritas' children={
+                            <>
+                                <TextField name='cedula' onChange={valueConvInsc} placeholder='Cédula' />
+                            </>
+                        }
+
+                            children2={<Button type='submit' variant="contained"
+                                sx={{ color: "black", bgcolor: "#E74C3C" }} endIcon={<SearchIcon />}>Consultar</Button>}
+
+                            children3={<>
+                                {result_conv_insc !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item key={11111111} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID CONVOCATORIA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111112} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID PROGRAMA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111114} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            FECHA APERTURA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111115} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            FECHA CIERRE
+                                        </Typography>
+                                    </Grid>
+
+                                    {
+                                        result_conv_insc.length == 0 ? <p>No se han encontrado las convocatorias o cédula no corresponde a estudiante</p>
+
+                                        : result_conv_insc!.map((result) => (
+                                            <>
+                                                <Grid item key={result.key} xs={1}>
+                                                    {result.conv_id == null ? 'No se han encontrado las convocatorias o cédula no corresponde a estudiante' : result.conv_id}
+                                                </Grid>
+
+                                                <Grid item key={result.key+1} xs={1}>
+                                                    {result.Programa_progID}
+                                                </Grid>
+
+                                                <Grid item key={result.key+2} xs={4}>
+                                                    {result.convNombre}
+                                                </Grid>
+
+                                                <Grid item key={result.key+3} xs={3}>
+                                                    {result.convFechaApertura}
+                                                </Grid>
+
+                                                <Grid item key={result.key+4} xs={3}>
+                                                    {result.convFechaCierre}
+                                                </Grid>
+                                            </>
+                                            ))
+                                    }
+                                </Grid>
+
+                                ) : null}
+                            </>} submit={handle_conv_insc}
+                        ></BaseForm>
+                </Grid>
+
+
               <Grid item sx={{ width: '75%' }} >
                         <BaseForm title='Inscribase a una convocatoria' children={
                             <>
-                                <TextField name='usuario_id' onChange={value_est_toma_conv} placeholder='Cédula' />
+                                <TextField name='cedula' onChange={value_est_toma_conv} placeholder='Cédula' />
                                 <TextField name='conv_id' onChange={value_est_toma_conv} placeholder='ID Convocatoria' />
                                 <TextField name='fecha' onChange={value_est_toma_conv} placeholder='Fecha' />
                             </>

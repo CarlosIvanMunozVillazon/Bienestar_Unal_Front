@@ -1,7 +1,7 @@
 "use client"
 
 import LayoutMain from '@/app/layouts/LayoutMain';
-import { Grid, Button, TextField} from "@mui/material";
+import { Grid, Button, TextField, Typography} from "@mui/material";
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from "@/app/components/General/BaseForm";
@@ -9,9 +9,18 @@ import { form_est_toma_conv, form_info_conv } from '@/app/types/General/general'
 import { info_conv } from './interface/info_conv.interface';
 import { apiPrograma_area_convocatoria } from '@/app/api/General/programa_area_convocatoria';
 import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
+import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
+import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
+import { ConvocatoriasUsuario } from '../actividadFisica/convocatorias/interface/convocatoriasUsuario.interface';
 
 
 export default function BienestarDash() {
+
+    //Convocatorias Inscritas
+    const [params_conv_insc, set_params_conv_insc] = React.useState<formInfoPorCedula>({
+        cedula: 0
+    })
+    const [result_conv_insc, set_result_conv_insc] = React.useState<ConvocatoriasUsuario[] | null>(null);
     
     //Info Convocatoria
     const [params_info_conv, set_params_info_conv] = React.useState<form_info_conv>({
@@ -28,6 +37,12 @@ export default function BienestarDash() {
 
 
     //Guardado de datos de formularios
+    const valueConvInsc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        set_params_conv_insc({
+            ...params_conv_insc, [e.target.name]:e.target.value
+        })
+    }
+
     const valueInfoConv = (e: React.ChangeEvent<HTMLInputElement>) => {
         set_params_info_conv({
             ...params_info_conv, [e.target.name]:e.target.value
@@ -42,6 +57,18 @@ export default function BienestarDash() {
     }
     
     //Consumidores de API
+    const handle_conv_insc = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        apiMisConvocatorias.getMisConvocatorias(
+            params_conv_insc.cedula
+        ).then((response) => {
+            set_result_conv_insc(response.data)
+            console.log(result_conv_insc)
+        }).catch((error) => {
+            console.log(`${error}: No hay convocatorias inscritas`)
+        })
+    }
+
     const handle_info_conv = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         apiPrograma_area_convocatoria.get_programa_area_convocatoria(
@@ -81,6 +108,91 @@ export default function BienestarDash() {
                 spacing={2}
                 maxHeight="xl">
                 
+                <Grid item sx={{ width: '75%' }}>
+                        <BaseForm title='Convocatorias Inscritas' children={
+                            <>
+                                <TextField name='cedula' onChange={valueConvInsc} placeholder='Cédula' />
+                            </>
+                        }
+
+                            children2={<Button type='submit' variant="contained"
+                                sx={{ color: "black", bgcolor: "Purple" }} endIcon={<SearchIcon />}>Consultar</Button>}
+
+                            children3={<>
+                                {result_conv_insc !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
+
+                                    <Grid item key={11111111} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID CONVOCATORIA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111112} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID PROGRAMA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            NOMBRE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111114} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            FECHA APERTURA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111115} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            FECHA CIERRE
+                                        </Typography>
+                                    </Grid>
+
+                                    {
+                                        result_conv_insc.length == 0 ? <p>No se han encontrado las convocatorias o cédula no corresponde a estudiante</p>
+
+                                        : result_conv_insc!.map((result) => (
+                                            <>
+                                                <Grid item key={result.key} xs={1}>
+                                                    {result.conv_id == null ? 'No se han encontrado las convocatorias o cédula no corresponde a estudiante' : result.conv_id}
+                                                </Grid>
+
+                                                <Grid item key={result.key+1} xs={1}>
+                                                    {result.Programa_progID}
+                                                </Grid>
+
+                                                <Grid item key={result.key+2} xs={4}>
+                                                    {result.convNombre}
+                                                </Grid>
+
+                                                <Grid item key={result.key+3} xs={3}>
+                                                    {result.convFechaApertura}
+                                                </Grid>
+
+                                                <Grid item key={result.key+4} xs={3}>
+                                                    {result.convFechaCierre}
+                                                </Grid>
+                                            </>
+                                            ))
+                                    }
+                                </Grid>
+
+                                ) : null}
+                            </>} submit={handle_conv_insc}
+                        ></BaseForm>
+                </Grid>
+
 
                 <Grid item sx={{ width: '75%' }}>
                         <BaseForm title='Información Convocatoria' children={
@@ -93,25 +205,76 @@ export default function BienestarDash() {
                                 sx={{ color: "black", bgcolor: "Purple" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                             children3={<>
-                                {/*infoConvocatoria !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {result_info_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
 
-                                        {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
-                                        }
+                                    <Grid item key={11111111} xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            NOMBRE CONVOCATORIA
+                                        </Typography>
                                     </Grid>
 
-                                ) : null*/}
+                                    <Grid item key={11111112} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID PROGRAMA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            PROGRAMA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111114} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ID ÁREA
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111115} xs={3} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            ÁREA
+                                        </Typography>
+                                    </Grid>
+
+                                    {
+                                        result_info_conv.length == 0 ? <p>No se ha encontrado la convocatoria</p>
+
+                                        : result_info_conv!.map((result) => (
+                                            <>
+                                                <Grid item key={result.Key} xs={4}>
+                                                    {result.convNombre == null ? 'No se ha encontrado la convocatoria' : result.convNombre}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+1} xs={1}>
+                                                    {result.progID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+2} xs={3}>
+                                                    {result.progNombre}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+3} xs={1}>
+                                                    {result.areID}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+4} xs={3}>
+                                                    {result.areNombre}
+                                                </Grid>
+                                            </>
+                                            ))
+                                    }
+                                </Grid>
+
+                                ) : null}
                             </>} submit={handle_info_conv}
                         ></BaseForm>
                 </Grid>
@@ -119,7 +282,7 @@ export default function BienestarDash() {
                 <Grid item sx={{ width: '75%' }} >
                         <BaseForm title='Inscribase a una convocatoria' children={
                             <>
-                                <TextField name='usuario_id' onChange={valueEstTomaConv} placeholder='Cédula' />
+                                <TextField name='cedula' onChange={valueEstTomaConv} placeholder='Cédula' />
                                 <TextField name='conv_id' onChange={valueEstTomaConv} placeholder='ID Convocatoria' />
                                 <TextField name='fecha' onChange={valueEstTomaConv} placeholder='Fecha' />
                             </>

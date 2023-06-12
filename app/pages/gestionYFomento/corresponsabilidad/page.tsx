@@ -156,7 +156,8 @@ export default function Corresponsabilidad() {
                                             </Grid>
 
                                             {
-                                                actividadesCorresponsabilidad!.map((actividad) => (
+                                                actividadesCorresponsabilidad.length == 0 ? <p>No se han encontrado actividades de corresponsabilidad</p>
+                                                :actividadesCorresponsabilidad!.map((actividad) => (
 
                                                     <>
                                                         <Grid key={actividad.Key} item xs={4}>
