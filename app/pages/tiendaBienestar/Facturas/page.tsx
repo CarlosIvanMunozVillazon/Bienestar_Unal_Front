@@ -125,7 +125,7 @@ export default function InformacionFacturas() {
 
     return (
         <LayoutTienda>
-                <p>Facturas</p>
+                <br />
                 <Grid container
                     component='main'
                     alignItems='center'
@@ -144,7 +144,7 @@ export default function InformacionFacturas() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                             children3={<>
                                 {/*facturas !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
@@ -180,7 +180,7 @@ export default function InformacionFacturas() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Insertar</Button>}
+                                sx={{ color: "black", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
 
                             children3={<>
                                 {/*facturaInsertada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.

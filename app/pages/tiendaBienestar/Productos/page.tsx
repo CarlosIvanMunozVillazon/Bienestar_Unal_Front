@@ -61,7 +61,7 @@ export default function InformacionProductos() {
 
     return (
         <LayoutTienda>
-                <p>Productos</p>
+                <br />
                 <Grid container
                     component='main'
                     alignItems='center'

@@ -121,8 +121,7 @@ export default function Informacion() {
                                     spacing={1}
                                     sx={{ height: "100%", mt: 3 }}>
 
-                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
-                                    >
+                                    <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             FECHA
                                         </Typography>

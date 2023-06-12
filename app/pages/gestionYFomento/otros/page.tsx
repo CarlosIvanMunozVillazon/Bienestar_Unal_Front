@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import {Button, Grid, TextField} from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import LayoutFomento from '@/app/layouts/LayoutFomento';
 import { BaseForm } from '@/app/components/General/BaseForm';
@@ -14,18 +14,18 @@ export default function Otros() {
 
     //1.
     const [paramsFallaAlimentaria, setParamsFallaAlimentaria] = React.useState<formInfoPorCedula>({
-        cedula : 0
+        cedula: 0
     })
 
     //2.
-    const handleChgFalla = (e : React.ChangeEvent<HTMLInputElement>) => (
+    const handleChgFalla = (e: React.ChangeEvent<HTMLInputElement>) => (
         setParamsFallaAlimentaria({
-            ...paramsFallaAlimentaria, [e.target.name] : e.target.value
+            ...paramsFallaAlimentaria, [e.target.name]: e.target.value
         })
     )
 
     //3.
-    const [fallasAlimentarias, setFallasAlimentarias] = React.useState<falla[] | null> (null);
+    const [fallasAlimentarias, setFallasAlimentarias] = React.useState<falla[] | null>(null);
 
     //4.
     const handleConsFalla = (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,43 +37,42 @@ export default function Otros() {
         }).catch((Error) => {
             console.log(`${Error} No es posible consultar las fallas.`)
         })
-        
+
     }
 
 
     //1.
     const [parPbm, setParPbm] = React.useState<formInfoPorCedula>({
-        cedula : 0
+        cedula: 0
     })
 
     //2.
-    const handleChgPbm = (e : React.ChangeEvent<HTMLInputElement>) => (
+    const handleChgPbm = (e: React.ChangeEvent<HTMLInputElement>) => (
         setParPbm({
-            ...parPbm, [e.target.name] : e.target.value
+            ...parPbm, [e.target.name]: e.target.value
         })
     )
 
     //3.
-    const [pbm, setPbm] = React.useState<pbm[] | null> (null);
+    const [pbm, setPbm] = React.useState<pbm[] | null>(null);
 
     //4.
     const handleConPBM = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         apiPbmEstudiante.getPbmEstudiante(parPbm.cedula).then((response) => {
             setPbm(response.data)
             console.log(pbm)
         }).catch((Error) => {
             console.log(`${Error} No es posible consultar el PBM.`)
         })
-    }   
+    }
 
 
 
     return (
         <LayoutFomento>
             <br />
-            
             <Grid container
                 component='main'
                 alignItems='center'
@@ -82,15 +81,15 @@ export default function Otros() {
                 spacing={5}
                 sx={{ width: '100%' }}>
 
-        
+
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    
+
                     <BaseForm title='Fallas de Alimentación'
                         children={
                             <>
-                                <TextField name = 'cedula' onChange = {handleChgFalla} placeholder='Cédula' />
+                                <TextField name='cedula' onChange={handleChgFalla} placeholder='Cédula' />
                             </>
                         }
 
@@ -101,28 +100,63 @@ export default function Otros() {
                         children3={
                             <>
 
-                            {
-                                fallasAlimentarias !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {
+                                    fallasAlimentarias !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%", mt: 3 }}>
 
-                                    {
-                                        // gfFallaAlimentacion!.map(() => (
-                                        //     <Grid item xs={3}>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    ID
+                                                </Typography>
+                                            </Grid>
 
-                                        //     </Grid>
-                                        // ))
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                                <Typography variant='body1'>
+                                                    COMIDA
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    LUGAR
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    FECHA
+                                                </Typography>
+                                            </Grid>
 
-                                    }
-                                </Grid>
+                                            {
+                                                fallasAlimentarias!.map((falla) => (
+                                                    <>
+                                                        <Grid key={falla.Key} item xs={3}>
+                                                            {falla.fallAlID}
+                                                        </Grid>
 
-                            ) : null}
+                                                        <Grid key={falla.Key + 1} item xs={3}>
+                                                            {falla.fallAlcgaComida}
+                                                        </Grid>
+                                                        <Grid key={falla.Key + 2} item xs={3}>
+                                                            {falla.fallAlLugar}
+                                                        </Grid>
+                                                        <Grid key={falla.Key + 3} item xs={3}>
+                                                            {falla.fallAlFecha}
+                                                        </Grid>
+                                                    </>
+
+                                                ))
+
+                                            }
+                                        </Grid>
+
+                                    ) : <p>No se registran fallas</p>}
                             </>
                         }
                         submit={handleConsFalla}
@@ -133,11 +167,11 @@ export default function Otros() {
                 <Grid item
                     sx={{ width: '75%' }}
                 >
-                    
+
                     <BaseForm title='Mi PBM'
                         children={
                             <>
-                                <TextField name = 'cedula' onChange={handleChgPbm} placeholder='Cédula' />
+                                <TextField name='cedula' onChange={handleChgPbm} placeholder='Cédula' />
                             </>
                         }
 
@@ -148,28 +182,34 @@ export default function Otros() {
                         children3={
                             <>
 
-                            {
-                                pbm !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {
+                                    pbm !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                <Grid container
-                                    component="div"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    direction="row"
-                                    spacing={1}
-                                    sx={{ height: "100%" }}>
+                                        <Grid container
+                                            component="div"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ height: "100%", mt: 3 }}>
 
-                                    {
-                                        // gfPBM!.map((convocatoria) => (
-                                        //     <Grid item xs={3}>
+                                            <Grid item xs={12} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    PBM
+                                                </Typography>
+                                            </Grid>
 
-                                        //     </Grid>
-                                        // ))
+                                            {
+                                                pbm!.map((pbm) => (
+                                                    <Grid key={pbm.key} item xs={12}>
+                                                        {pbm.pbm}
+                                                    </Grid>
+                                                ))
 
-                                    }
-                                </Grid>
+                                            }
+                                        </Grid>
 
-                            ) : null}
+                                    ) : <p>Su pbm no se encuentra disponible.</p>}
                             </>
                         }
                         submit={handleConPBM}

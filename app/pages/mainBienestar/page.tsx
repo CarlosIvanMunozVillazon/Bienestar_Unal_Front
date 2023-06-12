@@ -1,7 +1,7 @@
 "use client"
 
 import LayoutMain from '@/app/layouts/LayoutMain';
-import { Grid, Typography, Button, TextField, Divider, IconButton, Link } from "@mui/material";
+import { Grid, Button, TextField} from "@mui/material";
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { BaseForm } from "@/app/components/General/BaseForm";
@@ -9,9 +9,6 @@ import { form_est_toma_conv, form_info_conv } from '@/app/types/General/general'
 import { info_conv } from './interface/info_conv.interface';
 import { apiPrograma_area_convocatoria } from '@/app/api/General/programa_area_convocatoria';
 import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
-import { BasicNavbar } from '@/app/components/General/BasicNavbar';
-
-
 
 
 export default function BienestarDash() {
@@ -93,7 +90,7 @@ export default function BienestarDash() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Consultar</Button>}
+                                sx={{ color: "black", bgcolor: "Purple" }} endIcon={<SearchIcon />}>Consultar</Button>}
 
                             children3={<>
                                 {/*infoConvocatoria !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
@@ -120,7 +117,7 @@ export default function BienestarDash() {
                 </Grid>
 
                 <Grid item sx={{ width: '75%' }} >
-                        <BaseForm title='Inscribíase a una convocatoria' children={
+                        <BaseForm title='Inscribase a una convocatoria' children={
                             <>
                                 <TextField name='usuario_id' onChange={valueEstTomaConv} placeholder='Cédula' />
                                 <TextField name='conv_id' onChange={valueEstTomaConv} placeholder='ID Convocatoria' />
@@ -129,7 +126,7 @@ export default function BienestarDash() {
                         }
 
                             children2={<Button type='submit' variant="contained"
-                                sx={{ color: "black", bgcolor: "Teal" }} endIcon={<SearchIcon />}>Inscribirme</Button>}
+                                sx={{ color: "black", bgcolor: "Purple" }} endIcon={<SearchIcon />}>Inscribirme</Button>}
 
                             children3={<>
                                 {/*est_toma_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.

@@ -660,7 +660,7 @@ export default function Convocatorias() {
                 </Grid>
 
               <Grid item sx={{ width: '75%' }} >
-                        <BaseForm title='Inscribíase a una convocatoria' children={
+                        <BaseForm title='Inscribase a una convocatoria' children={
                             <>
                                 <TextField name='usuario_id' onChange={value_est_toma_conv} placeholder='Cédula' />
                                 <TextField name='conv_id' onChange={value_est_toma_conv} placeholder='ID Convocatoria' />

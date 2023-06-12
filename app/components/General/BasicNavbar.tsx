@@ -9,12 +9,13 @@ import Image from "next/image"
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { TemporaryDrawer } from "./TemporaryDrawer";
+import Link from "next/link";
 
 type Anchor = 'left';
 type BasicNavbarProperties = {
     backgroundColor: string,
     pageName: string,
-    children : React.ReactNode
+    children: React.ReactNode
 }
 
 export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, pageName, children }: BasicNavbarProperties) => {
@@ -67,12 +68,7 @@ export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, 
                                     <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
 
                                         <Grid container direction="column" rowSpacing={0}>
-                                            <Grid item>
-                                                <Typography fontStyle="italic" variant="subtitle1">
-                                                    Valeria Mora Serrano
-                                                </Typography>
-                                            </Grid>
-
+                                            
                                             <Grid item>
                                                 <Typography fontStyle="italic" variant="subtitle1">
                                                     Estudiante
@@ -81,15 +77,17 @@ export const BasicNavbar: React.FC<BasicNavbarProperties> = ({ backgroundColor, 
 
 
                                         </Grid>
+                                        <Link href='/pages/mainBienestar/'>
+                                            <Image
+                                                className="border-slate pb-8"
+                                                src="/images/logo_unal_3.svg"
+                                                width={68}
+                                                height={68}
+                                                alt="AppLogo2"
+                                                priority={true}
 
-                                        <Image
-                                            className="border-slate pb-8"
-                                            src="/images/logo_unal_3.svg"
-                                            width={68}
-                                            height={68}
-                                            alt="AppLogo2"
-                                            priority={true}
-                                        />
+                                            />
+                                        </Link>
                                     </Stack>
                                 </Grid>
                             </Grid>
