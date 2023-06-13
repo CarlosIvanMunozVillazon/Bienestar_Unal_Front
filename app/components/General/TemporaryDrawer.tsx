@@ -44,27 +44,6 @@ export const TemporaryDrawer: React.FC<TemporaryDrawerProperties> = ({ state, ch
             {
               children
             }
-            {/* <IconButton>
-              <Link href='/pages/actividadFisica'>
-                <SportsBasketballIcon></SportsBasketballIcon>
-                <Typography variant="body1" textAlign="center">Actividad Física y Deporte</Typography>
-              </Link>
-            </IconButton>
-
-            <IconButton>
-              <Link href='/pages/gestionYFomento'>
-                <AttachMoneyIcon></AttachMoneyIcon>
-                <Typography variant="body1" textAlign="center">Gestión & Fomento Socioeconómico</Typography>
-              </Link>
-            </IconButton>
-
-            <IconButton>
-              <Link href='/pages/salud'>
-                <LocalHospitalIcon></LocalHospitalIcon>
-                <Typography variant="body1" textAlign="center">Salud</Typography>
-              </Link>
-            </IconButton> */}
-
           </Stack>
         </Grid>
       </Grid>

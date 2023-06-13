@@ -1,9 +1,12 @@
 "use client"
 
 import { useNotification } from '@/app/context/notification.context'
-import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Link, Container, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { ChangeEvent, FormEvent } from 'react'
 import { loginValidation } from '@/app/helpers/formValidtation'
+import { response } from '../actividadFisica/convocatorias/interface/response.interface'
+import { apiIngreso } from '@/app/api/Ingreso/ingreso'
+
 
 type LoginData = {
     email: string,
@@ -30,17 +33,20 @@ export default function Login() {
         )
     }
 
+    const [resp, setResp] = React.useState<response[] | null>(null);
+
     const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
         loginValidation.validate(loginData).then(() => {
-
-            getSuccess(JSON.stringify(loginData));
-
+            apiIngreso.getAccess(loginData.email, loginData.password).then((response) => {
+                setResp(response.data);
+                getSuccess('Acceso concedido.');
+            }).catch((error) => {
+                getError(error.message)
+            })
         }).catch((error) => {
-
             getError(error.message)
-
         })
     }
 
@@ -87,6 +93,18 @@ export default function Login() {
                                         />
 
                                         <Button type="submit" fullWidth sx={{ color: "black", backgroundColor: "#4CAF50" }}>Acceder</Button>
+
+                                        {
+                                            resp !== null ?
+                                                <IconButton>
+                                                    <Link underline = 'hover' color='GrayText' href='/pages/mainBienestar'>
+                                                        <Typography variant='caption'>
+                                                            Ir a Principal
+                                                        </Typography>
+                                                    </Link>
+                                                </IconButton>
+                                                : null
+                                        }
                                     </Stack>
                                 </Box>
                             </Paper>

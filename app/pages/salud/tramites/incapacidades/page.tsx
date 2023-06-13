@@ -106,12 +106,6 @@ export default function Incapacidades() {
         })
     }
 
-
-
-    //Modificar incapacidades usa ***PUT****
-
-
-
     return (
         <LayoutSalud>
             <br />
