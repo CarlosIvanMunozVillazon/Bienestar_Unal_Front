@@ -265,7 +265,7 @@ export default function AtencionSalud() {
                 >
                     <BaseForm title='Modificar Atención' children={
                         <>
-                            <TextField name='atencionsalud_id' onChange={handleChangeModificaciones} placeholder='Cédula' />
+                            <TextField name='atencionsalud_id' onChange={handleChangeModificaciones} placeholder='id Atención' />
 
                             <TextField name='fecha' onChange={handleChangeModificaciones} placeholder='Fecha' />
 
