@@ -19,5 +19,6 @@ export type form_insertar_producto_factura= {
 export type form_eliminar_factura= {
     usuario_id : number,
     mes: number|null,
-    ano: number|null
+    ano: number|null,
+    factID: number|null
 }

@@ -12,6 +12,7 @@ import { horasPendientes } from './interface/horasPendientes.interface';
 import { apiHorasCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/horas_corresponsabilidad';
 import { formInsertarActividadCor } from '@/app/types/gestionYFomento/corresponsabilidad/corresponsaibiliad';
 import { apiInsertarActividadCorresponsabilidad } from '@/app/api/GestionFomento/corresponsabilidad/insertar_actividad_corresponsabilidad';
+import { response } from './interface/response.interface';
 
 
 export default function Corresponsabilidad() {
@@ -86,16 +87,21 @@ export default function Corresponsabilidad() {
         })
     }
 
+    //Result insertar act. Corresponsabilidad
+    const [result_insertar_act_cor, set_result_insertar_act_cor] = React.useState<response[] | null>(null);
+
     //3.
     const handleInsertarHoras = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         apiInsertarActividadCorresponsabilidad.post_insertar_actividad_corresponsabilidad(paramsInsertarCor.cedula,
             paramsInsertarCor.actividad, paramsInsertarCor.horas).then((response) => {
-                console.log(response.data)
+                set_result_insertar_act_cor(response.data)
+                console.log(result_insertar_act_cor)
             }).catch((Error) => {
-                console.log(`${Error} Imposible insertar horas, hay un error.`)
+                console.log(`${Error} Imposible insertar actividad, hay un error.`)
             })
     }
+
 
     return (
         <LayoutFomento>
@@ -261,7 +267,7 @@ export default function Corresponsabilidad() {
                             <>
 
                                 {
-                                    actividadesCorresponsabilidad !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                    result_insertar_act_cor !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                         <Grid container
                                             component="div"
@@ -272,11 +278,11 @@ export default function Corresponsabilidad() {
                                             sx={{ height: "100%" }}>
 
                                             {
-                                                // corActividades!.map(() => (
-                                                //     <Grid item xs={3}>
-
-                                                //     </Grid>
-                                                // ))
+                                                 result_insertar_act_cor!.map((result) => (
+                                                     <Grid item xs={3}>
+                                                        {result.Answer}
+                                                     </Grid>
+                                                 ))
 
                                             }
                                         </Grid>

@@ -12,6 +12,7 @@ import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
 import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
 import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
 import { ConvocatoriasUsuario } from '../actividadFisica/convocatorias/interface/convocatoriasUsuario.interface';
+import { response } from './interface/response.interface';
 
 
 export default function BienestarDash() {
@@ -34,6 +35,7 @@ export default function BienestarDash() {
         conv_id: 1,
         fecha: '2023-01-01'
     });
+    const [result_est_toma_conv, set_result_est_toma_conv] = React.useState<response[] | null>(null);
 
 
     //Guardado de datos de formularios
@@ -88,6 +90,8 @@ export default function BienestarDash() {
             params_est_toma_conv.cedula, params_est_toma_conv.conv_id, params_est_toma_conv.fecha
         ).then((response) => {
             console.log('El estudiante se inscribió a la convocatoria exitosamente')
+            set_result_est_toma_conv(response.data)
+            console.log(result_est_toma_conv)
         }).catch((error) => {
             console.log(`${error}: El estudiante no pudo inscribirse a la convocatoria`)
         })
@@ -292,7 +296,7 @@ export default function BienestarDash() {
                                 sx={{ color: "black", bgcolor: "Purple" }} endIcon={<SearchIcon />}>Inscribirme</Button>}
 
                             children3={<>
-                                {/*est_toma_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {result_est_toma_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                     <Grid container
                                         component="div"
@@ -303,14 +307,15 @@ export default function BienestarDash() {
                                         sx={{ height: "100%" }}>
 
                                         {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
+                                             result_est_toma_conv!.map((result) => (
+                                                 <Grid item xs={3}>
+                                                    {result.Answer}
+                                                 </Grid>
+                                             ))
                                         }
                                     </Grid>
 
-                                ) : null*/}
+                                ) : "El estudiante no accedió a la convocatoria"}
                             </>} submit={handle_est_toma_conv}
                         ></BaseForm>
                 </Grid>

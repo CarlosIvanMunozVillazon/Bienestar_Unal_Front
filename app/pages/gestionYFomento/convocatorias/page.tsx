@@ -28,6 +28,7 @@ import { apiEst_toma_conv } from '@/app/api/General/est_toma_conv';
 import { formInfoPorCedula } from '@/app/types/salud/servicios/informacion/formsInformacion';
 import { ConvocatoriasUsuario } from '../../actividadFisica/convocatorias/interface/convocatoriasUsuario.interface';
 import { apiMisConvocatorias } from '@/app/api/Deporte/Convocatorias/misConvocatorias';
+import { response } from './interface/response.interfacte';
 
 export default function Convocatorias() {
 
@@ -107,6 +108,8 @@ export default function Convocatorias() {
     const [cgfTransporte, setcgfTransporte] = React.useState<convocatoriaTransporte[] | null>(null)
 
     const [result_conv_insc, set_result_conv_insc] = React.useState<ConvocatoriasUsuario[] | null>(null);
+
+    const [result_est_tom_conv, set_result_est_tom_conv] = React.useState<response[] | null>(null);
 
 
     // Data setters 'on change handlers'
@@ -258,6 +261,8 @@ export default function Convocatorias() {
             params_est_toma_conv.cedula, params_est_toma_conv.conv_id, params_est_toma_conv.fecha
         ).then((response)=> {
             console.log("El estudiante se registró a la convocatoria exitosamente. Espere la respuesta de la dirección.")
+            set_result_est_tom_conv(response.data)
+            console.log(result_est_tom_conv)
         }).catch((error) => {
             console.log(`${error}: El estudiante no pudo registrarse a la convocatoria.`)
         })
@@ -827,25 +832,27 @@ export default function Convocatorias() {
                                 sx={{ color: "black", bgcolor: "#E74C3C" }}>Inscribirme</Button>}
 
                             children3={<>
-                                {/*est_toma_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                                {result_est_tom_conv !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
-                                    <Grid container
-                                        component="div"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ height: "100%" }}>
+                                <Grid container
+                                    component="div"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{ height: "100%", mt: 3 }}>
 
                                         {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
+                                            result_est_tom_conv!.map((response) => (
+                                               <Grid item xs={3}>
+                                                    {response.Answer}
+                                                </Grid>
+                                            ))
                                         }
+                                    
                                     </Grid>
 
-                                ) : null*/}
+                                ) : <p>No se inscibió la convocatoria</p>}
                             </>} submit={handle_est_toma_conv}
                         ></BaseForm>
                 </Grid>
