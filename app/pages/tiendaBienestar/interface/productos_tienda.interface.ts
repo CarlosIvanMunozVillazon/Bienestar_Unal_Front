@@ -3,6 +3,7 @@ export interface productos_tienda {
     prodID: number,
     prodPrecio: number,
     prodDetalle: string,
+    prodDisponibilidad: number,
     tieID: number,
     tieDireccion: string,
     tieCiudad: string
