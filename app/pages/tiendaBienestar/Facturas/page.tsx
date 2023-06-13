@@ -11,6 +11,7 @@ import { apiInfoFactura } from '@/app/api/tienda_bienestar/info_factura';
 import { apiInsertar_factura } from '@/app/api/tienda_bienestar/insertar_factura';
 import { apiInsertar_producto_factura } from '@/app/api/tienda_bienestar/insertar_producto_factura';
 import { apiEliminar_factura } from '@/app/api/tienda_bienestar/eliminar_factura';
+import { response } from '../../mainBienestar/interface/response.interface';
 
 
 export default function InformacionFacturas() {
@@ -34,6 +35,7 @@ export default function InformacionFacturas() {
             tienda_id: 0
         }
     );
+    const [result_insertar_factura, set_result_insertar_factura] = React.useState<response[] | null>(null);
 
 
     //Insertar Producto en Factura
@@ -44,16 +46,19 @@ export default function InformacionFacturas() {
             producto_id: 1
         }
     );
+    const [result_insertar_producto_factura, set_result_insertar_producto_factura] = React.useState<response[] | null>(null);
 
 
     //Eliminar Factura
     const [params_eliminar_factura, set_params_eliminar_factura] = React.useState<form_eliminar_factura>(
         {
             usuario_id: 0,
-            mes: null,
-            ano: null
+            mes: -1,
+            ano: -1,
+            factID: -1
         }
     );
+    const [result_eliminar_factura, set_result_eliminar_factura] = React.useState<response[] | null>(null);
 
     //Guardado de datos de formularios
     const valueInfoFactura = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +106,8 @@ export default function InformacionFacturas() {
         e.preventDefault();
         apiInsertar_factura.post_insertar_factura(params_insertar_factura.usuario_id, params_insertar_factura.detalle, params_insertar_factura.tienda_id).then((response) => {
             console.log("Factura ingresada correctamente")
+            set_result_insertar_factura(response.data)
+            console.log(result_insertar_factura)
         }).catch((error) => {
             console.log(`${error}: No se ingresó la factura`)
         })
@@ -112,6 +119,8 @@ export default function InformacionFacturas() {
         e.preventDefault();
         apiInsertar_producto_factura.post_insertar_producto_factura(params_insertar_producto_factura.usuario_id, params_insertar_producto_factura.factura_id, params_insertar_producto_factura.producto_id).then((response) => {
             console.log("Producto ingresado en la factura correctamente")
+            set_result_insertar_producto_factura(response.data)
+            console.log(result_insertar_producto_factura)
         }).catch((error) => {
             console.log(`${error}: No se ingresó el producto en la factura`)
         })
@@ -120,11 +129,16 @@ export default function InformacionFacturas() {
     //
     const handle_eliminar_factura = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        apiEliminar_factura.delete_eliminar_factura(params_eliminar_factura.usuario_id, params_eliminar_factura.mes, params_eliminar_factura.ano).then((response) => {
+        apiEliminar_factura.delete_eliminar_factura(params_eliminar_factura.usuario_id, params_eliminar_factura.mes, params_eliminar_factura.ano, params_eliminar_factura.factID).then((response) => {
             console.log("Factura eliminada exitosamente")
+            set_result_eliminar_factura(response.data)
+            console.log(result_eliminar_factura)
         }).catch((error) => {
             console.log(`${error}: No se pudo eliminar la factura`)
         })
+        params_eliminar_factura.mes = -1;
+        params_eliminar_factura.ano = -1;
+        params_eliminar_factura.factID = -1
     }
 
     return (
@@ -232,16 +246,16 @@ export default function InformacionFacturas() {
                                                 </Grid>
 
                                                 <Grid item key={result.Key+4} xs={1}>
-                                                    {result.prodID}
+                                                    {result.prodID==null ? 'null' : result.prodID}
                                                 </Grid>
 
                                                 <Grid item key={result.Key+5} xs={2}>
                                                     
-                                                    {result.prodPrecio.toLocaleString('es-CO', options_currency)}
+                                                    {result.prodPrecio==null? 'null' : result.prodPrecio.toLocaleString('es-CO', options_currency)}
                                                 </Grid>
 
                                                 <Grid item key={result.Key+6} xs={2}>
-                                                    {result.prodDetalle}
+                                                    {result.prodDetalle==null? 'null' : result.prodDetalle}
                                                 </Grid>
 
                                                 <Grid item key={result.Key+7} xs={2}>
@@ -270,7 +284,7 @@ export default function InformacionFacturas() {
                             sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
 
                         children3={<>
-                            {/*facturaInsertada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {result_insertar_factura !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                     <Grid container
                                         component="div"
@@ -281,14 +295,15 @@ export default function InformacionFacturas() {
                                         sx={{ height: "100%" }}>
 
                                         {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
+                                            result_insertar_factura!.map((result) => (
+                                                 <Grid item xs={3}>
+                                                   {result.Answer}
+                                                </Grid>
+                                            ))
                                         }
                                     </Grid>
 
-                                ) : null*/}
+                                ) : <p>No se ha insertado factura</p>}
                         </>} submit={handle_insertar_factura}
                     ></BaseForm>
                 </Grid>
@@ -306,7 +321,7 @@ export default function InformacionFacturas() {
                             sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Insertar</Button>}
 
                         children3={<>
-                            {/*productoInsertado !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {result_insertar_producto_factura !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                     <Grid container
                                         component="div"
@@ -317,14 +332,15 @@ export default function InformacionFacturas() {
                                         sx={{ height: "100%" }}>
 
                                         {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
+                                            result_insertar_producto_factura!.map((result) => (
+                                               <Grid item xs={3}>
+                                                    {result.Answer}
+                                                </Grid>
+                                            ))
                                         }
                                     </Grid>
 
-                                ) : null*/}
+                                ) : <p>No se ha insertado el producto en factura</p>}
                         </>} submit={handle_insertar_producto_factura}
                     ></BaseForm>
                 </Grid>
@@ -335,6 +351,7 @@ export default function InformacionFacturas() {
                             <TextField name='usuario_id' onChange={valueEliminarFactura} placeholder='Cédula' />
                             <TextField name='mes' onChange={valueEliminarFactura} placeholder='Mes' />
                             <TextField name='ano' onChange={valueEliminarFactura} placeholder='Año' />
+                            <TextField name='factID' onChange={valueEliminarFactura} placeholder='ID Factura' />
                         </>
                     }
 
@@ -342,7 +359,7 @@ export default function InformacionFacturas() {
                             sx={{ color: "white", bgcolor: "Green" }} endIcon={<SearchIcon />}>Eliminar</Button>}
 
                         children3={<>
-                            {/*facturaEliminada !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
+                            {result_eliminar_factura !== null ? ( //if we got elements then we render them. if not then we don't render nothing.
 
                                     <Grid container
                                         component="div"
@@ -353,14 +370,15 @@ export default function InformacionFacturas() {
                                         sx={{ height: "100%" }}>
 
                                         {
-                                            // corActividades!.map(() => (
-                                            //     <Grid item xs={3}>
-                                            //     </Grid>
-                                            // ))
+                                            result_eliminar_factura!.map((result) => (
+                                                 <Grid item xs={3}>
+                                                    {result.Answer}
+                                                 </Grid>
+                                            ))
                                         }
                                     </Grid>
 
-                                ) : null*/}
+                                ) : <p>No se ha eliminado la factura</p>}
                         </>} submit={handle_eliminar_factura}
                     ></BaseForm>
                 </Grid>
