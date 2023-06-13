@@ -98,7 +98,7 @@ export default function InformacionProductos() {
                                     sx={{ height: "100%", mt: 3 }}>
 
 
-                                    <Grid item key={11111111} xs={2} sx={{ bgcolor: "lightgray" }}>
+                                    <Grid item key={11111111} xs={1} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             ID PRODUCTO
                                         </Typography>
@@ -113,6 +113,12 @@ export default function InformacionProductos() {
                                     <Grid item key={11111113} xs={3} sx={{ bgcolor: "lightgray" }}>
                                         <Typography variant='body1'>
                                             DETALLE
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item key={11111113} xs={1} sx={{ bgcolor: "lightgray" }}>
+                                        <Typography variant='body1'>
+                                            <p>DISPONIBILIDAD</p>
                                         </Typography>
                                     </Grid>
 
@@ -139,7 +145,7 @@ export default function InformacionProductos() {
 
                                         : productos!.map((result) => (
                                             <>
-                                                <Grid item key={result.Key} xs={2}>
+                                                <Grid item key={result.Key} xs={1}>
                                                     {result.prodID}
                                                 </Grid>
 
@@ -152,14 +158,18 @@ export default function InformacionProductos() {
                                                 </Grid>
 
                                                 <Grid item key={result.Key+3} xs={1}>
+                                                    {result.prodDisponibilidad}
+                                                </Grid>
+
+                                                <Grid item key={result.Key+4} xs={1}>
                                                     {result.tieID}
                                                 </Grid>
 
-                                                <Grid item key={result.Key+4} xs={2}>
+                                                <Grid item key={result.Key+5} xs={2}>
                                                     {result.tieDireccion}
                                                 </Grid>
 
-                                                <Grid item key={result.Key+5} xs={2}>
+                                                <Grid item key={result.Key+6} xs={2}>
                                                     {result.tieCiudad}
                                                 </Grid>
                                             </>
