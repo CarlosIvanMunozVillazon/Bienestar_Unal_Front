@@ -145,36 +145,55 @@ export default function AtencionSalud() {
                                         spacing={1}
                                         sx={{ height: "100%", mt: 3 }}>
 
-                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}
-                                        >
+                                        <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
                                             <Typography variant='body1'>
                                                 ID
                                             </Typography>
                                         </Grid>
 
-                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }} >
+                                        <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }} >
                                             <Typography variant='body1'>
                                                 FECHA
                                             </Typography>
                                         </Grid>
-                                        <Grid item xs={4} sx={{ bgcolor: "lightgray" }}>
+                                        <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
                                             <Typography variant='body1'>
                                                 TIPO
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
+                                            <Typography variant='body1'>
+                                                VERIFICADO
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
+                                            <Typography variant='body1'>
+                                                APROBADO
                                             </Typography>
                                         </Grid>
                                         {
                                             estadosAtencion!.map((atencion) => (
                                                 <>
-                                                    <Grid key={atencion.key} item xs={4}>
+                                                    <Grid key={atencion.key} item xs={2.4}>
                                                         {atencion.id}
                                                     </Grid>
 
-                                                    <Grid key={atencion.key + 1} item xs={4}>
+                                                    <Grid key={atencion.key + 1} item xs={2.4}>
                                                         {atencion.fecha}
                                                     </Grid>
 
-                                                    <Grid key={atencion.key + 2} item xs={4}>
+                                                    <Grid key={atencion.key + 2} item xs={2.4}>
                                                         {atencion.tipo}
+                                                    </Grid>
+
+                                                    <Grid key={atencion.key + 3} item xs={2.4}>
+                                                        {atencion.verificado}
+                                                    </Grid>
+
+                                                    <Grid key={atencion.key + 4} item xs={2.4}>
+                                                        {atencion.aprobado}
                                                     </Grid>
                                                 </>
                                             ))

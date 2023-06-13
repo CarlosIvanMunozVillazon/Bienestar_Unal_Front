@@ -63,7 +63,8 @@ export default function GestionarCitas() {
 
         //Llamamos a las funciones que golpean los endpoint
         apiCancelarCitaMedica.putCancelarCita(paramsCancelarCita.cedula, paramsCancelarCita.fecha, paramsCancelarCita.especialidad).then((response) => {
-            console.log(response.data)
+            setcancelAppointment(response.data);
+            console.log(cancelAppointment)
         }).catch((error) => {
             console.log(`${error}: hubo un error cancelando`)
         })
@@ -112,7 +113,7 @@ export default function GestionarCitas() {
                                             {
                                                 scheduleApointment!.map((response) => (
                                                     <Grid key={response.Key} item xs={12}>
-                                                        <p> {response.Answer}  </p>
+                                                        <p>{response.Answer}</p>
                                                     </Grid>
                                                 ))
 
@@ -158,7 +159,7 @@ export default function GestionarCitas() {
                                             {
                                                 cancelAppointment!.map((response) => (
                                                     <Grid key={response.Key} item xs={12}>
-                                                        <p> {response.Answer}  </p>
+                                                        <p> {response.Answer}</p>
                                                     </Grid>
                                                 ))
 

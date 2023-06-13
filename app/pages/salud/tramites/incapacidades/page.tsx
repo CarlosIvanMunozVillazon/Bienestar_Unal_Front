@@ -124,8 +124,7 @@ export default function Incapacidades() {
                 sx={{ width: '100%' }}>
 
                 <Grid item
-                    sx={{ width: '75%' }}
-                >
+                    sx={{ width: '75%' }}>
                     <BaseForm title='Estado Incapacidad' children={
                         <TextField name='cedula' onChange={handleChangeEstadoInc} placeholder='Cédula' />
                     }
@@ -148,48 +147,57 @@ export default function Incapacidades() {
                                             spacing={1}
                                             sx={{ height: "100%", mt: 3 }}>
 
-                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}
-                                            >
+                                            <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     ID
                                                 </Typography>
                                             </Grid>
 
-                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }} >
+                                            <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }} >
                                                 <Typography variant='body1'>
                                                     FECHA
                                                 </Typography>
                                             </Grid>
 
-                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                            <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     VERIFICADO
                                                 </Typography>
                                             </Grid>
 
-                                            <Grid item xs={3} sx={{ bgcolor: "lightgray" }}>
+                                            <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
                                                 <Typography variant='body1'>
                                                     APROBADO
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={2.4} sx={{ bgcolor: "lightgray" }}>
+                                                <Typography variant='body1'>
+                                                    RAZÓN
                                                 </Typography>
                                             </Grid>
 
                                             {
                                                 incapacidadesRecibidas!.map((incapacidad) => (
                                                     <>
-                                                        <Grid key={incapacidad.key} item xs={3}>
+                                                        <Grid key={incapacidad.key} item xs={2.4}>
                                                             {incapacidad.id}
                                                         </Grid>
 
-                                                        <Grid key={incapacidad.key + 1} item xs={3}>
+                                                        <Grid key={incapacidad.key + 1} item xs={2.4}>
                                                             {incapacidad.fecha}
                                                         </Grid>
 
-                                                        <Grid key={incapacidad.key + 2} item xs={3}>
+                                                        <Grid key={incapacidad.key + 2} item xs={2.4}>
                                                             {incapacidad.verificado}
                                                         </Grid>
 
-                                                        <Grid key={incapacidad.key + 3} item xs={3}>
+                                                        <Grid key={incapacidad.key + 3} item xs={2.4}>
                                                             {incapacidad.aprobado}
+                                                        </Grid>
+
+                                                        <Grid key={incapacidad.key + 4} item xs={2.4}>
+                                                            {incapacidad.razon}
                                                         </Grid>
                                                     </>
 
@@ -261,10 +269,7 @@ export default function Incapacidades() {
                     <BaseForm title='Modificar Incapacidad' children={
                         <>
                             <TextField name='IdIncapacidad' onChange={handleChgModificarInc} placeholder='id Incapacidad' />
-
                             <TextField name='fecha' onChange={handleChgModificarInc} placeholder='fecha' />
-
-
                             <TextField name='enfermedad' onChange={handleChgModificarInc} placeholder='Enfermedad' />
                             <TextField name='dias' onChange={handleChgModificarInc} placeholder='Días' />
                         </>
