@@ -138,7 +138,7 @@ export default function InformacionFacturas() {
         })
         params_eliminar_factura.mes = -1;
         params_eliminar_factura.ano = -1;
-        params_eliminar_factura.factID = -1
+        params_eliminar_factura.factID = -1;
     }
 
     return (
